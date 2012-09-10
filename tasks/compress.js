@@ -45,14 +45,14 @@ module.exports = function(grunt) {
 
     var done = this.async();
 
-    if (options.basePath && kindOf(options.basePath) === "string") {
+    if (options.basePath && kindOf(options.basePath) === 'string') {
       options.basePath = path.normalize(options.basePath);
       options.basePath = _(options.basePath).trim(path.sep);
     } else {
       options.basePath = false;
     }
 
-    if (options.rootDir && kindOf(options.rootDir) === "string") {
+    if (options.rootDir && kindOf(options.rootDir) === 'string') {
       options.rootDir = path.normalize(options.rootDir).split(path.sep)[0];
     } else {
       options.rootDir = false;
