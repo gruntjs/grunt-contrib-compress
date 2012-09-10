@@ -22,6 +22,7 @@ module.exports = function(grunt) {
 
   var _ = grunt.util._;
   var async = grunt.util.async;
+  var kindOf = grunt.util.kindOf;
   var helpers = require('grunt-contrib-lib').init(grunt);
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
@@ -29,7 +30,8 @@ module.exports = function(grunt) {
       mode: null,
       basePath: false,
       flatten: false,
-      level: 1
+      level: 1,
+      rootDir: false
     });
 
     // TODO: ditch this when grunt v0.4 is released
@@ -43,9 +45,18 @@ module.exports = function(grunt) {
 
     var done = this.async();
 
-    if (options.basePath) {
+    if (options.basePath && kindOf(options.basePath) === "string") {
       options.basePath = path.normalize(options.basePath);
       options.basePath = _(options.basePath).trim(path.sep);
+    } else {
+      options.basePath = false;
+    }
+
+    if (options.rootDir && kindOf(options.rootDir) === "string") {
+      options.rootDir = path.normalize(options.rootDir).split(path.sep)[0];
+      console.log(options.rootDir);
+    } else {
+      options.rootDir = false;
     }
 
     grunt.verbose.writeflags(options, 'Options');
@@ -115,6 +126,7 @@ module.exports = function(grunt) {
     var destPath;
 
     var basePath = options.basePath || findBasePath(srcFiles);
+    var rootDir = options.rootDir;
 
     srcFiles.forEach(function(srcFile) {
       filename = path.basename(srcFile);
@@ -125,6 +137,10 @@ module.exports = function(grunt) {
         relative = '';
       } else if (basePath && basePath.length > 1) {
         relative = _(relative).chain().strRight(basePath).trim(path.sep).value();
+      }
+
+      if (rootDir && rootDir.length > 1) {
+        relative = path.join(options.rootDir, relative);
       }
 
       // make paths outside grunts working dir relative
@@ -191,7 +207,14 @@ module.exports = function(grunt) {
       var destFile = path.basename(dest);
       var destFileExt = path.extname(destFile);
       var tempDir = path.join(destDir, 'tar_' + (new Date()).getTime());
-      var tarDir = _(destFile).strLeftBack(destFileExt);
+      var tarDir;
+
+      if (options.rootDir && options.rootDir.length > 1) {
+        tarDir = options.rootDir;
+        options.rootDir = false;
+      } else {
+        tarDir = _(destFile).strLeftBack(destFileExt);
+      }
 
       var tarProcess;
 

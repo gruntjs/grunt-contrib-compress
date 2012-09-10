@@ -58,6 +58,7 @@ module.exports = function(grunt) {
           'tmp/compress_test_files_template.zip': ['<%= files.compress_test %>/**']
         }
       },
+
       zip_flatten: {
         options: {
           mode: 'zip',
@@ -65,6 +66,16 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/compress_test_flatten.zip': ['test/fixtures/**']
+        }
+      },
+
+      zip_rootdir: {
+        options: {
+          mode: 'zip',
+          rootDir: 'abc123'
+        },
+        files: {
+          'tmp/compress_test_rootdir.zip': ['test/fixtures/**']
         }
       },
 
@@ -89,6 +100,16 @@ module.exports = function(grunt) {
         }
       },
 
+      tar_rootdir: {
+        options: {
+          mode: 'tar',
+          rootDir: 'abc123'
+        },
+        files: {
+          'tmp/compress_test_rootdir.tar': ['test/fixtures/**']
+        }
+      },
+
       tgz: {
         options: {
           mode: 'tgz'
@@ -107,6 +128,16 @@ module.exports = function(grunt) {
         },
         files: {
           'tmp/compress_test_flatten.tgz': ['test/fixtures/**']
+        }
+      },
+
+      tgz_rootdir: {
+        options: {
+          mode: 'tgz',
+          rootDir: 'abc123'
+        },
+        files: {
+          'tmp/compress_test_rootdir.tgz': ['test/fixtures/**']
         }
       },
 

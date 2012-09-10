@@ -49,6 +49,10 @@ This option sets the level of archive compression (defaults to 1).
 
 > Currently, gzip compression related options are not supported due to deficiencies in node's zlib library.
 
+##### rootDir ```string```
+
+This option allows the creation of a root folder to contain files within the resulting archive file.
+
 #### Config Example
 
 ``` javascript

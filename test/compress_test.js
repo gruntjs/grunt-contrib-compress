@@ -18,7 +18,7 @@ exports['compress'] = {
 
     var expect, result;
 
-    test.expect(4);
+    test.expect(5);
 
     expect = 310;
     result = getSize('compress_test_files.zip');
@@ -36,14 +36,19 @@ exports['compress'] = {
     result = getSize('compress_test_flatten.zip');
     test.equal(expect, result, 'should create a flat internal structure');
 
+    expect = 1046;
+    result = getSize('compress_test_rootdir.zip');
+    test.equal(expect, result, 'should compress folders and their files into zip (with a root dir)');
+
     test.done();
   },
+
   tar: function(test) {
     'use strict';
 
     var expect, result;
 
-    test.expect(4);
+    test.expect(5);
 
     expect = 3072;
     result = getSize('compress_test_files.tar');
@@ -61,14 +66,19 @@ exports['compress'] = {
     result = getSize('compress_test_flatten.tar');
     test.equal(expect, result, 'should create a flat internal structure');
 
+    expect = 8192;
+    result = getSize('compress_test_rootdir.tar');
+    test.equal(expect, result, 'should compress folders and their files into tar (with a custom root dir)');
+
     test.done();
   },
+
   tgz: function(test) {
     'use strict';
 
     var expect, result;
 
-    test.expect(4);
+    test.expect(5);
 
     expect = true;
     result = getSize('compress_test_files.tgz') >= 200;
@@ -86,8 +96,13 @@ exports['compress'] = {
     result = getSize('compress_test_flatten.tgz') >= 320;
     test.equal(expect, result, 'should create a flat internal structure');
 
+    expect = true;
+    result = getSize('compress_test_rootdir.tgz') >= 200;
+    test.equal(expect, result, 'should compress folders and their files into tgz (with a custom root dir)');
+
     test.done();
   },
+
   gzip: function(test) {
     'use strict';
 
