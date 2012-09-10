@@ -54,7 +54,6 @@ module.exports = function(grunt) {
 
     if (options.rootDir && kindOf(options.rootDir) === "string") {
       options.rootDir = path.normalize(options.rootDir).split(path.sep)[0];
-      console.log(options.rootDir);
     } else {
       options.rootDir = false;
     }
