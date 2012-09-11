@@ -10,22 +10,22 @@
 module.exports = function(grunt) {
   'use strict';
 
+  var fs = require('fs');
+  var path = require('path');
+  var rimraf = require('rimraf');
+
   // TODO: ditch this when grunt v0.4 is released
   grunt.file.exists = grunt.file.exists || fs.existsSync || path.existsSync;
 
   // TODO: ditch this when grunt v0.4 is released
   grunt.util = grunt.util || grunt.utils;
 
+  var _ = grunt.util._;
+  var async = grunt.util.async;
+  var kindOf = grunt.util.kindOf;
+  var helpers = require('grunt-contrib-lib').init(grunt);
+
   grunt.registerMultiTask('compress', 'Compress files.', function() {
-
-    var fs = require('fs');
-    var path = require('path');
-    var rimraf = require('rimraf');
-    var _ = grunt.util._;
-    var async = grunt.util.async;
-    var kindOf = grunt.util.kindOf;
-    var helpers = require('grunt-contrib-lib').init(grunt);
-
     var options = helpers.options(this, {
       mode: null,
       basePath: false,
