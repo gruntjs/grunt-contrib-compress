@@ -2,7 +2,7 @@
 > Compress files and folders (part of the [grunt-contrib](https://github.com/gruntjs/grunt-contrib) collection). Submitted by [Chris Talkington](https://github.com/ctalkington).
 
 ## Getting Started
-Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-clean`
+Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-compress`
 
 Then add this line to your project's `grunt.js` gruntfile:
 
