@@ -189,7 +189,6 @@ module.exports = function(grunt) {
 
       addFile();
 
-      // TODO: node-zipstream v0.2.1 has issues that prevents this from working atm!
       zip.on('error', function(e) {
         grunt.log.error(e);
         grunt.fail.warn('zipHelper failed.');
