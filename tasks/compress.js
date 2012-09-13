@@ -158,9 +158,8 @@ module.exports = function(grunt) {
   };
 
   var methods = {
-
     zip: function(srcFiles, dest, options, callback) {
-      var zip = require('zipstream').createZip(options);
+      var zip = require('zipstream-ctalkington').createZip(options);
 
       var destDir = path.dirname(dest);
       var tempDir = path.join(destDir, 'zip_' + (new Date()).getTime());
@@ -257,5 +256,4 @@ module.exports = function(grunt) {
       });
     }
   };
-
 };

@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders.",
-  "version": "0.2.1",
+  "version": "0.2.2pre",
   "homepage": "https://github.com/gruntjs/grunt-contrib-compress",
   "author": {
     "name": "Chris Talkington",
@@ -30,7 +30,7 @@
   "dependencies": {
     "tar": "~0.1.13",
     "fstream": "~0.1.18",
-    "zipstream": "~0.2.1",
+    "zipstream-ctalkington": "~0.3.0",
     "rimraf": "~2.0.2",
     "grunt-contrib-lib": "~0.2.0"
   },
