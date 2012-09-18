@@ -42,112 +42,51 @@ module.exports = function(grunt) {
     clean: {
       test: ['tmp']
     },
+
     files: {
       compress_test: 'test/fixtures/folder_one'
     },
 
     // Configuration to be run (and then tested).
     compress: {
-      zip: {
-        options: {
-          mode: 'zip'
-        },
+      main: {
         files: {
           'tmp/compress_test_files.zip': ['test/fixtures/*'],
           'tmp/compress_test_v<%= test_vars.version %>.zip': ['test/fixtures/**'],
-          'tmp/compress_test_files_template.zip': ['<%= files.compress_test %>/**']
-        }
-      },
+          'tmp/compress_test_files_template.zip': ['<%= files.compress_test %>/**'],
 
-      zip_flatten: {
-        options: {
-          mode: 'zip',
-          flatten: true
-        },
-        files: {
-          'tmp/compress_test_flatten.zip': ['test/fixtures/**']
-        }
-      },
-
-      zip_rootdir: {
-        options: {
-          mode: 'zip',
-          rootDir: 'abc123'
-        },
-        files: {
-          'tmp/compress_test_rootdir.zip': ['test/fixtures/**']
-        }
-      },
-
-      tar: {
-        options: {
-          mode: 'tar'
-        },
-        files: {
           'tmp/compress_test_files.tar': ['test/fixtures/*'],
           'tmp/compress_test_v<%= test_vars.version %>.tar': ['test/fixtures/**'],
-          'tmp/compress_test_files_template.tar': ['<%= files.compress_test %>/**']
-        }
-      },
+          'tmp/compress_test_files_template.tar': ['<%= files.compress_test %>/**'],
 
-      tar_flatten: {
-        options: {
-          mode: 'tar',
-          flatten: true
-        },
-        files: {
-          'tmp/compress_test_flatten.tar': ['test/fixtures/**']
-        }
-      },
-
-      tar_rootdir: {
-        options: {
-          mode: 'tar',
-          rootDir: 'abc123'
-        },
-        files: {
-          'tmp/compress_test_rootdir.tar': ['test/fixtures/**']
-        }
-      },
-
-      tgz: {
-        options: {
-          mode: 'tgz'
-        },
-        files: {
           'tmp/compress_test_files.tgz': ['test/fixtures/*'],
           'tmp/compress_test_v<%= test_vars.version %>.tgz': ['test/fixtures/**'],
-          'tmp/compress_test_files_template.tgz': ['<%= files.compress_test %>/**']
+          'tmp/compress_test_files_template.tgz': ['<%= files.compress_test %>/**'],
+
+          'tmp/compress_test_file.gz': ['test/fixtures/test.js'],
+          'tmp/compress_test_file2.gz': ['test/fixtures/folder_one/one.js']
         }
       },
 
-      tgz_flatten: {
+      flatten: {
         options: {
-          mode: 'tgz',
           flatten: true
         },
         files: {
+          'tmp/compress_test_flatten.zip': ['test/fixtures/**'],
+          'tmp/compress_test_flatten.tar': ['test/fixtures/**'],
           'tmp/compress_test_flatten.tgz': ['test/fixtures/**']
         }
       },
 
-      tgz_rootdir: {
+      rootdir: {
         options: {
-          mode: 'tgz',
           rootDir: 'abc123'
         },
         files: {
+          'tmp/compress_test_rootdir.zip': ['test/fixtures/**'],
+          'tmp/compress_test_rootdir.tar': ['test/fixtures/**'],
           'tmp/compress_test_rootdir.tgz': ['test/fixtures/**']
-        }
-      },
-
-      gzip: {
-        options: {
-          mode: 'gzip'
-        },
-        files: {
-          'tmp/compress_test_file.gz': ['test/fixtures/test.js'],
-          'tmp/compress_test_file2.gz': ['test/fixtures/folder_one/one.js']
         }
       }
     },

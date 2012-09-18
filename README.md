@@ -35,9 +35,13 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 This is used to define which mode to use, currently supports gzip, tar, tgz (tar gzip) and zip.
 
+As of v0.2.2, this is now automatically detected per dest:src pair but can be overridden per target if desired.
+
 ##### basePath ```string```
 
 This option adjusts internal filenames to be relative to provided path, within the resulting archive file.
+
+This has been automatically detected per dest:src pair for some time now but can be overridden per target if desired.
 
 ##### flatten ```boolean```
 
@@ -58,45 +62,12 @@ This option allows the creation of a root folder to contain files within the res
 ``` javascript
 compress: {
   zip: {
-    options: {
-      mode: "zip",
-      basePath: "path/to",
-      level: 1
-    },
     files: {
       "path/to/result.zip": "path/to/source/*", // includes files in dir
-      "path/to/another.gz": "path/to/source/**", // includes files in dir and subdirs
-      "path/to/final.zip": ["path/to/sources/*.js", "path/to/more/*.js"], // include JS files in two diff dirs
+      "path/to/another.tar": "path/to/source/**", // includes files in dir and subdirs
+      "path/to/final.tgz": ["path/to/sources/*.js", "path/to/more/*.js"], // include JS files in two diff dirs
+      "path/to/single.gz": "path/to/source/single.js", // gzip a single file
       "path/to/project-<%= pkg.version %>.zip": "path/to/source/**" // variables in destination
-    }
-  }
-
-  tar: {
-    options: {
-      mode: "tar",
-      basePath: "path/to"
-    },
-    files: {
-      "path/to/result.tar": "path/to/file.ext"
-    }
-  },
-
-  tgz: {
-    options: {
-      mode: "tgz",
-      basePath: "path/to"
-    },
-    files: {
-      "path/to/result.tgz": "path/to/file.ext"
-    }
-  },
-
-  gzip: {
-    options: {
-      mode: "gzip"
-    },
-    files: {
-      "path/to/result.gz": "path/to/file.ext"
     }
   }
 }
@@ -104,5 +75,5 @@ compress: {
 
 ## Release History
 
-* 2012/09/?? - v0.2.2 - test refactoring. no valid source check.
+* 2012/09/18 - v0.2.2 - test refactoring. no valid source check. automatic mode detection.
 * 2012/09/10 - v0.2.0 - refactored from grunt-contrib into individual repo.

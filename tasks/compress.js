@@ -37,11 +37,9 @@ module.exports = function(grunt) {
     // TODO: ditch this when grunt v0.4 is released
     this.files = this.files || helpers.normalizeMultiTaskFiles(this.data, this.target);
 
-    var supported = ['zip', 'tar', 'tgz', 'gzip'];
-    var mode = options.mode;
-    if (options.mode === 'tgz') {
-      mode = 'tar';
-    }
+    var supportedModes = ['zip', 'tar', 'tgz', 'gzip'];
+    var targetMode = options.mode;
+    delete options.mode;
 
     var done = this.async();
 
@@ -60,14 +58,9 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    if (_.include(supported, options.mode) === false) {
-      grunt.log.error('Mode ' + options.mode + ' not supported.');
-      done();
-      return;
-    }
-
     var srcFiles;
     var destDir;
+    var mode;
 
     async.forEachSeries(this.files, function(file, next) {
       srcFiles = grunt.file.expandFiles(file.src);
@@ -75,6 +68,12 @@ module.exports = function(grunt) {
 
       if (srcFiles.length === 0) {
         grunt.fail.warn('Unable to compress; no valid source files were found.');
+      }
+
+      mode = targetMode || autoDetectMode(file.dest);
+
+      if (_.include(supportedModes, mode) === false) {
+        grunt.fail.warn('Mode ' + mode.cyan + ' not supported.');
       }
 
       if (options.mode === 'gzip' && srcFiles.length > 1) {
@@ -118,6 +117,20 @@ module.exports = function(grunt) {
     basePaths = _.intersection.apply([], basePaths);
 
     return path.join.apply(path, basePaths);
+  };
+
+  var autoDetectMode = function(dest) {
+    if (_.endsWith(dest, '.tar.gz')) {
+      return 'tgz';
+    }
+
+    var ext = path.extname(dest).replace('.', '');
+
+    if (ext === 'gz') {
+      return 'gzip';
+    } else {
+      return ext;
+    }
   };
 
   var tempCopy = function(srcFiles, tempDir, options) {
@@ -199,7 +212,7 @@ module.exports = function(grunt) {
       });
     },
 
-    tar: function(srcFiles, dest, options, callback) {
+    tar: function(srcFiles, dest, options, callback, gzip) {
       var fstream = require('fstream');
       var tar = require('tar');
       var zlib = require('zlib');
@@ -217,6 +230,10 @@ module.exports = function(grunt) {
         tarDir = _(destFile).strLeftBack(destFileExt);
       }
 
+      if (gzip === true) {
+        tarDir = tarDir.replace('.tar', '');
+      }
+
       var tarProcess;
 
       tarDir = path.join(tempDir, tarDir);
@@ -228,7 +245,7 @@ module.exports = function(grunt) {
       var gzipper = zlib.createGzip();
       var writer = fstream.Writer(dest);
 
-      if (options.mode === 'tgz') {
+      if (gzip === true) {
         tarProcess = reader.pipe(packer).pipe(gzipper).pipe(writer);
       } else {
         tarProcess = reader.pipe(packer).pipe(writer);
@@ -243,6 +260,10 @@ module.exports = function(grunt) {
         rimraf.sync(tempDir);
         callback(getSize(dest));
       });
+    },
+
+    tgz: function(srcFiles, dest, options, callback) {
+      methods.tar(srcFiles, dest, options, callback, true);
     },
 
     gzip: function(file, dest, options, callback) {
