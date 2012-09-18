@@ -73,6 +73,10 @@ module.exports = function(grunt) {
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = path.dirname(file.dest);
 
+      if (srcFiles.length === 0) {
+        grunt.fail.warn('Unable to compress; no valid source files were found.');
+      }
+
       if (options.mode === 'gzip' && srcFiles.length > 1) {
         grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
         srcFiles = srcFiles[0];
@@ -83,7 +87,7 @@ module.exports = function(grunt) {
       }
 
       methods[mode](srcFiles, file.dest, options, function(written) {
-        grunt.log.writeln('File ' + file.dest + ' created (' + written + ' bytes written).');
+        grunt.log.writeln('File ' + file.dest.cyan + ' created (' + written + ' bytes written).');
         next();
       });
 
