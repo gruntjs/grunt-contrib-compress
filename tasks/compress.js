@@ -40,7 +40,7 @@ module.exports = function(grunt) {
 
     var done = this.async();
 
-    if (options.rootDir && grunt.util.kindOf(options.rootDir) === 'string') {
+    if (grunt.util.kindOf(options.rootDir) === 'string' && options.rootDir.length >= 1) {
       options.rootDir = path.normalize(options.rootDir).split(path.sep)[0];
     } else {
       options.rootDir = false;
@@ -125,11 +125,11 @@ module.exports = function(grunt) {
 
       if (options.flatten) {
         relative = '';
-      } else if (basePath && basePath.length > 1) {
+      } else if (basePath && basePath.length >= 1) {
         relative = grunt.util._(relative).strRight(basePath).trim(path.sep);
       }
 
-      if (rootDir && rootDir.length > 1) {
+      if (rootDir && rootDir.length >= 1) {
         relative = path.join(options.rootDir, relative);
       }
 
@@ -197,7 +197,7 @@ module.exports = function(grunt) {
       var tempDir = path.join(destDir, 'tar_' + (new Date()).getTime());
       var tarDir;
 
-      if (options.rootDir && options.rootDir.length > 1) {
+      if (options.rootDir && options.rootDir.length >= 1) {
         tarDir = options.rootDir;
         options.rootDir = false;
       } else {
