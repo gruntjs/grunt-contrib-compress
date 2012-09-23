@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders.",
-  "version": "0.2.2",
+  "version": "0.2.3-alpha",
   "homepage": "https://github.com/gruntjs/grunt-contrib-compress",
   "author": {
     "name": "Chris Talkington",

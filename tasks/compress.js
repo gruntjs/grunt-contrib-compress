@@ -20,9 +20,6 @@ module.exports = function(grunt) {
   // TODO: ditch this when grunt v0.4 is released
   grunt.util = grunt.util || grunt.utils;
 
-  var _ = grunt.util._;
-  var async = grunt.util.async;
-  var kindOf = grunt.util.kindOf;
   var helpers = require('grunt-contrib-lib').init(grunt);
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
@@ -43,14 +40,7 @@ module.exports = function(grunt) {
 
     var done = this.async();
 
-    if (options.basePath && kindOf(options.basePath) === 'string') {
-      options.basePath = path.normalize(options.basePath);
-      options.basePath = _(options.basePath).trim(path.sep);
-    } else {
-      options.basePath = false;
-    }
-
-    if (options.rootDir && kindOf(options.rootDir) === 'string') {
+    if (options.rootDir && grunt.util.kindOf(options.rootDir) === 'string') {
       options.rootDir = path.normalize(options.rootDir).split(path.sep)[0];
     } else {
       options.rootDir = false;
@@ -62,7 +52,7 @@ module.exports = function(grunt) {
     var destDir;
     var mode;
 
-    async.forEachSeries(this.files, function(file, next) {
+    grunt.util.async.forEachSeries(this.files, function(file, next) {
       srcFiles = grunt.file.expandFiles(file.src);
       destDir = path.dirname(file.dest);
 
@@ -72,7 +62,7 @@ module.exports = function(grunt) {
 
       mode = targetMode || autoDetectMode(file.dest);
 
-      if (_.include(supportedModes, mode) === false) {
+      if (grunt.util._.include(supportedModes, mode) === false) {
         grunt.fail.warn('Mode ' + mode.cyan + ' not supported.');
       }
 
@@ -103,24 +93,8 @@ module.exports = function(grunt) {
     }
   };
 
-  var findBasePath = function(srcFiles) {
-    var basePaths = [];
-    var dirName;
-
-    srcFiles.forEach(function(srcFile) {
-      dirName = path.dirname(srcFile);
-      dirName = path.normalize(dirName);
-
-      basePaths.push(dirName.split(path.sep));
-    });
-
-    basePaths = _.intersection.apply([], basePaths);
-
-    return path.join.apply(path, basePaths);
-  };
-
   var autoDetectMode = function(dest) {
-    if (_.endsWith(dest, '.tar.gz')) {
+    if (grunt.util._.endsWith(dest, '.tar.gz')) {
       return 'tgz';
     }
 
@@ -141,7 +115,7 @@ module.exports = function(grunt) {
     var relative;
     var destPath;
 
-    var basePath = options.basePath || findBasePath(srcFiles);
+    var basePath = helpers.findBasePath(srcFiles, options.basePath);
     var rootDir = options.rootDir;
 
     srcFiles.forEach(function(srcFile) {
@@ -152,7 +126,7 @@ module.exports = function(grunt) {
       if (options.flatten) {
         relative = '';
       } else if (basePath && basePath.length > 1) {
-        relative = _(relative).chain().strRight(basePath).trim(path.sep).value();
+        relative = grunt.util._(relative).strRight(basePath).trim(path.sep);
       }
 
       if (rootDir && rootDir.length > 1) {
@@ -183,7 +157,7 @@ module.exports = function(grunt) {
 
       var copyResult = tempCopy(srcFiles, tempDir, options);
 
-      var zipFiles = _.uniq(copyResult[0]);
+      var zipFiles = grunt.util._.uniq(copyResult[0]);
       var zipMeta = copyResult[1];
 
       zip.pipe(fs.createWriteStream(dest));
@@ -227,7 +201,7 @@ module.exports = function(grunt) {
         tarDir = options.rootDir;
         options.rootDir = false;
       } else {
-        tarDir = _(destFile).strLeftBack(destFileExt);
+        tarDir = grunt.util._(destFile).strLeftBack(destFileExt);
       }
 
       if (gzip === true) {
