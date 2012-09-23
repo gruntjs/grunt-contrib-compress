@@ -35,7 +35,7 @@ This controls how this task operates and should contain key:value pairs, see opt
 
 This is used to define which mode to use, currently supports gzip, tar, tgz (tar gzip) and zip.
 
-As of v0.2.2, this is now automatically detected per dest:src pair but can be overridden per target if desired.
+As of v0.3.0, this is now automatically detected per dest:src pair but can be overridden per target if desired.
 
 ##### basePath ```string```
 
@@ -75,6 +75,6 @@ compress: {
 
 ## Release History
 
-* 2012/09/24 - v0.2.3 - general cleanup and consolidation.
+* 2012/09/24 - v0.3.0 - general cleanup and consolidation. global options depreciated.
 * 2012/09/18 - v0.2.2 - test refactoring. no valid source check. automatic mode detection.
 * 2012/09/10 - v0.2.0 - refactored from grunt-contrib into individual repo.
