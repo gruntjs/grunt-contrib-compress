@@ -4,7 +4,6 @@
  *
  * Copyright (c) 2012 Chris Talkington, contributors
  * Licensed under the MIT license.
- * https://github.com/gruntjs/grunt-contrib-compress/blob/master/LICENSE-MIT
  */
 
 module.exports = function(grunt) {
