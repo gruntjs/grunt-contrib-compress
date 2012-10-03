@@ -74,12 +74,6 @@ compress: {
 }
 ```
 
-## Release History
-
-* 2012/09/24 - v0.3.0 - General cleanup and consolidation; global options depreciated.
-* 2012/09/18 - v0.2.2 - Test refactoring, no valid source check and automatic mode detection.
-* 2012/09/10 - v0.2.0 - Refactored from grunt-contrib into individual repo.
-
 --
 
-Task submitted by [Chris Talkington](https://github.com/ctalkington).
+*Task submitted by [Chris Talkington](https://github.com/ctalkington).*
