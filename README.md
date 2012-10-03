@@ -1,5 +1,6 @@
 # grunt-contrib-compress [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](http://travis-ci.org/gruntjs/grunt-contrib-compress)
-> Compress files and folders (part of the [grunt-contrib](https://github.com/gruntjs/grunt-contrib) collection). Submitted by [Chris Talkington](https://github.com/ctalkington).
+
+> Compress files and folders.
 
 ## Getting Started
 Install this grunt plugin next to your project's [grunt.js gruntfile][getting_started] with: `npm install grunt-contrib-compress`
@@ -75,6 +76,10 @@ compress: {
 
 ## Release History
 
-* 2012/09/24 - v0.3.0 - general cleanup and consolidation. global options depreciated.
-* 2012/09/18 - v0.2.2 - test refactoring. no valid source check. automatic mode detection.
-* 2012/09/10 - v0.2.0 - refactored from grunt-contrib into individual repo.
+* 2012/09/24 - v0.3.0 - General cleanup and consolidation; global options depreciated.
+* 2012/09/18 - v0.2.2 - Test refactoring, no valid source check and automatic mode detection.
+* 2012/09/10 - v0.2.0 - Refactored from grunt-contrib into individual repo.
+
+--
+
+Task submitted by [Chris Talkington](https://github.com/ctalkington).
