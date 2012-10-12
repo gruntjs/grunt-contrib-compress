@@ -19,7 +19,7 @@ module.exports = function(grunt) {
   // TODO: ditch this when grunt v0.4 is released
   grunt.util = grunt.util || grunt.utils;
 
-  var helpers = require('grunt-contrib-lib').init(grunt);
+  var helpers = require('grunt-lib-contrib').init(grunt);
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
     var options = helpers.options(this, {
