@@ -16,7 +16,7 @@ grunt.loadNpmTasks('grunt-contrib-compress');
 
 ### Overview
 
-Inside your `grunt.js` file, add a section named `compress`. This section specifies the files to compress and the options passed to either [zipstream](https://github.com/wellawaretech/node-zipstream) (for zip) or [tar](https://github.com/isaacs/node-tar) (for tar/tgz) or [zlib](http://nodejs.org/api/zlib.html#zlib_options) (for gzip).
+Inside your `grunt.js` file, add a section named `compress`. This section specifies the files to compress and the options passed to either [archiver](https://github.com/ctalkington/node-archiver) (for zip) or [tar](https://github.com/isaacs/node-tar) (for tar/tgz) or [zlib](http://nodejs.org/api/zlib.html#zlib_options) (for gzip).
 
 #### Parameters
 
