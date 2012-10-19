@@ -6,23 +6,19 @@
  * Licensed under the MIT license.
  */
 
+'use strict';
+
 module.exports = function(grunt) {
-  'use strict';
 
   var fs = require('fs');
   var path = require('path');
   var rimraf = require('rimraf');
-
-  // TODO: ditch this when grunt v0.4 is released
-  grunt.file.exists = grunt.file.exists || fs.existsSync || path.existsSync;
-
-  // TODO: ditch this when grunt v0.4 is released
-  grunt.util = grunt.util || grunt.utils;
-
   var helpers = require('grunt-lib-contrib').init(grunt);
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
-    var options = helpers.options(this, {
+    var srcFiles, destDir, mode;
+    var done = this.async();
+    var options = this.options({
       mode: null,
       basePath: false,
       flatten: false,
@@ -30,14 +26,9 @@ module.exports = function(grunt) {
       rootDir: false
     });
 
-    // TODO: ditch this when grunt v0.4 is released
-    this.files = this.files || helpers.normalizeMultiTaskFiles(this.data, this.target);
-
     var supportedModes = ['zip', 'tar', 'tgz', 'gzip'];
     var targetMode = options.mode;
     delete options.mode;
-
-    var done = this.async();
 
     if (grunt.util.kindOf(options.rootDir) === 'string' && options.rootDir.length >= 1) {
       options.rootDir = path.normalize(options.rootDir).split(path.sep)[0];
@@ -46,10 +37,6 @@ module.exports = function(grunt) {
     }
 
     grunt.verbose.writeflags(options, 'Options');
-
-    var srcFiles;
-    var destDir;
-    var mode;
 
     grunt.util.async.forEachSeries(this.files, function(file, next) {
       srcFiles = grunt.file.expandFiles(file.src);

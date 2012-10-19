@@ -1,3 +1,5 @@
+# Examples
+
 ``` javascript
 compress: {
   zip: {

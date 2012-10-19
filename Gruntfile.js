@@ -11,35 +11,25 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    test_vars: {
-      name: 'grunt-contrib-compress',
-      version: '0.1.0'
-    },
-
-    lint: {
-      all: ['grunt.js', 'tasks/*.js', '<config:nodeunit.tasks>']
-    },
-
     jshint: {
+      all: [
+        'Gruntfile.js',
+        'tasks/*.js',
+        '<%= nodeunit.tests %>'
+      ],
       options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        boss: true,
-        eqnull: true,
-        node: true,
-        es5: true
+        jshintrc: '.jshintrc'
       }
     },
 
     // Before generating any new files, remove any previously-created files.
     clean: {
       test: ['tmp']
+    },
+
+    test_vars: {
+      name: 'grunt-contrib-compress',
+      version: '0.1.0'
     },
 
     files: {
@@ -92,21 +82,23 @@ module.exports = function(grunt) {
 
     // Unit tests.
     nodeunit: {
-      tasks: ['test/*_test.js']
+      tests: ['test/*_test.js']
     }
   });
 
   // Actually load this plugin's task(s).
   grunt.loadTasks('tasks');
 
-  // The clean plugin helps in testing.
-  grunt.loadNpmTasks('grunt-contrib-clean');
+  // These plugins provide necessary tasks.
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-nodeunit');
+  grunt.loadNpmTasks('grunt-contrib-internal');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.renameTask('test', 'nodeunit');
-  grunt.registerTask('test', 'clean compress nodeunit');
+  grunt.registerTask('test', ['nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', 'lint test');
+  grunt.registerTask('default', ['compress', 'test', 'build-contrib']);
+
 };
