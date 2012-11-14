@@ -106,8 +106,9 @@ compress: {
 
 ## Release History
 
+ * 2012-11-12 - v0.4.0 - Conversion to grunt v0.4 conventions.
  * 2012-10-11 - v0.3.2 - Rename grunt-contrib-lib dep to grunt-lib-contrib.
- * 2012-10-08 - v0.3.1 - replace zipstream package.
+ * 2012-10-08 - v0.3.1 - Replace zipstream package with archiver.
  * 2012-09-23 - v0.3.0 - General cleanup. Options no longer accepted from global config key.
  * 2012-09-17 - v0.2.2 - Test refactoring. No valid source check. Automatic mode detection.
  * 2012-09-09 - v0.2.0 - Refactored from grunt-contrib into individual repo.
@@ -115,4 +116,4 @@ compress: {
 --
 Task submitted by <a href="http://christalkington.com/">Chris Talkington</a>.
 
-*Generated on Tue Nov 13 2012 21:10:05.*
+*Generated on Wed Nov 14 2012 09:56:36.*

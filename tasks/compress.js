@@ -60,12 +60,8 @@ module.exports = function(grunt) {
       grunt.file.mkdir(destDir);
     }
 
-    grunt.util.async.forEach([destFile], function(file, next) {
-      methods[mode](srcFiles, file, options, function(err, written) {
-        grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
-        next();
-      });
-    }, function(err) {
+    methods[mode](srcFiles, destFile, options, function(err, written) {
+      grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
       done();
     });
   });
