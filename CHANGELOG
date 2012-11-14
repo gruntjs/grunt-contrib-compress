@@ -1,3 +1,7 @@
+v0.4.0:
+  date: 2012-11-13
+  changes:
+    - Conversion to grunt v0.4 conventions.
 v0.3.2:
   date: 2012-10-12
   changes:
@@ -5,7 +9,7 @@ v0.3.2:
 v0.3.1:
   date: 2012-10-09
   changes:
-    - replace zipstream package.
+    - Replace zipstream package with archiver.
 v0.3.0:
   date: 2012-09-24
   changes:

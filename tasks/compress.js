@@ -16,7 +16,6 @@ module.exports = function(grunt) {
   var helpers = require('grunt-lib-contrib').init(grunt);
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
-    var srcFiles, destDir, mode;
     var done = this.async();
     var options = this.options({
       mode: null,
@@ -38,35 +37,31 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    grunt.util.async.forEachSeries(this.files, function(file, next) {
-      srcFiles = grunt.file.expandFiles(file.src);
-      destDir = path.dirname(file.dest);
+    var srcFiles = grunt.file.expandFiles(this.file.src);
+    var destFile = path.normalize(this.file.dest);
+    var destDir = path.dirname(destFile);
 
-      if (srcFiles.length === 0) {
-        grunt.fail.warn('Unable to compress; no valid source files were found.');
-      }
+    if (srcFiles.length === 0) {
+      grunt.fail.warn('Unable to compress; no valid source files were found.');
+    }
 
-      mode = targetMode || autoDetectMode(file.dest);
+    var mode = targetMode || autoDetectMode(destFile);
 
-      if (grunt.util._.include(supportedModes, mode) === false) {
-        grunt.fail.warn('Mode ' + mode.cyan + ' not supported.');
-      }
+    if (grunt.util._.include(supportedModes, mode) === false) {
+      grunt.fail.warn('Mode ' + mode.cyan + ' not supported.');
+    }
 
-      if (options.mode === 'gzip' && srcFiles.length > 1) {
-        grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
-        srcFiles = srcFiles[0];
-      }
+    if (options.mode === 'gzip' && srcFiles.length > 1) {
+      grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
+      srcFiles = srcFiles[0];
+    }
 
-      if (grunt.file.exists(destDir) === false) {
-        grunt.file.mkdir(destDir);
-      }
+    if (grunt.file.exists(destDir) === false) {
+      grunt.file.mkdir(destDir);
+    }
 
-      methods[mode](srcFiles, file.dest, options, function(written) {
-        grunt.log.writeln('File ' + file.dest.cyan + ' created (' + written + ' bytes written).');
-        next();
-      });
-
-    }, function() {
+    methods[mode](srcFiles, destFile, options, function(err, written) {
+      grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
       done();
     });
   });
@@ -148,27 +143,22 @@ module.exports = function(grunt) {
 
       zip.pipe(fs.createWriteStream(dest));
 
-      var srcFile;
-
-      function addFile() {
-        if (!zipFiles.length) {
-          zip.finalize(function(written) {
-            rimraf.sync(tempDir);
-            callback(written);
-          });
-          return;
-        }
-
-        srcFile = zipFiles.shift();
-
-        zip.addFile(fs.createReadStream(srcFile), zipMeta[srcFile], addFile);
-      }
-
-      addFile();
-
       zip.on('error', function(e) {
         grunt.log.error(e);
         grunt.fail.warn('zipHelper failed.');
+      });
+
+      var srcFile;
+
+      grunt.util.async.forEachSeries(zipFiles, function(srcFile, next) {
+        zip.addFile(fs.createReadStream(srcFile), zipMeta[srcFile], function() {
+          next();
+        });
+      }, function(err) {
+        zip.finalize(function(written) {
+          rimraf.sync(tempDir);
+          callback(null, written);
+        });
       });
     },
 
@@ -218,7 +208,7 @@ module.exports = function(grunt) {
 
       tarProcess.on('close', function() {
         rimraf.sync(tempDir);
-        callback(getSize(dest));
+        callback(null, getSize(dest));
       });
     },
 
@@ -232,10 +222,10 @@ module.exports = function(grunt) {
       zlib.gzip(grunt.file.read(file), function(e, result) {
         if (!e) {
           grunt.file.write(dest, result);
-          callback(result.length);
+          callback(null, result.length);
         } else {
           grunt.log.error(e);
-          grunt.fail.warn('tarHelper failed.');
+          grunt.fail.warn('gzipHelper failed.');
         }
       });
     }

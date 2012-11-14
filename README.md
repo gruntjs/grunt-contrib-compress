@@ -46,37 +46,37 @@ grunt.initConfig({
 ```
 
 Node Libraries Used:
-[zipstream](https://github.com/wellawaretech/node-zipstream) (for zip)
+[archiver](https://github.com/ctalkington/node-archiver) (for zip)
 [tar](https://github.com/isaacs/node-tar) (for tar/tgz)
 [zlib](http://nodejs.org/api/zlib.html#zlib_options) (for gzip).
 ### Options
 
-## files
+#### files
 Type: `Object`
 
 This defines what files this task will compress and should contain key:value pairs.
 
 The key (destination) should be an unique filepath (supports [grunt.template](https://github.com/gruntjs/grunt/blob/master/docs/api_template.md)) and the value (source) should be a filepath or an array of filepaths (supports [minimatch](https://github.com/isaacs/minimatch)).
 
-## options.mode
+#### options.mode
 Type: `String`
 
 This is used to define which mode to use, currently supports `gzip`, `tar`, `tgz` (tar gzip) and `zip`.
 
 Automatically detected per dest:src pair, but can be overridden per target if desired.
 
-## options.basePath
+#### options.basePath
 Type: `String`
 
 Adjusts internal filenames to be relative to provided path, within the resulting archive file.  Automatically detected per dest:src pair but can be overridden per target if desired.
 
-## options.flatten
+#### options.flatten
 Type: `Boolean`
 Default: false
 
 Perform a flat copy that dumps all the files into the root of the destination file, overwriting files if they exist.
 
-## options.level (zip only)
+#### options.level (zip only)
 Type: `Integer`
 Default: 1
 
@@ -84,7 +84,7 @@ Sets the level of archive compression.
 
 > Currently, gzip compression related options are not supported due to deficiencies in node's zlib library.
 
-## options.rootDir
+#### options.rootDir
 Type: `String`
 
 This option allows the creation of a root folder to contain files within the resulting archive file.
@@ -106,8 +106,9 @@ compress: {
 
 ## Release History
 
+ * 2012-11-12 - v0.4.0 - Conversion to grunt v0.4 conventions.
  * 2012-10-11 - v0.3.2 - Rename grunt-contrib-lib dep to grunt-lib-contrib.
- * 2012-10-08 - v0.3.1 - replace zipstream package.
+ * 2012-10-08 - v0.3.1 - Replace zipstream package with archiver.
  * 2012-09-23 - v0.3.0 - General cleanup. Options no longer accepted from global config key.
  * 2012-09-17 - v0.2.2 - Test refactoring. No valid source check. Automatic mode detection.
  * 2012-09-09 - v0.2.0 - Refactored from grunt-contrib into individual repo.
@@ -115,4 +116,4 @@ compress: {
 --
 Task submitted by <a href="http://christalkington.com/">Chris Talkington</a>.
 
-*Generated on Thu Oct 18 2012 22:20:13.*
+*Generated on Wed Nov 14 2012 09:56:36.*
