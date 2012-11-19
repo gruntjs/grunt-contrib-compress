@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    var srcFiles = grunt.file.expandFiles(this.file.src);
+    var srcFiles = this.file.src;
     var destFile = path.normalize(this.file.dest);
     var destDir = path.dirname(destFile);
 
