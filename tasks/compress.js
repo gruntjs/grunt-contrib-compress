@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    var srcFiles = this.file.src;
+    var srcFiles = grunt.file.expandFiles(this.file.srcRaw);
     var destFile = path.normalize(this.file.dest);
     var destDir = path.dirname(destFile);
 
@@ -61,6 +61,7 @@ module.exports = function(grunt) {
     }
 
     methods[mode](srcFiles, destFile, options, function(err, written) {
+      console.log(srcFiles);
       grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
       done();
     });
