@@ -61,7 +61,6 @@ module.exports = function(grunt) {
     }
 
     methods[mode](srcFiles, destFile, options, function(err, written) {
-      console.log(srcFiles);
       grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
       done();
     });
