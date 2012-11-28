@@ -1,6 +1,6 @@
-# Examples
+# Usage Examples
 
-``` javascript
+```js
 compress: {
   zip: {
     files: {
