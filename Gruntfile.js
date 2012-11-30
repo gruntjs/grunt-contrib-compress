@@ -33,49 +33,54 @@ module.exports = function(grunt) {
     },
 
     files: {
-      compress_test: 'test/fixtures/folder_one'
+      compress_test: 'folder_one'
     },
 
     // Configuration to be run (and then tested).
     compress: {
       main: {
+        options: {
+          cwd: 'test/fixtures'
+        },
         files: {
-          'tmp/compress_test_files.zip': ['test/fixtures/*'],
-          'tmp/compress_test_v<%= test_vars.version %>.zip': ['test/fixtures/**'],
+          'tmp/compress_test_files.zip': ['*'],
+          'tmp/compress_test_v<%= test_vars.version %>.zip': ['**'],
           'tmp/compress_test_files_template.zip': ['<%= files.compress_test %>/**'],
 
-          'tmp/compress_test_files.tar': ['test/fixtures/*'],
-          'tmp/compress_test_v<%= test_vars.version %>.tar': ['test/fixtures/**'],
+          'tmp/compress_test_files.tar': ['*'],
+          'tmp/compress_test_v<%= test_vars.version %>.tar': ['**'],
           'tmp/compress_test_files_template.tar': ['<%= files.compress_test %>/**'],
 
-          'tmp/compress_test_files.tgz': ['test/fixtures/*'],
-          'tmp/compress_test_v<%= test_vars.version %>.tgz': ['test/fixtures/**'],
+          'tmp/compress_test_files.tgz': ['*'],
+          'tmp/compress_test_v<%= test_vars.version %>.tgz': ['**'],
           'tmp/compress_test_files_template.tgz': ['<%= files.compress_test %>/**'],
 
-          'tmp/compress_test_file.gz': ['test/fixtures/test.js'],
-          'tmp/compress_test_file2.gz': ['test/fixtures/folder_one/one.js']
+          'tmp/compress_test_file.gz': ['test.js'],
+          'tmp/compress_test_file2.gz': ['folder_one/one.js']
         }
       },
 
       flatten: {
         options: {
+          cwd: 'test/fixtures',
           flatten: true
         },
         files: {
-          'tmp/compress_test_flatten.zip': ['test/fixtures/**'],
-          'tmp/compress_test_flatten.tar': ['test/fixtures/**'],
-          'tmp/compress_test_flatten.tgz': ['test/fixtures/**']
+          'tmp/compress_test_flatten.zip': ['**'],
+          'tmp/compress_test_flatten.tar': ['**'],
+          'tmp/compress_test_flatten.tgz': ['**']
         }
       },
 
       rootdir: {
         options: {
+          cwd: 'test/fixtures',
           rootDir: 'abc123'
         },
         files: {
-          'tmp/compress_test_rootdir.zip': ['test/fixtures/**'],
-          'tmp/compress_test_rootdir.tar': ['test/fixtures/**'],
-          'tmp/compress_test_rootdir.tgz': ['test/fixtures/**']
+          'tmp/compress_test_rootdir.zip': ['**'],
+          'tmp/compress_test_rootdir.tar': ['**'],
+          'tmp/compress_test_rootdir.tgz': ['**']
         }
       }
     },

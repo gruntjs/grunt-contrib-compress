@@ -18,12 +18,17 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('compress', 'Compress files.', function() {
     var done = this.async();
     var options = this.options({
+      cwd: '',
       mode: null,
-      basePath: false,
       flatten: false,
       level: 1,
+      minimatch: {},
       rootDir: false
     });
+
+    if (options.cwd.length > 0) {
+      options.minimatch.cwd = options.cwd;
+    }
 
     var supportedModes = ['zip', 'tar', 'tgz', 'gzip'];
     var targetMode = options.mode;
@@ -37,7 +42,7 @@ module.exports = function(grunt) {
 
     grunt.verbose.writeflags(options, 'Options');
 
-    var srcFiles = grunt.file.expandFiles(this.file.srcRaw);
+    var srcFiles = grunt.file.expandFiles(options.minimatch, this.file.srcRaw);
     var destFile = path.normalize(this.file.dest);
     var destDir = path.dirname(destFile);
 
@@ -51,9 +56,12 @@ module.exports = function(grunt) {
       grunt.fail.warn('Mode ' + mode.cyan + ' not supported.');
     }
 
-    if (options.mode === 'gzip' && srcFiles.length > 1) {
-      grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
-      srcFiles = srcFiles[0];
+    if (mode === 'gzip') {
+      if (srcFiles.length > 1) {
+        grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
+      }
+
+      srcFiles = srcFiles[0].toString();
     }
 
     if (grunt.file.exists(destDir) === false) {
@@ -88,43 +96,33 @@ module.exports = function(grunt) {
     }
   };
 
-  var tempCopy = function(srcFiles, tempDir, options) {
+  var tarCopy = function(srcFiles, tempDir, options) {
     var newFiles = [];
     var newMeta = {};
 
-    var filename;
-    var relative;
-    var destPath;
+    var srcFile;
+    var destFile;
 
-    var basePath = helpers.findBasePath(srcFiles, options.basePath);
-    var rootDir = options.rootDir;
+    var fileName;
+    var filePath;
 
-    srcFiles.forEach(function(srcFile) {
-      filename = path.basename(srcFile);
-      relative = path.dirname(srcFile);
-      relative = path.normalize(relative);
+    srcFiles.forEach(function(file) {
+      fileName = path.basename(file);
+      filePath = path.dirname(file);
+
+      srcFile = path.join(options.cwd, file);
 
       if (options.flatten) {
-        relative = '';
-      } else if (basePath && basePath.length >= 1) {
-        relative = grunt.util._(relative).strRight(basePath);
-        relative = grunt.util._(relative).trim(path.sep);
+        destFile = path.join(tempDir, fileName);
+      } else {
+        destFile = path.join(tempDir, filePath, fileName);
       }
 
-      if (rootDir && rootDir.length >= 1) {
-        relative = path.join(options.rootDir, relative);
-      }
-
-      // make paths outside grunts working dir relative
-      relative = relative.replace(/\.\.(\/|\\)/g, '');
-
-      destPath = path.join(tempDir, relative, filename);
-
-      newFiles.push(destPath);
-      newMeta[destPath] = {name: path.join(relative, filename)};
+      newFiles.push(destFile);
+      newMeta[destFile] = {name: file};
 
       grunt.verbose.writeln('Adding ' + srcFile + ' to temporary structure.');
-      grunt.file.copy(srcFile, destPath);
+      grunt.file.copy(srcFile, destFile);
     });
 
     return [newFiles, newMeta];
@@ -135,12 +133,6 @@ module.exports = function(grunt) {
       var zip = require('archiver').createZip(options);
 
       var destDir = path.dirname(dest);
-      var tempDir = path.join(destDir, 'zip_' + (new Date()).getTime());
-
-      var copyResult = tempCopy(srcFiles, tempDir, options);
-
-      var zipFiles = grunt.util._.uniq(copyResult[0]);
-      var zipMeta = copyResult[1];
 
       zip.pipe(fs.createWriteStream(dest));
 
@@ -149,15 +141,38 @@ module.exports = function(grunt) {
         grunt.fail.warn('zipHelper failed.');
       });
 
+      var destFile;
       var srcFile;
 
-      grunt.util.async.forEachSeries(zipFiles, function(srcFile, next) {
-        zip.addFile(fs.createReadStream(srcFile), zipMeta[srcFile], function() {
+      var fileName;
+      var filePath;
+      var fileMeta;
+
+      grunt.util.async.forEachSeries(srcFiles, function(file, next) {
+        fileName = path.basename(file);
+        filePath = path.dirname(file);
+
+        srcFile = path.join(options.cwd, file);
+
+        if (options.flatten) {
+          destFile = fileName;
+        } else {
+          destFile = path.join(filePath, fileName);
+        }
+
+        if (options.rootDir && options.rootDir.length >= 1) {
+          destFile = path.join(options.rootDir, destFile);
+        }
+
+        fileMeta = {
+          name: destFile
+        };
+
+        zip.addFile(fs.createReadStream(srcFile), fileMeta, function() {
           next();
         });
       }, function(err) {
         zip.finalize(function(written) {
-          rimraf.sync(tempDir);
           callback(null, written);
         });
       });
@@ -171,6 +186,8 @@ module.exports = function(grunt) {
       var destDir = path.dirname(dest);
       var destFile = path.basename(dest);
       var destFileExt = path.extname(destFile);
+      var destFileName = path.basename(dest, destFileExt);
+
       var tempDir = path.join(destDir, 'tar_' + (new Date()).getTime());
       var tarDir;
 
@@ -178,7 +195,7 @@ module.exports = function(grunt) {
         tarDir = options.rootDir;
         options.rootDir = false;
       } else {
-        tarDir = grunt.util._(destFile).strLeftBack(destFileExt);
+        tarDir = destFileName;
       }
 
       if (gzip === true) {
@@ -189,7 +206,7 @@ module.exports = function(grunt) {
 
       tarDir = path.join(tempDir, tarDir);
 
-      tempCopy(srcFiles, tarDir, options);
+      tarCopy(srcFiles, tarDir, options);
 
       var reader = fstream.Reader({path: tarDir, type: 'Directory'});
       var packer = tar.Pack();
@@ -220,7 +237,9 @@ module.exports = function(grunt) {
     gzip: function(file, dest, options, callback) {
       var zlib = require('zlib');
 
-      zlib.gzip(grunt.file.read(file), function(e, result) {
+      var srcFile = path.join(options.cwd, file);
+
+      zlib.gzip(grunt.file.read(srcFile), function(e, result) {
         if (!e) {
           grunt.file.write(dest, result);
           callback(null, result.length);
