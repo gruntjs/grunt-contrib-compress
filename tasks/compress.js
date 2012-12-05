@@ -65,7 +65,7 @@ module.exports = function(grunt) {
         grunt.fail.warn('Mode ' + mode.cyan + ' not supported.');
       }
 
-      if (options.mode === 'gzip' && srcFiles.length > 1) {
+      if (mode === 'gzip' && srcFiles.length > 1) {
         grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
         srcFiles = srcFiles[0];
       }
