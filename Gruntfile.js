@@ -55,8 +55,8 @@ module.exports = function(grunt) {
           'tmp/compress_test_v<%= test_vars.version %>.tgz': ['**'],
           'tmp/compress_test_files_template.tgz': ['<%= files.compress_test %>/**'],
 
-          'tmp/compress_test_file.gz': ['test.js'],
-          'tmp/compress_test_file2.gz': ['folder_one/one.js']
+          'tmp/compress_test_file.js.gz': ['test.js'],
+          'tmp/compress_test_file2.js.gz': ['folder_one/one.js']
         }
       },
 

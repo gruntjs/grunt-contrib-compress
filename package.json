@@ -28,9 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "tar": "~0.1.13",
-    "fstream": "~0.1.18",
-    "archiver": "~0.1.0",
+    "archiver": "~0.2.2",
     "rimraf": "~2.0.2",
     "grunt-lib-contrib": "~0.3.0"
   },

@@ -12,6 +12,8 @@ module.exports = function(grunt) {
 
   var fs = require('fs');
   var path = require('path');
+  var zlib = require('zlib');
+  var archiver = require('archiver');
   var rimraf = require('rimraf');
   var helpers = require('grunt-lib-contrib').init(grunt);
 
@@ -40,10 +42,13 @@ module.exports = function(grunt) {
       options.rootDir = false;
     }
 
+    grunt.verbose.writeln('------');
     grunt.verbose.writeflags(options, 'Options');
+    grunt.verbose.writeln();
 
+    var srcCwd = options.cwd;
     var srcFiles = grunt.file.expandFiles(options.minimatch, this.file.srcRaw);
-    var destFile = path.normalize(this.file.dest);
+    var destFile = unixifyPath(path.normalize(this.file.dest));
     var destDir = path.dirname(destFile);
 
     if (srcFiles.length === 0) {
@@ -68,19 +73,67 @@ module.exports = function(grunt) {
       grunt.file.mkdir(destDir);
     }
 
-    methods[mode](srcFiles, destFile, options, function(err, written) {
-      grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
-      done();
-    });
-  });
+    var archive;
+    var destStream = fs.createWriteStream(destFile);
+    var srcFile;
 
-  var getSize = function(filename) {
-    try {
-      return fs.statSync(filename).size;
-    } catch (e) {
-      return 0;
+    var gzipper = zlib.createGzip();
+
+    if (mode === 'gzip') {
+      srcFile = path.join(srcCwd, srcFiles);
+      fs.createReadStream(srcFile).pipe(gzipper).pipe(destStream);
+
+      destStream.on('close', function() {
+        grunt.log.writeln('File ' + destFile + ' created (' + getSize(destFile) + ' bytes written).');
+        done();
+      });
+    } else {
+      if (mode === 'zip') {
+        archive = archiver.createZip(options);
+      } else if (mode === 'tar' || mode === 'tgz') {
+        archive = archiver.createTar(options);
+      }
+
+      if (mode === 'zip' || mode === 'tar') {
+        archive.pipe(destStream);
+      } else if (mode === 'tgz') {
+        archive.pipe(gzipper).pipe(destStream);
+      }
+
+      archive.on('error', function(err) {
+        grunt.log.error(err);
+        grunt.fail.warn('archiver failed.');
+      });
+
+      var internalFileName;
+
+      grunt.util.async.forEachSeries(srcFiles, function(srcFile, next) {
+        internalFileName = srcFile;
+        srcFile = unixifyPath(path.join(srcCwd, srcFile));
+
+        if (options.flatten) {
+          internalFileName = path.basename(internalFileName);
+        }
+
+        if (options.rootDir && options.rootDir.length >= 1) {
+          internalFileName = path.join(options.rootDir, internalFileName);
+        }
+
+        internalFileName = unixifyPath(internalFileName);
+
+        archive.addFile(fs.createReadStream(srcFile), { name: internalFileName }, function() {
+          grunt.verbose.writeln('Add ' + srcFile + ' -> ' + destFile + '/' + internalFileName);
+          next();
+        });
+      }, function(err) {
+        archive.finalize(function(written) {
+          grunt.verbose.writeln();
+          grunt.log.writeln('File ' + destFile + ' created (' + written + ' bytes written).');
+          done();
+        });
+      });
     }
-  };
+  });
 
   var autoDetectMode = function(dest) {
     if (grunt.util._.endsWith(dest, '.tar.gz')) {
@@ -96,158 +149,19 @@ module.exports = function(grunt) {
     }
   };
 
-  var tarCopy = function(srcFiles, tempDir, options) {
-    var newFiles = [];
-    var newMeta = {};
-
-    var srcFile;
-    var destFile;
-
-    var fileName;
-    var filePath;
-
-    srcFiles.forEach(function(file) {
-      fileName = path.basename(file);
-      filePath = path.dirname(file);
-
-      srcFile = path.join(options.cwd, file);
-
-      if (options.flatten) {
-        destFile = path.join(tempDir, fileName);
-      } else {
-        destFile = path.join(tempDir, filePath, fileName);
-      }
-
-      newFiles.push(destFile);
-      newMeta[destFile] = {name: file};
-
-      grunt.verbose.writeln('Adding ' + srcFile + ' to temporary structure.');
-      grunt.file.copy(srcFile, destFile);
-    });
-
-    return [newFiles, newMeta];
+  var unixifyPath = function(filepath) {
+    if (process.platform === 'win32') {
+      return filepath.replace(/\\/g, '/');
+    } else {
+      return filepath;
+    }
   };
 
-  var methods = {
-    zip: function(srcFiles, dest, options, callback) {
-      var zip = require('archiver').createZip(options);
-
-      var destDir = path.dirname(dest);
-
-      zip.pipe(fs.createWriteStream(dest));
-
-      zip.on('error', function(e) {
-        grunt.log.error(e);
-        grunt.fail.warn('zipHelper failed.');
-      });
-
-      var destFile;
-      var srcFile;
-
-      var fileName;
-      var filePath;
-      var fileMeta;
-
-      grunt.util.async.forEachSeries(srcFiles, function(file, next) {
-        fileName = path.basename(file);
-        filePath = path.dirname(file);
-
-        srcFile = path.join(options.cwd, file);
-
-        if (options.flatten) {
-          destFile = fileName;
-        } else {
-          destFile = path.join(filePath, fileName);
-        }
-
-        if (options.rootDir && options.rootDir.length >= 1) {
-          destFile = path.join(options.rootDir, destFile);
-        }
-
-        fileMeta = {
-          name: destFile
-        };
-
-        zip.addFile(fs.createReadStream(srcFile), fileMeta, function() {
-          next();
-        });
-      }, function(err) {
-        zip.finalize(function(written) {
-          callback(null, written);
-        });
-      });
-    },
-
-    tar: function(srcFiles, dest, options, callback, gzip) {
-      var fstream = require('fstream');
-      var tar = require('tar');
-      var zlib = require('zlib');
-
-      var destDir = path.dirname(dest);
-      var destFile = path.basename(dest);
-      var destFileExt = path.extname(destFile);
-      var destFileName = path.basename(dest, destFileExt);
-
-      var tempDir = path.join(destDir, 'tar_' + (new Date()).getTime());
-      var tarDir;
-
-      if (options.rootDir && options.rootDir.length >= 1) {
-        tarDir = options.rootDir;
-        options.rootDir = false;
-      } else {
-        tarDir = destFileName;
-      }
-
-      if (gzip === true) {
-        tarDir = tarDir.replace('.tar', '');
-      }
-
-      var tarProcess;
-
-      tarDir = path.join(tempDir, tarDir);
-
-      tarCopy(srcFiles, tarDir, options);
-
-      var reader = fstream.Reader({path: tarDir, type: 'Directory'});
-      var packer = tar.Pack();
-      var gzipper = zlib.createGzip();
-      var writer = fstream.Writer(dest);
-
-      if (gzip === true) {
-        tarProcess = reader.pipe(packer).pipe(gzipper).pipe(writer);
-      } else {
-        tarProcess = reader.pipe(packer).pipe(writer);
-      }
-
-      tarProcess.on('error', function(e) {
-        grunt.log.error(e);
-        grunt.fail.warn('tarHelper failed.');
-      });
-
-      tarProcess.on('close', function() {
-        rimraf.sync(tempDir);
-        callback(null, getSize(dest));
-      });
-    },
-
-    tgz: function(srcFiles, dest, options, callback) {
-      methods.tar(srcFiles, dest, options, callback, true);
-    },
-
-    gzip: function(file, dest, options, callback) {
-      var zlib = require('zlib');
-
-      var srcFile = path.join(options.cwd, file);
-
-      zlib.gzip(grunt.file.read(srcFile), function(e, result) {
-        if (!e) {
-          grunt.file.write(dest, result);
-          callback(null, result.length);
-        } else {
-          grunt.log.error(e);
-          grunt.fail.warn('gzipHelper failed.');
-        }
-      });
+  var getSize = function(filename) {
+    try {
+      return fs.statSync(filename).size;
+    } catch (e) {
+      return 0;
     }
   };
 };

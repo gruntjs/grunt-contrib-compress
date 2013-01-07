@@ -44,11 +44,11 @@ exports.compress = {
     test.equal(expected, actual, 'should add files and folders into tar (grunt template in source)');
 
     // Tar (gzip)
-    actual = getSize('tmp/compress_test_files.tgz') >= 200;
+    actual = getSize('tmp/compress_test_files.tgz') >= 195;
     expected = true;
-    test.equal(expected, actual, 'should compress files into tar');
+    test.equal(expected, actual, 'should compress files into tgz');
 
-    actual = getSize('tmp/compress_test_v0.1.0.tgz') >= 350;
+    actual = getSize('tmp/compress_test_v0.1.0.tgz') >= 315;
     expected = true;
     test.equal(expected, actual, 'should compress folders and their files into tgz (with template support)');
 
@@ -57,12 +57,12 @@ exports.compress = {
     test.equal(expected, actual, 'should compress files and folders into tgz (grunt template in source)');
 
     // gzip
-    actual = getSize('tmp/compress_test_file.gz');
-    expected = getSize('test/expected/compress_test_file.gz');
+    actual = getSize('tmp/compress_test_file.js.gz');
+    expected = getSize('test/expected/compress_test_file.js.gz');
     test.equal(expected, actual, 'should gzip file');
 
-    actual = getSize('tmp/compress_test_file2.gz');
-    expected = getSize('test/expected/compress_test_file2.gz');
+    actual = getSize('tmp/compress_test_file2.js.gz');
+    expected = getSize('test/expected/compress_test_file2.js.gz');
     test.equal(expected, actual, 'should gzip another file (multiple dest:source pairs)');
 
     test.done();
@@ -80,7 +80,7 @@ exports.compress = {
     expected = getSize('test/expected/compress_test_flatten.tar');
     test.equal(expected, actual, 'should create a flat internal structure');
 
-    actual = getSize('tmp/compress_test_flatten.tgz') >= 320;
+    actual = getSize('tmp/compress_test_flatten.tgz') >= 297;
     expected = true;
     test.equal(expected, actual, 'should create a flat internal structure');
 
