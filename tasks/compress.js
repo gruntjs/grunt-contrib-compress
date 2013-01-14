@@ -79,16 +79,16 @@ module.exports = function(grunt) {
 
     if (mode === 'gzip') {
       // this needs to be evaluated as it doesn't fit new flow
-      /*srcFile = path.join(this.files[0].cwd || '', this.files[0].src);
+      srcFile = this.filesSrc[0];
+
       var srcStream = fs.createReadStream(srcFile);
 
       srcStream.pipe(zlib.createGzip()).pipe(archiveStream);
 
       archiveStream.on('close', function() {
-        grunt.log.writeln('File ' + archiveFile + ' created (' + getSize(archiveFile) + ' bytes written).');
+        grunt.log.writeln('File ' + archiveFile + ' created (' + getSize(archiveFile) + ' bytes).');
         done();
-      });*/
-      done();
+      });
     } else if (mode === 'tar' || mode === 'zip') {
       if (mode === 'tar') {
         archive = archiver.createTar(archiverOptions);
@@ -135,7 +135,12 @@ module.exports = function(grunt) {
         }
 
         archive.finalize(function(written) {
-          grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + written + ' bytes written)');
+          if (shouldGzipTar) {
+            grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + getSize(archiveFile) + ' bytes)');
+          } else {
+            grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + written + ' bytes)');
+          }
+
           done();
         });
       });

@@ -66,9 +66,7 @@ module.exports = function(grunt) {
         options: {
           archive: 'tmp/compress_test_file.js.gz'
         },
-        files: [
-          {cwd: 'test/fixtures', src: ['test.js']}
-        ]
+        src: ['test/fixtures/test.js']
       }
     },
 
