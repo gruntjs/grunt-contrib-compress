@@ -38,50 +38,37 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     compress: {
-      main: {
+      mainZip: {
         options: {
-          cwd: 'test/fixtures'
+          archive: 'tmp/compress_test_files.zip'
         },
-        files: {
-          'tmp/compress_test_files.zip': ['*'],
-          'tmp/compress_test_v<%= test_vars.version %>.zip': ['**'],
-          'tmp/compress_test_files_template.zip': ['<%= files.compress_test %>/**'],
-
-          'tmp/compress_test_files.tar': ['*'],
-          'tmp/compress_test_v<%= test_vars.version %>.tar': ['**'],
-          'tmp/compress_test_files_template.tar': ['<%= files.compress_test %>/**'],
-
-          'tmp/compress_test_files.tgz': ['*'],
-          'tmp/compress_test_v<%= test_vars.version %>.tgz': ['**'],
-          'tmp/compress_test_files_template.tgz': ['<%= files.compress_test %>/**'],
-
-          'tmp/compress_test_file.gz': ['test.js'],
-          'tmp/compress_test_file2.gz': ['folder_one/one.js']
-        }
+        files: [
+          {cwd: 'test/fixtures', src: ['*']}
+        ]
       },
-
-      flatten: {
+      mainTar: {
         options: {
-          cwd: 'test/fixtures',
-          flatten: true
+          archive: 'tmp/compress_test_files.tar'
         },
-        files: {
-          'tmp/compress_test_flatten.zip': ['**'],
-          'tmp/compress_test_flatten.tar': ['**'],
-          'tmp/compress_test_flatten.tgz': ['**']
-        }
+        files: [
+          {cwd: 'test/fixtures', src: ['*']}
+        ]
       },
-
-      rootdir: {
+      mainTarGz: {
         options: {
-          cwd: 'test/fixtures',
-          rootDir: 'abc123'
+          archive: 'tmp/compress_test_files.tgz'
         },
-        files: {
-          'tmp/compress_test_rootdir.zip': ['**'],
-          'tmp/compress_test_rootdir.tar': ['**'],
-          'tmp/compress_test_rootdir.tgz': ['**']
-        }
+        files: [
+          {cwd: 'test/fixtures', src: ['*']}
+        ]
+      },
+      mainGz: {
+        options: {
+          archive: 'tmp/compress_test_file.js.gz'
+        },
+        files: [
+          {cwd: 'test/fixtures', src: ['test.js']}
+        ]
       }
     },
 
