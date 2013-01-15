@@ -89,7 +89,7 @@ module.exports = function(grunt) {
       srcStream.pipe(zlib.createGzip()).pipe(archiveStream);
 
       archiveStream.on('close', function() {
-        grunt.log.writeln('File ' + archiveFile + ' created (' + getSize(archiveFile) + ' bytes).');
+        grunt.log.writeln('File ' + archiveFile.cyan + ' created (' + getSize(archiveFile) + ' bytes).');
         done();
       });
     } else if (mode === 'tar' || mode === 'zip') {
