@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           archive: 'tmp/compress_test_files.zip'
         },
         files: [
-          {cwd: 'test/fixtures', src: ['*']}
+          {expand: true, cwd: 'test/fixtures', src: ['*']}
         ]
       },
       mainTar: {
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
           archive: 'tmp/compress_test_files.tar'
         },
         files: [
-          {cwd: 'test/fixtures', src: ['*']}
+          {expand: true, cwd: 'test/fixtures', src: ['*']}
         ]
       },
       mainTarGz: {
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
           archive: 'tmp/compress_test_files.tgz'
         },
         files: [
-          {cwd: 'test/fixtures', src: ['*']}
+          {expand: true, cwd: 'test/fixtures', src: ['*']}
         ]
       },
       mainGz: {

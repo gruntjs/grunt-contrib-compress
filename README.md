@@ -60,7 +60,7 @@ compress: {
     files: [
       {src: ['path/*'], dest: 'internal_folder/', filter: 'isFile'}, // includes files in path
       {src: ['path/**'], dest: 'internal_folder2/'}, // includes files in path and its subdirs
-      {cwd: 'path/', src: ['**'], dest: 'internal_folder3/'}, // makes all src relative to cwd
+      {expand: true, cwd: 'path/', src: ['**'], dest: 'internal_folder3/'}, // makes all src relative to cwd
       {flatten: true, src: ['path/**'], dest: 'internal_folder4/', filter: 'isFile'} // flattens results to a single level
     ]
   }
@@ -81,4 +81,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Jan 14 2013 16:35:24.*
+*This file was generated on Mon Jan 14 2013 23:11:30.*

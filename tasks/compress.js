@@ -56,8 +56,6 @@ module.exports = function(grunt) {
 
     if (this.filesSrc.length === 0) {
       grunt.fail.warn('Unable to compress; no valid source files were found.');
-    } else if (mode === 'gzip' && this.filesSrc.length > 1) {
-      grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
     }
 
     if (grunt.file.exists(archiveDir) === false) {
@@ -65,13 +63,10 @@ module.exports = function(grunt) {
     }
 
     var archiveStream = fs.createWriteStream(archiveFile);
-    var srcFiles = this.files;
 
-    var dest;
     var internalFileName;
     var srcFile;
 
-    var filePairCwd;
     var filePairSrc;
     var isExpandedPair;
 
@@ -79,9 +74,17 @@ module.exports = function(grunt) {
 
     if (mode === 'gzip') {
       // this needs to be evaluated as it doesn't fit new flow
-      srcFile = this.filesSrc[0];
+      var srcFiles = this.filesSrc;
 
-      var srcStream = fs.createReadStream(srcFile);
+      srcFiles = srcFiles.filter(function(src) {
+        return grunt.file.isFile(src);
+      });
+
+      if (srcFiles.length > 1) {
+        grunt.fail.warn('Cannot specify multiple input files for gzip compression.');
+      }
+
+      var srcStream = fs.createReadStream(srcFiles[0]);
 
       srcStream.pipe(zlib.createGzip()).pipe(archiveStream);
 
@@ -109,20 +112,14 @@ module.exports = function(grunt) {
 
       grunt.util.async.forEachSeries(this.files, function(filePair, nextPair) {
         isExpandedPair = filePair.orig.expand || false;
-        filePairCwd = filePair.cwd || false;
         filePairSrc = filePair.src;
 
         filePairSrc = filePairSrc.filter(function(src) {
-          src = (filePairCwd && isExpandedPair === false) ? path.join(filePairCwd, src) : src;
-
           return grunt.file.isFile(src);
         });
 
         grunt.util.async.forEachSeries(filePairSrc, function(srcFile, nextFile) {
           internalFileName = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest || '', srcFile));
-          internalFileName = internalFileName;
-
-          srcFile = (filePairCwd && isExpandedPair === false) ? unixifyPath(path.join(filePairCwd, srcFile)) : srcFile;
 
           archive.addFile(fs.createReadStream(srcFile), { name: internalFileName }, function() {
             grunt.log.writeln('Archiving ' + srcFile.cyan + ' -> ' + archiveFile.cyan + '/'.cyan + internalFileName.cyan);
