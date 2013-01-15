@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders.",
-  "version": "0.4.0a",
+  "version": "0.4.0rc5",
   "homepage": "https://github.com/gruntjs/grunt-contrib-compress",
   "author": {
     "name": "Grunt Team",
@@ -28,18 +28,16 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "tar": "~0.1.13",
-    "fstream": "~0.1.18",
-    "archiver": "~0.1.0",
+    "archiver": "~0.2.2",
     "rimraf": "~2.0.2",
-    "grunt-lib-contrib": "~0.3.0"
+    "grunt-lib-contrib": "~0.5.1"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.1.0",
-    "grunt-contrib-nodeunit": "~0.1.0",
-    "grunt-contrib-clean": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.1rc5",
+    "grunt-contrib-nodeunit": "~0.1.2rc5",
+    "grunt-contrib-clean": "~0.4.0rc5",
     "grunt-contrib-internal": "~0.1.1",
-    "grunt": "~0.4.0"
+    "grunt": "~0.4.0rc5"
   },
   "keywords": [
     "gruntplugin"
