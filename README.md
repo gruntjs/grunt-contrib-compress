@@ -70,6 +70,7 @@ compress: {
 
 ## Release History
 
+ * 2013-01-22   v0.4.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-13   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Conversion to grunt v0.4 conventions. Replace basePath with cwd.
  * 2012-10-11   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
  * 2012-10-08   v0.3.1   Replace zipstream package with archiver.
@@ -81,4 +82,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Jan 14 2013 23:11:30.*
+*This file was generated on Wed Jan 23 2013 10:29:21.*
