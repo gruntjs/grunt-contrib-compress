@@ -2,14 +2,16 @@
 
 ```js
 compress: {
-  zip: {
-    files: {
-      "path/to/result.zip": "path/to/source/*", // includes files in dir
-      "path/to/another.tar": "path/to/source/**", // includes files in dir and subdirs
-      "path/to/final.tgz": ["path/to/sources/*.js", "path/to/more/*.js"], // include JS files in two diff dirs
-      "path/to/single.gz": "path/to/source/single.js", // gzip a single file
-      "path/to/project-<%= pkg.version %>.zip": "path/to/source/**" // variables in destination
-    }
+  main: {
+    options: {
+      archive: 'archive.zip'
+    },
+    files: [
+      {src: ['path/*'], dest: 'internal_folder/', filter: 'isFile'}, // includes files in path
+      {src: ['path/**'], dest: 'internal_folder2/'}, // includes files in path and its subdirs
+      {expand: true, cwd: 'path/', src: ['**'], dest: 'internal_folder3/'}, // makes all src relative to cwd
+      {flatten: true, src: ['path/**'], dest: 'internal_folder4/', filter: 'isFile'} // flattens results to a single level
+    ]
   }
 }
 ```
