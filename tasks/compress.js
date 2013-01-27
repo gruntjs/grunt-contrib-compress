@@ -93,11 +93,7 @@ module.exports = function(grunt) {
         done();
       });
     } else if (mode === 'tar' || mode === 'zip') {
-      if (mode === 'tar') {
-        archive = archiver.createTar(archiverOptions);
-      } else if (mode === 'zip') {
-        archive = archiver.createZip(archiverOptions);
-      }
+      archive = archiver.create(mode, archiverOptions);
 
       if (shouldGzipTar) {
         archive.pipe(zlib.createGzip()).pipe(archiveStream);
@@ -121,9 +117,9 @@ module.exports = function(grunt) {
         grunt.util.async.forEachSeries(filePairSrc, function(srcFile, nextFile) {
           internalFileName = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest || '', srcFile));
 
-          archive.addFile(fs.createReadStream(srcFile), { name: internalFileName }, function() {
+          archive.addFile(fs.createReadStream(srcFile), { name: internalFileName }, function(err) {
             grunt.log.writeln('Archiving ' + srcFile.cyan + ' -> ' + archiveFile.cyan + '/'.cyan + internalFileName.cyan);
-            nextFile();
+            nextFile(err);
           });
         }, nextPair);
       }, function(err) {
@@ -131,14 +127,14 @@ module.exports = function(grunt) {
           grunt.fail.warn(err);
         }
 
-        archive.finalize(function(written) {
+        archive.finalize(function(err, written) {
           if (shouldGzipTar) {
             grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + getSize(archiveFile) + ' bytes)');
           } else {
             grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + written + ' bytes)');
           }
 
-          done();
+          done(err);
         });
       });
 
