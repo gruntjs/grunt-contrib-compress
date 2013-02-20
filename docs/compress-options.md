@@ -19,3 +19,9 @@ Default: 1
 Sets the level of archive compression.
 
 *Currently, gzip compression related options are not supported due to deficiencies in node's zlib library.*
+
+## verbose
+Type: `Boolean`
+Default: `false`
+
+Sets the level of verbosity when adding files to a zip. (`--verbose` will still print)
