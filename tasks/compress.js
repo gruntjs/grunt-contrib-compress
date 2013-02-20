@@ -118,7 +118,9 @@ module.exports = function(grunt) {
           internalFileName = (isExpandedPair) ? filePair.dest : unixifyPath(path.join(filePair.dest || '', srcFile));
 
           archive.addFile(fs.createReadStream(srcFile), { name: internalFileName }, function(err) {
-            grunt.log.writeln('Archiving ' + srcFile.cyan + ' -> ' + archiveFile.cyan + '/'.cyan + internalFileName.cyan);
+            var logger = (options.verbose) ? grunt.log : grunt.verbose;
+
+            logger.writeln('Archiving ' + srcFile.cyan + ' -> ' + archiveFile.cyan + '/'.cyan + internalFileName.cyan);
             nextFile(err);
           });
         }, nextPair);
