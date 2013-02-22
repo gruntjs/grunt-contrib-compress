@@ -52,6 +52,12 @@ Sets the level of archive compression.
 
 *Currently, gzip compression related options are not supported due to deficiencies in node's zlib library.*
 
+#### pretty
+Type: `Boolean`
+Default: `false`
+
+Pretty print file sizes when logging.
+
 ### Usage Examples
 
 ```js
@@ -73,6 +79,7 @@ compress: {
 
 ## Release History
 
+ * 2013-02-21   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
  * 2013-02-14   v0.4.0   First official release for Grunt 0.4.0.
  * 2013-01-22   v0.4.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
  * 2013-01-13   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Conversion to grunt v0.4 conventions. Replace basePath with cwd.
@@ -86,4 +93,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Wed Feb 20 2013 12:35:44.*
+*This file was generated on Fri Feb 22 2013 09:14:59.*
