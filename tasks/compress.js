@@ -12,6 +12,7 @@ module.exports = function(grunt) {
   var fs = require('fs');
   var path = require('path');
   var rimraf = require('rimraf');
+  var prettySize = require('prettysize');
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
     var archiver = require('archiver');
@@ -27,6 +28,13 @@ module.exports = function(grunt) {
       mode: null,
       level: 1
     });
+
+    var pretty = function(size) {
+        if (!options.pretty) {
+          return size + ' bytes';
+        }
+        return prettySize(size);
+    };
 
     var archiverOptions = options;
 
@@ -89,7 +97,7 @@ module.exports = function(grunt) {
       srcStream.pipe(zlib.createGzip()).pipe(archiveStream);
 
       archiveStream.on('close', function() {
-        grunt.log.writeln('File ' + archiveFile.cyan + ' created (' + getSize(archiveFile) + ' bytes).');
+        grunt.log.writeln('File ' + archiveFile.cyan + ' created (' + pretty(getSize(archiveFile)) + ').');
         done();
       });
     } else if (mode === 'tar' || mode === 'zip') {
@@ -129,9 +137,9 @@ module.exports = function(grunt) {
 
         archive.finalize(function(err, written) {
           if (shouldGzipTar) {
-            grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + getSize(archiveFile) + ' bytes)');
+            grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + pretty(getSize(archiveFile)) + ')');
           } else {
-            grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + written + ' bytes)');
+            grunt.log.writeln('Created ' + archiveFile.cyan + ' (' + pretty(written) + ')');
           }
 
           done(err);

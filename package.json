@@ -30,7 +30,8 @@
   "dependencies": {
     "archiver": "~0.3.0",
     "rimraf": "~2.0.2",
-    "grunt-lib-contrib": "~0.5.1"
+    "grunt-lib-contrib": "~0.5.1",
+    "prettysize": "~0.0.2"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.1.1",
