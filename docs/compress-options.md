@@ -19,3 +19,9 @@ Default: 1
 Sets the level of archive compression.
 
 *Currently, gzip compression related options are not supported due to deficiencies in node's zlib library.*
+
+## pretty
+Type: `Boolean`
+Default: `false`
+
+Pretty print file sizes when logging.
