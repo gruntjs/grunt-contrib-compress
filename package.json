@@ -29,8 +29,6 @@
   },
   "dependencies": {
     "archiver": "~0.3.0",
-    "rimraf": "~2.0.2",
-    "grunt-lib-contrib": "~0.5.1",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {

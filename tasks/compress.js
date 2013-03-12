@@ -11,7 +11,6 @@
 module.exports = function(grunt) {
   var fs = require('fs');
   var path = require('path');
-  var rimraf = require('rimraf');
   var prettySize = require('prettysize');
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
@@ -19,7 +18,6 @@ module.exports = function(grunt) {
     var zlib = require('zlib');
 
     var kindOf = grunt.util.kindOf;
-    var helpers = require('grunt-lib-contrib').init(grunt);
 
     var done = this.async();
 
