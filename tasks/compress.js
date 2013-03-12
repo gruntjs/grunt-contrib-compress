@@ -28,10 +28,10 @@ module.exports = function(grunt) {
     });
 
     var pretty = function(size) {
-        if (!options.pretty) {
-          return size + ' bytes';
-        }
-        return prettySize(size);
+      if (!options.pretty) {
+        return size + ' bytes';
+      }
+      return prettySize(size);
     };
 
     var archiverOptions = options;
