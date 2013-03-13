@@ -38,35 +38,38 @@ module.exports = function(grunt) {
 
     // Configuration to be run (and then tested).
     compress: {
-      mainZip: {
+      zip: {
         options: {
           archive: 'tmp/compress_test_files.zip'
         },
         files: [
-          {expand: true, cwd: 'test/fixtures', src: ['*']}
+          {expand: true, cwd: 'test/fixtures/', src: ['**/*']}
         ]
       },
-      mainTar: {
+      tar: {
         options: {
           archive: 'tmp/compress_test_files.tar'
         },
         files: [
-          {expand: true, cwd: 'test/fixtures', src: ['*']}
+          {expand: true, cwd: 'test/fixtures', src: ['**/*']}
         ]
       },
-      mainTarGz: {
+      tgz: {
         options: {
           archive: 'tmp/compress_test_files.tgz'
         },
         files: [
-          {expand: true, cwd: 'test/fixtures', src: ['*']}
+          {expand: true, cwd: 'test/fixtures', src: ['**/*']}
         ]
       },
-      mainGz: {
+      gzip: {
+        expand: true,
+        cwd: 'test/fixtures/',
+        src: ['**/*.{css,html,js}'],
+        dest: 'tmp/gzip/',
         options: {
-          archive: 'tmp/compress_test_file.js.gz'
-        },
-        src: ['test/fixtures/test.js']
+          mode: 'gzip'
+        }
       }
     },
 
