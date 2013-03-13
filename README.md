@@ -79,6 +79,7 @@ compress: {
 
 ## Release History
 
+ * 2013-03-12   v0.4.2   Refactor task like other contrib tasks. Fix gzip of multiple files. Remove unused dependencies.
  * 2013-02-21   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
  * 2013-02-14   v0.4.0   First official release for Grunt 0.4.0.
  * 2013-01-22   v0.4.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
@@ -93,4 +94,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Fri Feb 22 2013 09:14:59.*
+*This file was generated on Wed Mar 13 2013 12:00:33.*

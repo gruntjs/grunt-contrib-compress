@@ -1,3 +1,9 @@
+v0.4.2:
+  date: 2013-03-13
+  changes:
+    - Refactor task like other contrib tasks.
+    - Fix gzip of multiple files.
+    - Remove unused dependencies.
 v0.4.1:
   date: 2013-02-22
   changes:
