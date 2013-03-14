@@ -35,7 +35,7 @@ module.exports = function(grunt) {
       // Ensure the dest folder exists
       grunt.file.mkdir(path.dirname(file.dest));
 
-      var gz = zlib.createGzip();
+      var gz = zlib.createGzip(exports.options);
       gz.pipe(fs.createWriteStream(file.dest));
       gz.write(src);
       gz.end();
