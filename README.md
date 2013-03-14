@@ -61,6 +61,7 @@ Pretty print file sizes when logging.
 ### Usage Examples
 
 ```js
+// make a zipfile
 compress: {
   main: {
     options: {
@@ -76,6 +77,20 @@ compress: {
 }
 ```
 
+```js
+// gzip assets 1-to-1 for production
+compress: {
+  main: {
+    options: {
+      mode: 'gzip'
+    },
+    expand: true,
+    cwd: 'assets/',
+    src: ['**/*'],
+    dest: 'public/'
+  }
+}
+```
 
 ## Release History
 
@@ -95,4 +110,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Thu Mar 14 2013 12:11:12.*
+*This file was generated on Thu Mar 14 2013 15:18:42.*
