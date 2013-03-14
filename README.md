@@ -79,6 +79,7 @@ compress: {
 
 ## Release History
 
+ * 2013-03-13   v0.4.3   Fix for gzip; continue iteration on returning early.
  * 2013-03-12   v0.4.2   Refactor task like other contrib tasks. Fix gzip of multiple files. Remove unused dependencies.
  * 2013-02-21   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
  * 2013-02-14   v0.4.0   First official release for Grunt 0.4.0.
@@ -94,4 +95,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Wed Mar 13 2013 12:00:33.*
+*This file was generated on Thu Mar 14 2013 12:11:12.*

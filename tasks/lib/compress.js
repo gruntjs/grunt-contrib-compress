@@ -24,7 +24,7 @@ module.exports = function(grunt) {
   exports.gzip = function(files, done) {
     grunt.util.async.forEachSeries(files, function(file, next) {
       var src = file.src.filter(grunt.file.isFile).map(grunt.file.read).join('');
-      if (src.length < 1) { return; }
+      if (src.length < 1) { return next(); }
 
       // Append ext if the specified one isnt there
       var ext = file.orig.ext || '.gz';
