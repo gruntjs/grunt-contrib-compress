@@ -27,15 +27,6 @@ module.exports = function(grunt) {
       test: ['tmp']
     },
 
-    test_vars: {
-      name: 'grunt-contrib-compress',
-      version: '0.1.0'
-    },
-
-    files: {
-      compress_test: 'folder_one'
-    },
-
     // Configuration to be run (and then tested).
     compress: {
       zip: {
