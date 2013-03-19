@@ -1,3 +1,7 @@
+v0.4.4:
+  date: 2013-03-19
+  changes:
+    - Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
 v0.4.3:
   date: 2013-03-14
   changes:

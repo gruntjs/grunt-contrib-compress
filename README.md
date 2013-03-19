@@ -94,6 +94,7 @@ compress: {
 
 ## Release History
 
+ * 2013-03-18   v0.4.4   Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
  * 2013-03-13   v0.4.3   Fix for gzip; continue iteration on returning early.
  * 2013-03-12   v0.4.2   Refactor task like other contrib tasks. Fix gzip of multiple files. Remove unused dependencies.
  * 2013-02-21   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
@@ -110,4 +111,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Thu Mar 14 2013 15:18:42.*
+*This file was generated on Tue Mar 19 2013 10:17:48.*
