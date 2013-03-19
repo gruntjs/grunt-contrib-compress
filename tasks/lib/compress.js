@@ -23,7 +23,11 @@ module.exports = function(grunt) {
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
     grunt.util.async.forEachSeries(files, function(file, next) {
-      var src = file.src.filter(grunt.file.isFile).map(grunt.file.read).join('');
+      var src = file.src.filter(function(f) {
+        return grunt.file.isFile(f);
+      }).map(function(f) {
+        return grunt.file.read(f);
+      }).join('');
       if (src.length < 1) { return next(); }
 
       // Append ext if the specified one isnt there
