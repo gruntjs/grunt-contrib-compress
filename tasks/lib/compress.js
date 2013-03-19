@@ -79,7 +79,9 @@ module.exports = function(grunt) {
 
     grunt.util.async.forEachSeries(files, function(file, next) {
       var isExpandedPair = file.orig.expand || false;
-      var src = file.src.filter(grunt.file.isFile);
+      var src = file.src.filter(function(f) {
+        return grunt.file.isFile(f);
+      });
 
       grunt.util.async.forEachSeries(src, function(srcFile, nextFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
