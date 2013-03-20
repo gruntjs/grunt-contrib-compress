@@ -110,7 +110,7 @@ module.exports = function(grunt) {
       grunt.util.async.forEachSeries(src, function(srcFile, nextFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
 
-        archive.addFile(fs.createReadStream(srcFile), { name: internalFileName }, function(err) {
+        archive.append(fs.createReadStream(srcFile), { name: internalFileName }, function(err) {
           grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
           nextFile(err);
         });

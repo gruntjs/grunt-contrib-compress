@@ -28,7 +28,7 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "archiver": "~0.3.0",
+    "archiver": "~0.4.1",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {
