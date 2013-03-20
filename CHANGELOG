@@ -1,3 +1,7 @@
+v0.4.5:
+  date: 2013-03-20
+  changes:
+    - Update to archiver 0.4.1
 v0.4.4:
   date: 2013-03-19
   changes:
