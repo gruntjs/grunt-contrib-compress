@@ -24,25 +24,20 @@ module.exports = function(grunt) {
   function gzip(engine, buffer, callback) {
     var buffers = [];
     var nread = 0;
-    function flow() {
-      var chunk;
-      while (null !== (chunk = engine.read())) {
-        buffers.push(chunk);
-        nread += chunk.length;
-      }
-      engine.once('readable', flow);
-    }
     engine.on('error', function(err) {
       callback(err);
+    });
+    engine.on('data', function(chunk) {
+      buffers.push(chunk);
+      nread += chunk.length;
     });
     engine.on('end', function() {
       var buf = Buffer.concat(buffers, nread);
       buffers = [];
       callback(null, buf);
-      engine.close();
     });
-    engine.end(buffer);
-    flow();
+    engine.write(buffer);
+    engine.end();
   }
 
   // 1 to 1 gziping of files

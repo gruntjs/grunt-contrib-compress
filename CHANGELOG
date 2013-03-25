@@ -1,3 +1,7 @@
+v0.4.6:
+  date: 2013-03-25
+  changes:
+    - Fix node v0.8 compatability issue with gzip.
 v0.4.5:
   date: 2013-03-20
   changes:
