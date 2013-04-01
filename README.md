@@ -94,6 +94,7 @@ compress: {
 
 ## Release History
 
+ * 2013-03-31   v0.4.7   Pipe gzip to fix gzip issues. Add tests that undo compressed files to test.
  * 2013-03-24   v0.4.6   Fix node v0.8 compatability issue with gzip.
  * 2013-03-19   v0.4.5   Update to archiver 0.4.1 Fix issue with gzip failing intermittently.
  * 2013-03-18   v0.4.4   Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
@@ -113,4 +114,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Mar 25 2013 03:42:40.*
+*This file was generated on Mon Apr 01 2013 10:50:39.*

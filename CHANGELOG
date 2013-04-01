@@ -1,3 +1,8 @@
+v0.4.7:
+  date: 2013-04-01
+  changes:
+    - Pipe gzip to fix gzip issues.
+    - Add tests that undo compressed files to test.
 v0.4.6:
   date: 2013-03-25
   changes:
