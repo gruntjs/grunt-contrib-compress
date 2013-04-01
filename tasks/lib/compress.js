@@ -22,40 +22,34 @@ module.exports = function(grunt) {
 
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
-    grunt.util.async.forEachSeries(files, function(file, next) {
-      var src = file.src.filter(function(f) {
-        return grunt.file.isFile(f);
-      }).map(function(f) {
-        return grunt.file.read(f);
-      }).join('');
-      if (src.length < 1) { return next(); }
+    grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
+      grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
+        // Append ext if the specified one isnt there
+        var ext = src.ext || '.gz';
+        if (String(filePair.dest).slice(-ext.length) !== ext) {
+          filePair.dest += ext;
+        }
 
-      // Append ext if the specified one isnt there
-      var ext = file.orig.ext || '.gz';
-      if (String(file.dest).slice(-ext.length) !== ext) {
-        file.dest += ext;
-      }
+        // Ensure the dest folder exists
+        grunt.file.mkdir(path.dirname(filePair.dest));
 
-      // Ensure the dest folder exists
-      grunt.file.mkdir(path.dirname(file.dest));
+        var srcStream = fs.createReadStream(src);
+        var destStream = fs.createWriteStream(filePair.dest);
+        var gzipper = zlib.createGzip(exports.options);
 
-      var destStream = fs.createWriteStream(file.dest);
-      var gzipper = zlib.createGzip(exports.options);
+        gzipper.on('error', function(err) {
+          grunt.log.error(err);
+          grunt.fail.warn('Gzipping failed.');
+          nextFile();
+        });
 
-      gzipper.on('error', function(err) {
-        grunt.log.error(err);
-        grunt.fail.warn('Gziping failed.');
-        next();
-      });
+        destStream.on('close', function() {
+          grunt.log.writeln('Created ' + String(filePair.dest).cyan + ' (' + exports.getSize(filePair.dest) + ')');
+          nextFile();
+        });
 
-      destStream.on('close', function() {
-        grunt.log.writeln('Created ' + String(file.dest).cyan + ' (' + exports.getSize(file.dest) + ')');
-        next();
-      });
-
-      gzipper.pipe(destStream);
-      gzipper.write(src);
-      gzipper.end();
+        srcStream.pipe(gzipper).pipe(destStream);
+      }, nextPair);
     }, done);
   };
 
