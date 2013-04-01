@@ -20,26 +20,6 @@ module.exports = function(grunt) {
     options: {}
   };
 
-  // Helper for gziping more reliably
-  function gzip(engine, buffer, callback) {
-    var buffers = [];
-    var nread = 0;
-    engine.on('error', function(err) {
-      callback(err);
-    });
-    engine.on('data', function(chunk) {
-      buffers.push(chunk);
-      nread += chunk.length;
-    });
-    engine.on('end', function() {
-      var buf = Buffer.concat(buffers, nread);
-      buffers = [];
-      callback(null, buf);
-    });
-    engine.write(buffer);
-    engine.end();
-  }
-
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
     grunt.util.async.forEachSeries(files, function(file, next) {
@@ -59,13 +39,23 @@ module.exports = function(grunt) {
       // Ensure the dest folder exists
       grunt.file.mkdir(path.dirname(file.dest));
 
-      var gz = zlib.createGzip(exports.options);
-      gzip(gz, src, function(err, buf) {
-        if (err) { return grunt.log.error(err); }
-        grunt.file.write(file.dest, buf.toString());
-        grunt.log.writeln('File ' + String(file.dest).cyan + ' created (' + exports.getSize(file.dest) + ').');
+      var destStream = fs.createWriteStream(file.dest);
+      var gzipper = zlib.createGzip(exports.options);
+
+      gzipper.on('error', function(err) {
+        grunt.log.error(err);
+        grunt.fail.warn('Gziping failed.');
         next();
       });
+
+      destStream.on('close', function() {
+        grunt.log.writeln('Created ' + String(file.dest).cyan + ' (' + exports.getSize(file.dest) + ')');
+        next();
+      });
+
+      gzipper.pipe(destStream);
+      gzipper.write(src);
+      gzipper.end();
     }, done);
   };
 
@@ -94,39 +84,45 @@ module.exports = function(grunt) {
     });
 
     // Where to write the file
-    archive.pipe(fs.createWriteStream(dest));
+    var destStream = fs.createWriteStream(dest);
+    if (shouldGzip) {
+      var gzipper = zlib.createGzip(exports.options);
 
-    grunt.util.async.forEachSeries(files, function(file, next) {
+      gzipper.on('error', function(err) {
+        grunt.log.error(err);
+        grunt.fail.warn('Gziping failed.');
+      });
+
+      gzipper.on('end', function() {
+        grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(dest) + ')');
+        done();
+      });
+
+      archive.pipe(gzipper).pipe(destStream);
+    } else {
+      archive.pipe(destStream);
+    }
+
+    files.forEach(function(file) {
       var isExpandedPair = file.orig.expand || false;
       var src = file.src.filter(function(f) {
         return grunt.file.isFile(f);
       });
 
-      grunt.util.async.forEachSeries(src, function(srcFile, nextFile) {
+      src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
 
         archive.append(fs.createReadStream(srcFile), { name: internalFileName }, function(err) {
           grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
-          nextFile(err);
         });
-      }, next);
-    }, function(err) {
-      if (err) { grunt.fail.warn(err); }
-
-      archive.finalize(function(err, written) {
-        if (shouldGzip) {
-          var gz = zlib.createGzip(exports.options);
-          var data = grunt.file.read(dest);
-          gzip(gz, data, function(err, buf) {
-            grunt.file.write(dest, buf.toString());
-            grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(dest) + ')');
-            done();
-          });
-        } else {
-          grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(Number(written)) + ')');
-          done();
-        }
       });
+    });
+
+    archive.finalize(function(err, written) {
+      if (shouldGzip === false) {
+        grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(Number(written)) + ')');
+        done();
+      }
     });
   };
 
