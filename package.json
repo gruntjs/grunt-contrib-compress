@@ -36,7 +36,9 @@
     "grunt-contrib-nodeunit": "~0.1.2",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-internal": "~0.4.2",
-    "grunt": "~0.4.0"
+    "grunt": "~0.4.0",
+    "unzip": "~0.1.5",
+    "tar": "~0.1.17"
   },
   "peerDependencies": {
     "grunt": "~0.4.0"
