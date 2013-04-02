@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders.",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "homepage": "https://github.com/gruntjs/grunt-contrib-compress",
   "author": {
     "name": "Grunt Team",
@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "archiver": "~0.4.1",
+    "lazystream": "~0.1.0",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {

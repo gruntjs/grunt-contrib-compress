@@ -1,3 +1,7 @@
+v0.4.8:
+  date: 2013-04-07
+  changes:
+    - Open streams lazily to avoid too many open files.
 v0.4.7:
   date: 2013-04-01
   changes:
