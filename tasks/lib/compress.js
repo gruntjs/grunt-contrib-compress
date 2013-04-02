@@ -13,6 +13,7 @@ var path = require('path');
 var prettySize = require('prettysize');
 var zlib = require('zlib');
 var archiver = require('archiver');
+var ReadStream = require('./lazystream').ReadStream;
 
 module.exports = function(grunt) {
 
@@ -112,7 +113,7 @@ module.exports = function(grunt) {
       src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
 
-        archive.append(fs.createReadStream(srcFile), { name: internalFileName }, function(err) {
+        archive.append(new ReadStream(srcFile), { name: internalFileName }, function(err) {
           grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
         });
       });
