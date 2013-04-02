@@ -17,15 +17,15 @@ exports.compress = {
       'test.css', 'test.js',
     ];
     var actual = [];
-    fs.createReadStream(path.join('tmp', 'compress_test_files.zip'))
-      .pipe(unzip.Parse())
-      .on('entry', function(entry) {
-        actual.push(entry.path);
-      })
-      .on('close', function() {
-        test.deepEqual(actual, expected, 'zip file should unzip and contain all of the expected files');
-        test.done();
-      });
+    var parse = unzip.Parse();
+    fs.createReadStream(path.join('tmp', 'compress_test_files.zip')).pipe(parse);
+    parse.on('entry', function(entry) {
+      actual.push(entry.path);
+    });
+    parse.on('close', function() {
+      test.deepEqual(actual, expected, 'zip file should unzip and contain all of the expected files');
+      test.done();
+    });
   },
   tar: function(test) {
     test.expect(1);
@@ -35,15 +35,15 @@ exports.compress = {
       'test.css', 'test.js',
     ];
     var actual = [];
-    fs.createReadStream(path.join('tmp', 'compress_test_files.tar'))
-      .pipe(tar.Parse())
-      .on('entry', function(entry) {
-        actual.push(entry.path);
-      })
-      .on('end', function() {
-        test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files');
-        test.done();
-      });
+    var parse = tar.Parse();
+    fs.createReadStream(path.join('tmp', 'compress_test_files.tar')).pipe(parse);
+    parse.on('entry', function(entry) {
+      actual.push(entry.path);
+    });
+    parse.on('end', function() {
+      test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files');
+      test.done();
+    });
   },
   tgz: function(test) {
     test.expect(1);
@@ -53,16 +53,17 @@ exports.compress = {
       'test.css', 'test.js',
     ];
     var actual = [];
+    var parse = tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tgz'))
       .pipe(zlib.createGunzip())
-      .pipe(tar.Parse())
-      .on('entry', function(entry) {
-        actual.push(entry.path);
-      })
-      .on('end', function() {
-        test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files');
-        test.done();
-      });
+      .pipe(parse);
+    parse.on('entry', function(entry) {
+      actual.push(entry.path);
+    });
+    parse.on('end', function() {
+      test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files');
+      test.done();
+    });
   },
   gzip: function(test) {
     test.expect(3);
