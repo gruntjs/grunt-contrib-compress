@@ -66,7 +66,8 @@ module.exports = function(grunt) {
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js']
+      tests: ['test/*_test.js'],
+      zip: ['test/compress_zip_test.js']
     }
   });
 
@@ -86,4 +87,6 @@ module.exports = function(grunt) {
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test', 'build-contrib']);
 
+  // Demonstrating that zip task fails when another compress task isn't run after it
+  grunt.registerTask('test_zip', ['clean', 'compress:zip', 'nodeunit:zip']);
 };
