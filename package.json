@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "archiver": "~0.4.1",
+    "lazystream": "~0.1.0",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {
