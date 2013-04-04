@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "archiver": "~0.4.1",
-    "lazystream": "https://github.com/jpommerening/node-lazystream/archive/master.tar.gz",
+    "lazystream": "~0.1.0",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {
