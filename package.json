@@ -28,7 +28,7 @@
     "test": "grunt test -v"
   },
   "dependencies": {
-    "archiver": "~0.4.1",
+    "archiver": "~0.4.2",
     "lazystream": "~0.1.0",
     "prettysize": "~0.0.2"
   },
