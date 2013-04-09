@@ -1,3 +1,7 @@
+v0.4.9:
+  date: 2013-04-09
+  changes:
+    - Bump Archiver version.
 v0.4.8:
   date: 2013-04-07
   changes:
@@ -10,7 +14,7 @@ v0.4.7:
 v0.4.6:
   date: 2013-03-25
   changes:
-    - Fix node v0.8 compatability issue with gzip.
+    - Fix node v0.8 compatibility issue with gzip.
 v0.4.5:
   date: 2013-03-20
   changes:

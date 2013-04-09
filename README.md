@@ -94,25 +94,26 @@ compress: {
 
 ## Release History
 
- * 2013-04-07   v0.4.8   Open streams lazily to avoid too many open files.
- * 2013-04-01   v0.4.7   Pipe gzip to fix gzip issues. Add tests that undo compressed files to test.
- * 2013-03-25   v0.4.6   Fix node v0.8 compatability issue with gzip.
- * 2013-03-20   v0.4.5   Update to archiver 0.4.1 Fix issue with gzip failing intermittently.
- * 2013-03-19   v0.4.4   Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
- * 2013-03-14   v0.4.3   Fix for gzip; continue iteration on returning early.
- * 2013-03-13   v0.4.2   Refactor task like other contrib tasks. Fix gzip of multiple files. Remove unused dependencies.
- * 2013-02-22   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
- * 2013-02-15   v0.4.0   First official release for Grunt 0.4.0.
- * 2013-01-23   v0.4.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-14   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Conversion to grunt v0.4 conventions. Replace basePath with cwd.
- * 2012-10-12   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
- * 2012-10-09   v0.3.1   Replace zipstream package with archiver.
- * 2012-09-24   v0.3.0   General cleanup. Options no longer accepted from global config key.
- * 2012-09-18   v0.2.2   Test refactoring. No valid source check. Automatic mode detection.
- * 2012-09-10   v0.2.0   Refactored from grunt-contrib into individual repo.
+ * 2013-04-08   v0.4.9   Bump Archiver version.
+ * 2013-04-06   v0.4.8   Open streams lazily to avoid too many open files.
+ * 2013-03-31   v0.4.7   Pipe gzip to fix gzip issues. Add tests that undo compressed files to test.
+ * 2013-03-24   v0.4.6   Fix node v0.8 compatibility issue with gzip.
+ * 2013-03-19   v0.4.5   Update to archiver 0.4.1 Fix issue with gzip failing intermittently.
+ * 2013-03-18   v0.4.4   Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
+ * 2013-03-13   v0.4.3   Fix for gzip; continue iteration on returning early.
+ * 2013-03-12   v0.4.2   Refactor task like other contrib tasks. Fix gzip of multiple files. Remove unused dependencies.
+ * 2013-02-21   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
+ * 2013-02-14   v0.4.0   First official release for Grunt 0.4.0.
+ * 2013-01-22   v0.4.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
+ * 2013-01-13   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Conversion to grunt v0.4 conventions. Replace basePath with cwd.
+ * 2012-10-11   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
+ * 2012-10-08   v0.3.1   Replace zipstream package with archiver.
+ * 2012-09-23   v0.3.0   General cleanup. Options no longer accepted from global config key.
+ * 2012-09-17   v0.2.2   Test refactoring. No valid source check. Automatic mode detection.
+ * 2012-09-09   v0.2.0   Refactored from grunt-contrib into individual repo.
 
 ---
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Sun Apr 07 2013 18:51:30.*
+*This file was generated on Tue Apr 09 2013 15:57:15.*
