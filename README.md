@@ -94,6 +94,7 @@ compress: {
 
 ## Release History
 
+ * 2013-04-14   v0.4.10   Fix issue where task finished before all data was compressed.
  * 2013-04-08   v0.4.9   Bump Archiver version.
  * 2013-04-06   v0.4.8   Open streams lazily to avoid too many open files.
  * 2013-03-31   v0.4.7   Pipe gzip to fix gzip issues. Add tests that undo compressed files to test.
@@ -116,4 +117,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Apr 09 2013 15:57:15.*
+*This file was generated on Mon Apr 15 2013 10:12:39.*

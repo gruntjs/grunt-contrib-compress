@@ -1,3 +1,7 @@
+v0.4.10:
+  date: 2013-04-15
+  changes:
+    - Fix issue where task finished before all data was compressed.
 v0.4.9:
   date: 2013-04-09
   changes:
