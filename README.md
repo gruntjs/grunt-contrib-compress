@@ -94,6 +94,7 @@ compress: {
 
 ## Release History
 
+ * 2013-04-23   v0.5.0   Add support for deflate and deflateRaw.
  * 2013-04-15   v0.4.10   Fix issue where task finished before all data was compressed.
  * 2013-04-09   v0.4.9   Bump Archiver version.
  * 2013-04-07   v0.4.8   Open streams lazily to avoid too many open files.
@@ -117,4 +118,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Apr 23 2013 09:05:39.*
+*This file was generated on Tue Apr 23 2013 09:18:31.*
