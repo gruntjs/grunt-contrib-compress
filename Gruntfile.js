@@ -61,6 +61,15 @@ module.exports = function(grunt) {
         options: {
           mode: 'gzip'
         }
+      },
+      deflate: {
+        expand: true,
+        cwd: 'test/fixtures/',
+        src: ['**/*.{css,html,js}'],
+        dest: 'tmp/deflate/',
+        options: {
+          mode: 'deflate'
+        }
       }
     },
 

@@ -85,4 +85,24 @@ exports.compress = {
         });
     }, test.done);
   },
+  deflate: function(test) {
+    test.expect(3);
+    grunt.util.async.forEachSeries([
+      'test.js',
+      path.join('folder_one', 'one.css'),
+      path.join('folder_two', 'two.js'),
+    ], function(file, next) {
+      var expected = grunt.file.read(path.join('test', 'fixtures', file));
+      var actual = '';
+      fs.createReadStream(path.join('tmp', 'deflate', file + '.deflate'))
+        .pipe(zlib.createInflate())
+        .on('data', function(buf) {
+          actual += buf.toString();
+        })
+        .on('end', function() {
+          test.equal(actual, expected, 'should be equal to fixture after inflating');
+          next();
+        });
+    }, test.done);
+  },
 };

@@ -54,6 +54,39 @@ module.exports = function(grunt) {
     }, done);
   };
 
+  // 1 to 1 deflate of files
+  exports.deflate = function(files, done) {
+    grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
+      grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
+        // Append ext if the specified one isnt there
+        var ext = src.ext || '.deflate';
+        if (String(filePair.dest).slice(-ext.length) !== ext) {
+          filePair.dest += ext;
+        }
+
+        // Ensure the dest folder exists
+        grunt.file.mkdir(path.dirname(filePair.dest));
+
+        var srcStream = fs.createReadStream(src);
+        var destStream = fs.createWriteStream(filePair.dest);
+        var deflater = zlib.createDeflate(exports.options);
+
+        deflater.on('error', function(err) {
+          grunt.log.error(err);
+          grunt.fail.warn('Deflate failed.');
+          nextFile();
+        });
+
+        destStream.on('close', function() {
+          grunt.log.writeln('Created ' + String(filePair.dest).cyan + ' (' + exports.getSize(filePair.dest) + ')');
+          nextFile();
+        });
+
+        srcStream.pipe(deflater).pipe(destStream);
+      }, nextPair);
+    }, done);
+  };
+
   // Compress with tar, tgz and zip
   exports.tar = function(files, done) {
     if (typeof exports.options.archive !== 'string' || exports.options.archive.length === 0) {
