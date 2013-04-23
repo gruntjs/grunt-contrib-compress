@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
     grunt.verbose.writeflags(compress.options, 'Options');
 
-    if (grunt.util._.include(['zip', 'tar', 'tgz', 'gzip', 'deflate'], compress.options.mode) === false) {
+    if (grunt.util._.include(['zip', 'tar', 'tgz', 'gzip', 'deflate', 'deflateRaw'], compress.options.mode) === false) {
       grunt.fail.warn('Mode ' + String(compress.options.mode).cyan + ' not supported.');
     }
 
@@ -29,6 +29,8 @@ module.exports = function(grunt) {
       compress.gzip(this.files, this.async());
     } else if (compress.options.mode === 'deflate') {
       compress.deflate(this.files, this.async());
+    } else if (compress.options.mode === 'deflateRaw') {
+      compress.deflateRaw(this.files, this.async());
     } else {
       compress.tar(this.files, this.async());
     }

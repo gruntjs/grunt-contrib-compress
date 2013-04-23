@@ -70,6 +70,15 @@ module.exports = function(grunt) {
         options: {
           mode: 'deflate'
         }
+      },
+      deflateRaw: {
+        expand: true,
+        cwd: 'test/fixtures/',
+        src: ['**/*.{css,html,js}'],
+        dest: 'tmp/deflateRaw/',
+        options: {
+          mode: 'deflateRaw'
+        }
       }
     },
 
