@@ -23,10 +23,25 @@ module.exports = function(grunt) {
 
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
+    exports.singleFile( files, zlib.createGzip, 'gz', done );
+  };
+  
+  // 1 to 1 deflate of files
+  exports.deflate = function(files, done) {
+    exports.singleFile( files, zlib.createDeflate, 'deflate', done );
+  };
+  
+  // 1 to 1 deflateRaw of files
+  exports.deflateRaw = function(files, done) {
+    exports.singleFile( files, zlib.createDeflateRaw, 'deflate', done );
+  };
+  
+  // 1 to 1 compression of files, expects a compatible zlib method to be passed in, see above
+  exports.singleFile = function( files, algorithm, extension, done ) {
     grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
       grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
         // Append ext if the specified one isnt there
-        var ext = src.ext || '.gz';
+        var ext = src.ext || '.'+extension;
         if (String(filePair.dest).slice(-ext.length) !== ext) {
           filePair.dest += ext;
         }
@@ -36,11 +51,11 @@ module.exports = function(grunt) {
 
         var srcStream = fs.createReadStream(src);
         var destStream = fs.createWriteStream(filePair.dest);
-        var gzipper = zlib.createGzip(exports.options);
+        var compressor = algorithm.call( zlib, exports.options );
 
-        gzipper.on('error', function(err) {
+        compressor.on('error', function(err) {
           grunt.log.error(err);
-          grunt.fail.warn('Gzipping failed.');
+          grunt.fail.warn(algorithm+' failed.');
           nextFile();
         });
 
@@ -49,7 +64,7 @@ module.exports = function(grunt) {
           nextFile();
         });
 
-        srcStream.pipe(gzipper).pipe(destStream);
+        srcStream.pipe(compressor).pipe(destStream);
       }, nextPair);
     }, done);
   };
