@@ -24,6 +24,7 @@ compress: {
     options: {
       mode: 'gzip'
     },
+    filter: 'isFile',
     expand: true,
     cwd: 'assets/',
     src: ['**/*'],
