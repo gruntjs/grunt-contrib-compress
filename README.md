@@ -94,6 +94,7 @@ compress: {
 
 ## Release History
 
+ * 2013-05-28   v0.5.1   Avoid gzip on folders.
  * 2013-04-23   v0.5.0   Add support for deflate and deflateRaw.
  * 2013-04-15   v0.4.10   Fix issue where task finished before all data was compressed.
  * 2013-04-09   v0.4.9   Bump Archiver version.
@@ -118,4 +119,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Apr 23 2013 09:18:31.*
+*This file was generated on Tue May 28 2013 12:30:58.*

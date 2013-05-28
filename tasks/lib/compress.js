@@ -40,8 +40,13 @@ module.exports = function(grunt) {
   exports.singleFile = function(files, algorithm, extension, done) {
     grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
       grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
+        // Must be a file
+        if (grunt.file.isDir(src)) {
+          return nextFile();
+        }
+
         // Append ext if the specified one isnt there
-        var ext = src.ext || '.' + extension;
+        var ext = '.' + extension;
         if (String(filePair.dest).slice(-ext.length) !== ext) {
           filePair.dest += ext;
         }
