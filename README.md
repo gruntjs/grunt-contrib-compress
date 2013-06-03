@@ -100,7 +100,9 @@ compress: {
       mode: 'gzip'
     },
     files: [
-      {src: ['path/file.js'], dest: 'path/file', ext: '.gz.js'}, // use a custom extension, the output file will be path/file.gz.js
+      // Each of the files in the src/ folder will be output to
+      // the dist/ folder each with the extension .gz.js
+      {expand: true, src: ['src/*.js'], dest: 'dist/', ext: '.gz.js'}
     ]
   }
 }
@@ -108,7 +110,7 @@ compress: {
 
 ## Release History
 
- * 2013-06-03   v0.5.2   Custom extension for output file.
+ * 2013-06-03   v0.5.2   Allow custom extensions using the ext property.
  * 2013-05-28   v0.5.1   Avoid gzip on folders.
  * 2013-04-23   v0.5.0   Add support for deflate and deflateRaw.
  * 2013-04-15   v0.4.10   Fix issue where task finished before all data was compressed.
@@ -134,4 +136,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue May 28 2013 12:30:58.*
+*This file was generated on Mon Jun 03 2013 12:11:25.*

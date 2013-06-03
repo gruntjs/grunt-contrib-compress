@@ -1,3 +1,7 @@
+v0.5.2:
+  date: 2013-06-03
+  changes:
+    - Allow custom extensions using the ext property.
 v0.5.1:
   date: 2013-05-28
   changes:

@@ -40,7 +40,9 @@ compress: {
       mode: 'gzip'
     },
     files: [
-      {src: ['path/file.js'], dest: 'path/file', ext: '.gz.js'}, // use a custom extension, the output file will be path/file.gz.js
+      // Each of the files in the src/ folder will be output to
+      // the dist/ folder each with the extension .gz.js
+      {expand: true, src: ['src/*.js'], dest: 'dist/', ext: '.gz.js'}
     ]
   }
 }

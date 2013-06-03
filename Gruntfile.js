@@ -53,6 +53,14 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'test/fixtures', src: ['**/*']}
         ]
       },
+      gzipCustomExt: {
+        options: {
+          mode: 'gzip'
+        },
+        files: [
+          {expand: true, cwd: 'test/fixtures', src: ['**/*.js'], dest: 'tmp/gzipCustomExt/', ext: '.gz.js'}
+        ]
+      },
       gzip: {
         expand: true,
         cwd: 'test/fixtures/',
