@@ -33,7 +33,7 @@ compress: {
 ```
 
 ```js
-// make a zipfile
+// use custom extension for the output file
 compress: {
   main: {
     options: {
