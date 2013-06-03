@@ -47,6 +47,11 @@ module.exports = function(grunt) {
 
         // Append ext if the specified one isnt there
         var ext = '.' + extension;
+        // in case user choose custom extension we will use it, otherwise we'll use the default .gz / .deflate
+        if (typeof filePair.ext !== "undefined"){
+          ext = filePair.ext;
+        }
+        // if the chosen ext is different then the dest ext lets use it
         if (String(filePair.dest).slice(-ext.length) !== ext) {
           filePair.dest += ext;
         }
