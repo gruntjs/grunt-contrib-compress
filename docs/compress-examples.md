@@ -31,3 +31,17 @@ compress: {
   }
 }
 ```
+
+```js
+// use custom extension for the output file
+compress: {
+  main: {
+    options: {
+      mode: 'gzip'
+    },
+    files: [
+      {src: ['path/file.js'], dest: 'path/file', ext: '.gz.js'}, // use a custom extension, the output file will be path/file.gz.js
+    ]
+  }
+}
+```
