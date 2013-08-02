@@ -136,11 +136,12 @@ module.exports = function(grunt) {
 
       src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+        var internalFileMode = fs.statSync(srcFile).mode;
         var srcStream = new Readable(function() {
           return fs.createReadStream(srcFile);
         });
 
-        archive.append(srcStream, { name: internalFileName }, function(err) {
+        archive.append(srcStream, { name: internalFileName, mode: internalFileMode }, function(err) {
           grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
         });
       });

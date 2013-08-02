@@ -29,39 +29,39 @@ exports.compress = {
   },
   tar: function(test) {
     test.expect(1);
-    var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
-    ];
-    var actual = [];
+    var expected = {
+      'folder_one/one.css': '664', 'folder_one/one.js': '664',
+      'folder_two/two.css': '764', 'folder_two/two.js': '764',
+      'test.css': '664', 'test.js': '664',
+    };
+    var actual = {};
     var parse = tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tar')).pipe(parse);
     parse.on('entry', function(entry) {
-      actual.push(entry.path);
+      actual[entry.path] = entry.props.mode.toString(8);
     });
     parse.on('end', function() {
-      test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files');
+      test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files with correct modes');
       test.done();
     });
   },
   tgz: function(test) {
     test.expect(1);
-    var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
-    ];
-    var actual = [];
+    var expected = {
+      'folder_one/one.css': '664', 'folder_one/one.js': '664',
+      'folder_two/two.css': '764', 'folder_two/two.js': '764',
+      'test.css': '664', 'test.js': '664',
+    };
+    var actual = {};
     var parse = tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tgz'))
       .pipe(zlib.createGunzip())
       .pipe(parse);
     parse.on('entry', function(entry) {
-      actual.push(entry.path);
+      actual[entry.path] = entry.props.mode.toString(8);
     });
     parse.on('end', function() {
-      test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files');
+      test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files with correct modes');
       test.done();
     });
   },
