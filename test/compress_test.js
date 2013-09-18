@@ -8,6 +8,28 @@ var unzip = require('unzip');
 var tar = require('tar');
 var compress = require('../tasks/lib/compress')(grunt);
 
+// Construct an map of test fixture filenames to filemodes, e.g.:
+//
+//     {
+//       'folder_one/one.css': '664', 'folder_one/one.js': '664',
+//       'folder_two/two.css': '764', 'folder_two/two.js': '764',
+//       'test.css': '664', 'test.js': '664',
+//     }
+//
+// It is necessary to generate this rather than hard-code it because file modes
+// may differ from one OS to another or one git configuration to another.
+var statFixtures = function() {
+  var stats = {};
+  grunt.file.recurse('test/fixtures', function(abspath, rootdir, subdir, filename) {
+    var relativeFilename = path.relative(rootdir, abspath);
+    // statSync gives us the full mode, while tar will only give us the
+    // permissions portion, so we only need the last three characters.
+    var mode = fs.statSync(abspath).mode.toString(8).substring(3);
+    stats[relativeFilename] = mode;
+  });
+  return stats;
+};
+
 exports.compress = {
   zip: function(test) {
     test.expect(1);
@@ -29,39 +51,31 @@ exports.compress = {
   },
   tar: function(test) {
     test.expect(1);
-    var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
-    ];
-    var actual = [];
+    var expected = statFixtures();
+    var actual = {};
     var parse = tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tar')).pipe(parse);
     parse.on('entry', function(entry) {
-      actual.push(entry.path);
+      actual[entry.path] = entry.props.mode.toString(8);
     });
     parse.on('end', function() {
-      test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files');
+      test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files with correct modes');
       test.done();
     });
   },
   tgz: function(test) {
     test.expect(1);
-    var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
-    ];
-    var actual = [];
+    var expected = statFixtures();
+    var actual = {};
     var parse = tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tgz'))
       .pipe(zlib.createGunzip())
       .pipe(parse);
     parse.on('entry', function(entry) {
-      actual.push(entry.path);
+      actual[entry.path] = entry.props.mode.toString(8);
     });
     parse.on('end', function() {
-      test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files');
+      test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files with correct modes');
       test.done();
     });
   },

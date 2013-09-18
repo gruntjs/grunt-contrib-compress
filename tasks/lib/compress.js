@@ -90,6 +90,8 @@ module.exports = function(grunt) {
       mode = 'tar';
     }
 
+    var preserveFilemode = exports.options.filemode;
+
     var archive = archiver.create(mode, exports.options);
     var dest = exports.options.archive;
 
@@ -136,11 +138,17 @@ module.exports = function(grunt) {
 
       src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+
+        var data = { name: internalFileName };
+        if (preserveFilemode) {
+          data.mode = fs.statSync(srcFile).mode;
+        }
+
         var srcStream = new Readable(function() {
           return fs.createReadStream(srcFile);
         });
 
-        archive.append(srcStream, { name: internalFileName }, function(err) {
+        archive.append(srcStream, data, function(err) {
           grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
         });
       });

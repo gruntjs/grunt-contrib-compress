@@ -25,3 +25,9 @@ Type: `Boolean`
 Default: `false`
 
 Pretty print file sizes when logging.
+
+## filemode (tar/tgz only)
+Type: `Boolean`
+Default: `false`
+
+Preserve file modes when adding them to the archive.

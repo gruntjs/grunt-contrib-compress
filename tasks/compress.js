@@ -16,6 +16,7 @@ module.exports = function(grunt) {
       archive: null,
       mode: null,
       level: 1,
+      filemode: false,
     });
 
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
