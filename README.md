@@ -1,4 +1,4 @@
-# grunt-contrib-compress [![Build Status](https://secure.travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](http://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -57,6 +57,12 @@ Type: `Boolean`
 Default: `false`
 
 Pretty print file sizes when logging.
+
+#### filemode (tar/tgz only)
+Type: `Boolean`
+Default: `false`
+
+Preserve file modes when adding them to the archive.
 
 ### Usage Examples
 
@@ -136,4 +142,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Jun 03 2013 12:11:25.*
+*This file was generated on Wed Sep 18 2013 13:30:03.*
