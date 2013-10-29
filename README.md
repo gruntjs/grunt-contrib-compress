@@ -33,9 +33,10 @@ Node Libraries Used:
 ### Options
 
 #### archive
-Type: `String`
+Type: `String` or `Function`
 
 This is used to define where to output the archive. Each target can only have one output file.
+If the type is a Function it must return a String.
 
 #### mode
 Type: `String`
@@ -106,7 +107,27 @@ compress: {
     ]
   }
 }
+
 ```
+```js
+// use a function to return the output file
+compress: {
+  main: {
+    options: {
+      archive: function () {
+        // The global value git.tag is set by another task
+        return git.tag + '.zip'
+      }
+    },
+    files: [
+      {expand: true, src: ['src/*.js'], dest: 'dist/'}
+    ]
+  }
+}
+```
+
+
+
 
 ## Release History
 
@@ -136,4 +157,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Oct 29 2013 12:50:28.*
+*This file was generated on Tue Oct 29 2013 13:00:35.*
