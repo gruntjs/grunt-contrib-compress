@@ -31,7 +31,9 @@ module.exports = function(grunt) {
     compress: {
       zip: {
         options: {
-          archive: 'tmp/compress_test_files.zip'
+          archive: function () {
+            return 'tmp/compress_test_files.zip'
+          }
         },
         files: [
           {expand: true, cwd: 'test/fixtures/', src: ['**/*']}
