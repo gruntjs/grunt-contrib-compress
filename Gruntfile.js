@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       zip: {
         options: {
           archive: function () {
-            return 'tmp/compress_test_files.zip'
+            return 'tmp/compress_test_files.zip';
           }
         },
         files: [

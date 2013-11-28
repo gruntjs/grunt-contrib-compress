@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.5.2 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.5.3 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -131,6 +131,7 @@ compress: {
 
 ## Release History
 
+ * 2013-11-27   v0.5.3   Allow archive option to be a function.
  * 2013-06-03   v0.5.2   Allow custom extensions using the ext property.
  * 2013-05-28   v0.5.1   Avoid gzip on folders.
  * 2013-04-23   v0.5.0   Add support for deflate and deflateRaw.
@@ -157,4 +158,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Oct 29 2013 13:00:35.*
+*This file was generated on Wed Nov 27 2013 20:19:22.*
