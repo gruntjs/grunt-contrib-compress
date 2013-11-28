@@ -46,4 +46,23 @@ compress: {
     ]
   }
 }
+
 ```
+```js
+// use a function to return the output file
+compress: {
+  main: {
+    options: {
+      archive: function () {
+        // The global value git.tag is set by another task
+        return git.tag + '.zip'
+      }
+    },
+    files: [
+      {expand: true, src: ['src/*.js'], dest: 'dist/'}
+    ]
+  }
+}
+```
+
+
