@@ -23,7 +23,6 @@ module.exports = function(grunt) {
     }
 
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
-    grunt.verbose.writeflags(compress.options, 'Options');
 
     if (grunt.util._.include(['zip', 'tar', 'tgz', 'gzip', 'deflate', 'deflateRaw'], compress.options.mode) === false) {
       grunt.fail.warn('Mode ' + String(compress.options.mode).cyan + ' not supported.');
