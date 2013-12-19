@@ -45,6 +45,22 @@ exports.compress = {
       test.done();
     });
   },
+  tarWithExcludes: function(test) {
+    test.expect(1);
+    var expected = [
+      'folder_one/one.js', 'folder_two/two.css', 'folder_two/two.js'
+    ];
+    var actual = [];
+    var parse = tar.Parse();
+    fs.createReadStream(path.join('tmp', 'compress_test_exclude.tar')).pipe(parse);
+    parse.on('entry', function(entry) {
+      actual.push(entry.path);
+    });
+    parse.on('end', function() {
+      test.deepEqual(actual, expected, 'tar file should untar and not contain the excluded files');
+      test.done();
+    });
+  },
   tgz: function(test) {
     test.expect(1);
     var expected = [

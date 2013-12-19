@@ -78,7 +78,7 @@ module.exports = function(grunt) {
   };
 
   // Compress with tar, tgz and zip
-  exports.tar = function(files, done) {
+  exports.tar = function(excludes, files, done) {
     if (typeof exports.options.archive !== 'string' || exports.options.archive.length === 0) {
       grunt.fail.warn('Unable to compress; no valid archive file was specified.');
     }
@@ -92,6 +92,7 @@ module.exports = function(grunt) {
 
     var archive = archiver.create(mode, exports.options);
     var dest = exports.options.archive;
+    var exclude = grunt.file.expand(excludes);
 
     // Ensure dest folder exists
     grunt.file.mkdir(path.dirname(dest));
@@ -135,14 +136,16 @@ module.exports = function(grunt) {
       });
 
       src.forEach(function(srcFile) {
-        var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
-        var srcStream = new Readable(function() {
-          return fs.createReadStream(srcFile);
-        });
+        if (exclude.indexOf(srcFile) === -1) {
+          var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+          var srcStream = new Readable(function() {
+            return fs.createReadStream(srcFile);
+          });
 
-        archive.append(srcStream, { name: internalFileName }, function(err) {
-          grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
-        });
+          archive.append(srcStream, { name: internalFileName }, function(err) {
+            grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
+          });
+        }
       });
     });
 
