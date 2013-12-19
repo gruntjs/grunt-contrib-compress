@@ -47,6 +47,18 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'test/fixtures', src: ['**/*']}
         ]
       },
+      tarWithExcludes: {
+        options: {
+          archive: 'tmp/compress_test_exclude.tar',
+          excludes: [
+            'test/fixtures/test.*',
+            'test/fixtures/folder_one/one.css'
+          ]
+        },
+        files: [
+          {expand: true, cwd: 'test/fixtures', src: ['**/*']}
+        ]
+      },
       tgz: {
         options: {
           archive: 'tmp/compress_test_files.tgz'

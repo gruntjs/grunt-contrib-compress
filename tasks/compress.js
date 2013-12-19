@@ -14,6 +14,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('compress', 'Compress files.', function() {
     compress.options = this.options({
       archive: null,
+      excludes: [],
       mode: null,
       level: 1,
     });
@@ -31,7 +32,7 @@ module.exports = function(grunt) {
     if (compress.options.mode === 'gzip' || compress.options.mode.slice(0, 7) === 'deflate') {
       compress[compress.options.mode](this.files, this.async());
     } else {
-      compress.tar(this.files, this.async());
+      compress.tar(compress.options.excludes, this.files, this.async());
     }
   });
 };
