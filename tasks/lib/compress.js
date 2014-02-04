@@ -137,6 +137,11 @@ module.exports = function(grunt) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
 
         archive.file(srcFile, { name: internalFileName }, function(err) {
+          if (err) {
+            archive.emit('error', err);
+            return;
+          }
+
           grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
         });
       });
