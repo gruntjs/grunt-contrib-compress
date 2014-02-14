@@ -30,3 +30,24 @@ Type: `Boolean`
 Default: `false`
 
 Pretty print file sizes when logging.
+
+## fileSettings
+Type: `Function`
+
+Allows customizing file properties used by the archiver. The function is called with two arguments - source file name and an object with initial properties.
+
+For example to preserve last modified date use this function:
+
+```js
+fileSettings: function(srcFile, properties) {
+    properties.date = require('fs').statSync(srcFile).mtime;
+}
+```
+
+To put all files inside the archive in a subdirectory:
+
+```js
+fileSettings: function(srcFile, properties) {
+    properties.name = 'subdirectory/' + properties.name;
+}
+```
