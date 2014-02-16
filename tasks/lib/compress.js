@@ -104,6 +104,10 @@ module.exports = function(grunt) {
       grunt.fail.warn('Archiving failed.');
     });
 
+    archive.on('entry', function(file) {
+      grunt.verbose.writeln('Archived ' + file._srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
+    });
+
     destStream.on('error', function(err) {
       grunt.log.error(err);
       grunt.fail.warn('WriteStream failed.');
@@ -135,15 +139,12 @@ module.exports = function(grunt) {
 
       src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+        var fileData = {
+          name: internalFileName,
+          _srcFile: srcFile
+        };
 
-        archive.file(srcFile, { name: internalFileName }, function(err) {
-          if (err) {
-            archive.emit('error', err);
-            return;
-          }
-
-          grunt.verbose.writeln('Archiving ' + srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + internalFileName.cyan);
-        });
+        archive.file(srcFile, fileData);
       });
     });
 
