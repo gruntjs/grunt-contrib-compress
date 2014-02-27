@@ -134,17 +134,20 @@ module.exports = function(grunt) {
     files.forEach(function(file) {
       var isExpandedPair = file.orig.expand || false;
       var src = file.src.filter(function(f) {
-        return grunt.file.isFile(f);
+        var cwdFile = path.join(file.cwd || '', f);
+        return grunt.file.isFile(cwdFile);
       });
 
       src.forEach(function(srcFile) {
+        var cwdFile = path.join(file.cwd || '', srcFile);
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+		  
         var fileData = {
           name: internalFileName,
-          _srcFile: srcFile
+          _srcFile: cwdFile
         };
 
-        archive.file(srcFile, fileData);
+        archive.file(cwdFile, fileData);
       });
     });
 
