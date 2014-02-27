@@ -27,6 +27,22 @@ exports.compress = {
       test.done();
     });
   },
+  zipCwd: function(test) {
+    test.expect(1);
+    var expected = [
+      'one.css', 'one.js',
+    ];
+    var actual = [];
+    var parse = unzip.Parse();
+    fs.createReadStream(path.join('tmp', 'compress_test_files_cwd.zip')).pipe(parse);
+    parse.on('entry', function(entry) {
+      actual.push(entry.path);
+    });
+    parse.on('close', function() {
+      test.deepEqual(actual, expected, 'zip file should unzip and contain all of the expected files');
+      test.done();
+    });
+  },
   tar: function(test) {
     test.expect(1);
     var expected = [
