@@ -74,7 +74,7 @@ exports.compress = {
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
-      fs.createReadStream(path.join('tmp', 'gzip', file + '.gz'))
+      fs.createReadStream(path.join('tmp', 'gzip', file))
         .pipe(zlib.createGunzip())
         .on('data', function(buf) {
           actual += buf.toString();
@@ -106,7 +106,7 @@ exports.compress = {
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
-      fs.createReadStream(path.join('tmp', 'deflate', file + '.deflate'))
+      fs.createReadStream(path.join('tmp', 'deflate', file))
         .pipe(zlib.createInflate())
         .on('data', function(buf) {
           actual += buf.toString();
@@ -126,7 +126,7 @@ exports.compress = {
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
-      fs.createReadStream(path.join('tmp', 'deflateRaw', file + '.deflate'))
+      fs.createReadStream(path.join('tmp', 'deflateRaw', file))
         .pipe(zlib.createInflateRaw())
         .on('data', function(buf) {
           actual += buf.toString();
