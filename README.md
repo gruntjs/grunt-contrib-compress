@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.7.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.7.1 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -164,4 +164,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Feb 17 2014 14:40:18.*
+*This file was generated on Sat Mar 15 2014 13:33:33.*
