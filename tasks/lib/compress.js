@@ -143,6 +143,9 @@ module.exports = function(grunt) {
           name: internalFileName,
           _srcFile: srcFile
         };
+        if ('mode' in file) {
+            fileData.mode = file.mode;
+        }
 
         archive.file(srcFile, fileData);
       });
