@@ -16,14 +16,12 @@ This is used to define which mode to use, currently supports `gzip`, `deflate`, 
 
 Automatically detected per dest:src pair, but can be overridden per target if desired.
 
-## level
+#### level
 Type: `Integer`
-Modes: `zip`
+Modes: `zip` `gzip`
 Default: 1
 
 Sets the level of archive compression.
-
-*Currently, gzip compression related options are not supported due to deficiencies in node's zlib library.*
 
 ## pretty
 Type: `Boolean`
