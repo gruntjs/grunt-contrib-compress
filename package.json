@@ -27,7 +27,7 @@
     "test": "grunt test -v"
   },
   "dependencies": {
-    "archiver": "~0.6.1",
+    "archiver": "~0.7.0",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {
