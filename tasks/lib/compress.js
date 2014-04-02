@@ -83,10 +83,9 @@ module.exports = function(grunt) {
     }
 
     var mode = exports.options.mode;
-    var shouldGzip = false;
     if (mode === 'tgz') {
-      shouldGzip = true;
       mode = 'tar';
+      exports.options.gzip = true;
     }
 
     var archive = archiver.create(mode, exports.options);
@@ -97,7 +96,6 @@ module.exports = function(grunt) {
 
     // Where to write the file
     var destStream = fs.createWriteStream(dest);
-    var gzipStream;
 
     archive.on('error', function(err) {
       grunt.log.error(err);
@@ -105,7 +103,7 @@ module.exports = function(grunt) {
     });
 
     archive.on('entry', function(file) {
-      grunt.verbose.writeln('Archived ' + file._srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
+      grunt.verbose.writeln('Archived ' + file.sourcePath.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
     });
 
     destStream.on('error', function(err) {
@@ -114,22 +112,12 @@ module.exports = function(grunt) {
     });
 
     destStream.on('close', function() {
-      grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(dest) + ')');
+      var size = archive.pointer();
+      grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(size) + ')');
       done();
     });
 
-    if (shouldGzip) {
-      gzipStream = zlib.createGzip(exports.options);
-
-      gzipStream.on('error', function(err) {
-        grunt.log.error(err);
-        grunt.fail.warn('Gziping failed.');
-      });
-
-      archive.pipe(gzipStream).pipe(destStream);
-    } else {
-      archive.pipe(destStream);
-    }
+    archive.pipe(destStream);
 
     files.forEach(function(file) {
       var isExpandedPair = file.orig.expand || false;
@@ -140,8 +128,7 @@ module.exports = function(grunt) {
       src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
         var fileData = {
-          name: internalFileName,
-          _srcFile: srcFile
+          name: internalFileName
         };
 
         archive.file(srcFile, fileData);
