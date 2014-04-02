@@ -103,7 +103,7 @@ module.exports = function(grunt) {
     });
 
     archive.on('entry', function(file) {
-      grunt.verbose.writeln('Archived ' + file._srcFile.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
+      grunt.verbose.writeln('Archived ' + file.sourcePath.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
     });
 
     destStream.on('error', function(err) {
@@ -128,8 +128,7 @@ module.exports = function(grunt) {
       src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
         var fileData = {
-          name: internalFileName,
-          _srcFile: srcFile
+          name: internalFileName
         };
 
         archive.file(srcFile, fileData);

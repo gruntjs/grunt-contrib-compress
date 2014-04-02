@@ -30,7 +30,10 @@ Task targets, files and options may be specified according to the grunt [Configu
 Node Libraries Used:
 [archiver](https://github.com/ctalkington/node-archiver) (for zip/tar)
 [zlib](http://nodejs.org/api/zlib.html#zlib_options) (for gzip).
+
 ### Options
+
+Depending on the mode, additional options are available via passthrough to the underlying library (see above).
 
 #### archive
 Type: `String` or `Function`
