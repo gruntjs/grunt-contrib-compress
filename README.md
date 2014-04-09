@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.7.0 [![Build Status](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.8.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -30,10 +30,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 Node Libraries Used:
 [archiver](https://github.com/ctalkington/node-archiver) (for zip/tar)
 [zlib](http://nodejs.org/api/zlib.html#zlib_options) (for gzip).
-
 ### Options
-
-Depending on the mode, additional options are available via passthrough to the underlying library (see above).
 
 #### archive
 Type: `String` or `Function`
@@ -136,6 +133,7 @@ compress: {
 
 ## Release History
 
+ * 2014-04-09   v0.8.0   Update archiver to v0.8.0
  * 2014-02-17   v0.7.0   Update archiver to v0.6.0
  * 2014-01-12   v0.6.0   Update archiver to v0.5.0
  * 2013-11-27   v0.5.3   Allow archive option to be a function.
@@ -165,4 +163,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Feb 17 2014 14:40:18.*
+*This file was generated on Wed Apr 09 2014 00:53:49.*

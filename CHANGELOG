@@ -1,3 +1,7 @@
+v0.8.0:
+  date: 2014-04-09
+  changes:
+    - Update archiver to v0.8.0
 v0.7.0:
   date: 2014-02-17
   changes:
