@@ -57,7 +57,8 @@ module.exports = function(grunt) {
       },
       gzipCustomExt: {
         options: {
-          mode: 'gzip'
+          mode: 'gzip',
+          gzipMinLength: 10
         },
         files: [
           {expand: true, cwd: 'test/fixtures', src: ['**/*.js'], dest: 'tmp/gzipCustomExt/', ext: '.gz.js'}
@@ -69,7 +70,8 @@ module.exports = function(grunt) {
         src: ['**/*.{css,html,js}'],
         dest: 'tmp/gzip/',
         options: {
-          mode: 'gzip'
+          mode: 'gzip',
+          gzipMinLength: 10
         }
       },
       deflate: {
@@ -96,7 +98,8 @@ module.exports = function(grunt) {
         src: ['**/*'],
         dest: 'tmp/gzip/',
         options: {
-          mode: 'gzip'
+          mode: 'gzip',
+          gzipMinLength: 10
         }
       }
     },

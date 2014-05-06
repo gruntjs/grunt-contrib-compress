@@ -22,7 +22,13 @@ module.exports = function(grunt) {
 
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
-    exports.singleFile(files, zlib.createGzip, 'gz', done);
+    var filter;
+    if(exports.options.gzipMinLength && typeof exports.options.gzipMinLength === 'number'){
+      filter = function(src){
+        return exports.getSize(src, false) >= exports.options.gzipMinLength;
+      };
+    }
+    exports.singleFile(files, zlib.createGzip, 'gz', done, filter);
   };
 
   // 1 to 1 deflate of files
@@ -36,11 +42,16 @@ module.exports = function(grunt) {
   };
 
   // 1 to 1 compression of files, expects a compatible zlib method to be passed in, see above
-  exports.singleFile = function(files, algorithm, extension, done) {
+  exports.singleFile = function(files, algorithm, extension, done, filter) {
     grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
       grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
         // Must be a file
         if (grunt.file.isDir(src)) {
+          return nextFile();
+        }
+
+        // Should satisfy a filter function
+        if(filter && !filter(src)){
           return nextFile();
         }
 

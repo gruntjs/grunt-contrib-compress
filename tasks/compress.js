@@ -16,6 +16,7 @@ module.exports = function(grunt) {
       archive: null,
       mode: null,
       level: 1,
+      gzipMinLength: 0,
     });
 
     if (typeof compress.options.archive === 'function') {
