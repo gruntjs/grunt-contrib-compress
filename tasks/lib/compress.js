@@ -121,17 +121,22 @@ module.exports = function(grunt) {
 
     files.forEach(function(file) {
       var isExpandedPair = file.orig.expand || false;
-      var src = file.src.filter(function(f) {
-        return grunt.file.isFile(f);
-      });
 
-      src.forEach(function(srcFile) {
+      file.src.forEach(function(srcFile) {
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
         var fileData = {
           name: internalFileName
         };
 
-        archive.file(srcFile, fileData);
+        if (grunt.file.isFile(srcFile)) {
+          archive.file(srcFile, fileData);
+        } else if (grunt.file.isDir(srcFile)) {
+          fileData.type = 'directory';
+          fileData.sourcePath = srcFile;
+          archive.append(null, fileData);
+        } else {
+          grunt.fail.warn('srcFile should be a valid file or directory');
+        }
       });
     });
 
