@@ -12,9 +12,9 @@ exports.compress = {
   zip: function(test) {
     test.expect(1);
     var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'small_length/small_length.css', 'small_length/small_length.js',
+      'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
+      'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'small_length/', 'small_length/small_length.css', 'small_length/small_length.js',
       'test.css', 'test.js',
     ];
     var actual = [];
@@ -31,9 +31,9 @@ exports.compress = {
   tar: function(test) {
     test.expect(1);
     var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'small_length/small_length.css', 'small_length/small_length.js',
+      'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
+      'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'small_length/', 'small_length/small_length.css', 'small_length/small_length.js',
       'test.css', 'test.js',
     ];
     var actual = [];
@@ -50,9 +50,9 @@ exports.compress = {
   tgz: function(test) {
     test.expect(1);
     var expected = [
-      'folder_one/one.css', 'folder_one/one.js',
-      'folder_two/two.css', 'folder_two/two.js',
-      'small_length/small_length.css', 'small_length/small_length.js',
+      'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
+      'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'small_length/', 'small_length/small_length.css', 'small_length/small_length.js',
       'test.css', 'test.js',
     ];
     var actual = [];
