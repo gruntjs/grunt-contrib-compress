@@ -21,18 +21,18 @@
     }
   ],
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 0.10.0"
   },
   "scripts": {
     "test": "grunt test -v"
   },
   "dependencies": {
-    "archiver": "~0.8.0",
+    "archiver": "~0.9.0",
     "prettysize": "~0.0.2"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.2.0",
-    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-nodeunit": "~0.4.0",
     "grunt-contrib-clean": "~0.4.0",
     "grunt-contrib-internal": "~0.4.2",
     "grunt": "~0.4.0",
