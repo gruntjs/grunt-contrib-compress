@@ -61,6 +61,13 @@ Default: `false`
 
 Pretty print file sizes when logging.
 
+#### gzipMinLength
+Type: `Integer`
+Modes: `gzip`
+Default: 0
+
+Sets the minimum length, in bytes, of the file that will be gzipped.
+
 ### Usage Examples
 
 ```js
@@ -165,4 +172,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue May 20 2014 00:22:25.*
+*This file was generated on Tue May 20 2014 09:27:32.*
