@@ -120,6 +120,10 @@ module.exports = function(grunt) {
         };
 
         if (grunt.file.isFile(srcFile)) {
+          var stat = fs.statSync(srcFile);
+          if (stat && stat.mode) {
+            fileData.mode = stat.mode;
+          }
           archive.file(srcFile, fileData);
         } else if (grunt.file.isDir(srcFile)) {
           fileData.type = 'directory';
