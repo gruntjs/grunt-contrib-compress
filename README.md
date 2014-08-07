@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.9.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.10.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -140,6 +140,7 @@ compress: {
 
 ## Release History
 
+ * 2014-07-14   v0.10.0   Don't apply extensions automatically (use `ext` or `rename`).
  * 2014-05-20   v0.9.1   allow directories to pass-through to archiver via filter
  * 2014-05-20   v0.9.0   Update archiver to v0.9.0
  * 2014-04-09   v0.8.0   Update archiver to v0.8.0
@@ -172,4 +173,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue May 20 2014 09:27:32.*
+*This file was generated on Mon Jul 14 2014 08:41:28.*
