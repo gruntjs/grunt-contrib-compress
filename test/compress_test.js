@@ -14,6 +14,7 @@ exports.compress = {
     var expected = [
       'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
       'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'small_length/', 'small_length/small_length.css', 'small_length/small_length.js',
       'test.css', 'test.js',
     ];
     var actual = [];
@@ -32,6 +33,7 @@ exports.compress = {
     var expected = [
       'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
       'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'small_length/', 'small_length/small_length.css', 'small_length/small_length.js',
       'test.css', 'test.js',
     ];
     var actual = [];
@@ -50,6 +52,7 @@ exports.compress = {
     var expected = [
       'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
       'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'small_length/', 'small_length/small_length.css', 'small_length/small_length.js',
       'test.css', 'test.js',
     ];
     var actual = [];
@@ -98,11 +101,12 @@ exports.compress = {
     test.done();
   },
   deflate: function(test) {
-    test.expect(3);
+    test.expect(4);
     grunt.util.async.forEachSeries([
       'test.js',
       path.join('folder_one', 'one.css'),
       path.join('folder_two', 'two.js'),
+      path.join('small_length', 'small_length.js'),
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
@@ -118,11 +122,12 @@ exports.compress = {
     }, test.done);
   },
   deflateRaw: function(test) {
-    test.expect(3);
+    test.expect(4);
     grunt.util.async.forEachSeries([
       'test.js',
       path.join('folder_one', 'one.css'),
       path.join('folder_two', 'two.js'),
+      path.join('small_length', 'small_length.js'),
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
