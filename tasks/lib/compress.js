@@ -126,7 +126,7 @@ module.exports = function(grunt) {
           fileData.sourcePath = srcFile;
           archive.append(null, fileData);
         } else {
-          grunt.fail.warn('srcFile should be a valid file or directory');
+          grunt.fail.warn('srcFile (' + srcFile + ') should be a valid file or directory');
         }
       });
     });
