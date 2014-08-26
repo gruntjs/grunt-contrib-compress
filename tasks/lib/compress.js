@@ -57,6 +57,13 @@ module.exports = function(grunt) {
         // Ensure the dest folder exists
         grunt.file.mkdir(path.dirname(filePair.dest));
 
+        // Move the src to a temp file in case that the dest is the same file to avoid a corrupt file
+        if(src === filePair.dest){
+            fs.rename(src,src + ".temp");
+            src = src + ".temp";
+            var deleteSrc = true;
+        }
+
         var srcStream = fs.createReadStream(src);
         var destStream = fs.createWriteStream(filePair.dest);
         var compressor = algorithm.call(zlib, exports.options);
@@ -68,6 +75,9 @@ module.exports = function(grunt) {
         });
 
         destStream.on('close', function() {
+          if(deleteSrc){
+              fs.unlink(src);
+          }
           grunt.log.writeln('Created ' + String(filePair.dest).cyan + ' (' + exports.getSize(filePair.dest) + ')');
           nextFile();
         });
