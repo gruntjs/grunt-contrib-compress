@@ -28,3 +28,32 @@ Type: `Boolean`
 Default: `false`
 
 Pretty print file sizes when logging.
+
+# File Data
+
+The following additonal keys may be passed as part of a dest:src pair when using an Archiver-backed format.
+All keys can be defined as a `Function` that receives the file name and returns in the type specified below.
+
+## date
+Type: `Date`
+Modes: `zip` `tar` `tgz`
+
+Sets the file date.
+
+## mode
+Type: `Integer`
+Modes: `zip` `tar` `tgz`
+
+Sets the file permissions.
+
+## store
+Type: `Boolean`
+Default: `zip`
+
+If true, file contents will be archived without compression.
+
+## comment
+Type: `String`
+Modes: `zip`
+
+Sets the file comment.

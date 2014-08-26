@@ -20,6 +20,16 @@ module.exports = function(grunt) {
     options: {}
   };
 
+  var fileStatSync = function() {
+    var filepath = path.join.apply(path, arguments);
+
+    if (grunt.file.exists(filepath)) {
+      return fs.statSync(filepath);
+    }
+
+    return false;
+  };
+
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
     exports.singleFile(files, zlib.createGzip, 'gz', done);
@@ -82,6 +92,9 @@ module.exports = function(grunt) {
     var archive = archiver.create(mode, exports.options);
     var dest = exports.options.archive;
 
+    var dataWhitelist = ['comment','date','mode', 'store'];
+    var sourcePaths = {};
+
     // Ensure dest folder exists
     grunt.file.mkdir(path.dirname(dest));
 
@@ -94,7 +107,8 @@ module.exports = function(grunt) {
     });
 
     archive.on('entry', function(file) {
-      grunt.verbose.writeln('Archived ' + file.sourcePath.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
+      var sp = sourcePaths[file.name] || 'unknown';
+      grunt.verbose.writeln('Archived ' + sp.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
     });
 
     destStream.on('error', function(err) {
@@ -114,20 +128,44 @@ module.exports = function(grunt) {
       var isExpandedPair = file.orig.expand || false;
 
       file.src.forEach(function(srcFile) {
+        var fstat = fileStatSync(srcFile);
+
+        if (!fstat) {
+          grunt.fail.fatal('unable to stat srcFile (' + srcFile + ')');
+        }
+
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+
+        if (fstat.isDirectory() && internalFileName.slice(-1) !== '/') {
+          srcFile += '/';
+          internalFileName += '/';
+        }
+
         var fileData = {
           name: internalFileName
         };
 
-        if (grunt.file.isFile(srcFile)) {
+        for (var i = 0; i < dataWhitelist.length; i++) {
+          if (typeof file[dataWhitelist[i]] === 'undefined') {
+            continue;
+          }
+
+          if (typeof file[dataWhitelist[i]] === 'function') {
+            fileData[dataWhitelist[i]] = file[dataWhitelist[i]](srcFile);
+          } else {
+            fileData[dataWhitelist[i]] = file[dataWhitelist[i]];
+          }
+        }
+
+        if (fstat.isFile()) {
           archive.file(srcFile, fileData);
-        } else if (grunt.file.isDir(srcFile)) {
-          fileData.type = 'directory';
-          fileData.sourcePath = srcFile;
+        } else if (fstat.isDirectory()) {
           archive.append(null, fileData);
         } else {
-          grunt.fail.warn('srcFile should be a valid file or directory');
+          grunt.fail.warn('srcFile (' + srcFile + ') should be a valid file or directory');
         }
+
+        sourcePaths[internalFileName] = srcFile;
       });
     });
 
