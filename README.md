@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.10.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -61,6 +61,34 @@ Default: `false`
 
 Pretty print file sizes when logging.
 
+### File Data
+
+The following additonal keys may be passed as part of a dest:src pair when using an Archiver-backed format.
+All keys can be defined as a `Function` that receives the file name and returns in the type specified below.
+
+#### date
+Type: `Date`
+Modes: `zip` `tar` `tgz`
+
+Sets the file date.
+
+#### mode
+Type: `Integer`
+Modes: `zip` `tar` `tgz`
+
+Sets the file permissions.
+
+#### store
+Type: `Boolean`
+Modes: `zip`
+
+If true, file contents will be archived without compression.
+
+#### comment
+Type: `String`
+Modes: `zip`
+
+Sets the file comment.
 ### Usage Examples
 
 ```js
@@ -133,6 +161,7 @@ compress: {
 
 ## Release History
 
+ * 2014-08-26   v0.11.0   Update archiver to v0.11.0
  * 2014-07-14   v0.10.0   Don't apply extensions automatically (use `ext` or `rename`).
  * 2014-05-20   v0.9.1   allow directories to pass-through to archiver via filter
  * 2014-05-20   v0.9.0   Update archiver to v0.9.0
@@ -166,4 +195,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Jul 14 2014 08:41:28.*
+*This file was generated on Tue Aug 26 2014 11:05:27.*
