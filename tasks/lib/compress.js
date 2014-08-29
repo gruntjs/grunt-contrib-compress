@@ -11,6 +11,7 @@
 var fs = require('fs');
 var path = require('path');
 var prettySize = require('prettysize');
+var chalk = require('chalk');
 var zlib = require('zlib');
 var archiver = require('archiver');
 
@@ -68,7 +69,7 @@ module.exports = function(grunt) {
         });
 
         destStream.on('close', function() {
-          grunt.log.writeln('Created ' + String(filePair.dest).cyan + ' (' + exports.getSize(filePair.dest) + ')');
+          grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
           nextFile();
         });
 
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
 
     archive.on('entry', function(file) {
       var sp = sourcePaths[file.name] || 'unknown';
-      grunt.verbose.writeln('Archived ' + sp.cyan + ' -> ' + String(dest).cyan + '/'.cyan + file.name.cyan);
+      grunt.verbose.writeln('Archived ' + chalk.cyan(sp) + ' -> ' + chalk.cyan(dest + '/' + file.name));
     });
 
     destStream.on('error', function(err) {
@@ -118,7 +119,7 @@ module.exports = function(grunt) {
 
     destStream.on('close', function() {
       var size = archive.pointer();
-      grunt.log.writeln('Created ' + String(dest).cyan + ' (' + exports.getSize(size) + ')');
+      grunt.log.writeln('Created ' + chalk.cyan(dest) + ' (' + exports.getSize(size) + ')');
       done();
     });
 
