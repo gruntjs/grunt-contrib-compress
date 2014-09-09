@@ -82,6 +82,7 @@ module.exports = function(grunt) {
   exports.tar = function(files, done) {
     if (typeof exports.options.archive !== 'string' || exports.options.archive.length === 0) {
       grunt.fail.warn('Unable to compress; no valid archive file was specified.');
+      return;
     }
 
     var mode = exports.options.mode;
@@ -132,7 +133,8 @@ module.exports = function(grunt) {
         var fstat = fileStatSync(srcFile);
 
         if (!fstat) {
-          grunt.fail.fatal('unable to stat srcFile (' + srcFile + ')');
+          grunt.fail.warn('unable to stat srcFile (' + srcFile + ')');
+          return;
         }
 
         var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
@@ -164,6 +166,7 @@ module.exports = function(grunt) {
           archive.append(null, fileData);
         } else {
           grunt.fail.warn('srcFile (' + srcFile + ') should be a valid file or directory');
+          return;
         }
 
         sourcePaths[internalFileName] = srcFile;
