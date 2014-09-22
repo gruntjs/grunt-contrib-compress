@@ -69,7 +69,15 @@ module.exports = function(grunt) {
         });
 
         destStream.on('close', function() {
-          grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
+          var srcSize, destSize;
+          srcSize = exports.getSize(src, false);
+          destSize = exports.getSize(filePair.dest, false);
+          if(exports.options.ifSmaller && destSize >= srcSize){
+            grunt.log.writeln('Skipped '+ chalk.cyan(filePair.src));
+            fs.unlink(filePair.dest);
+          } else {
+            grunt.log.writeln('Compressed ' + chalk.cyan(filePair.dest) + ' (from ' + srcSize.toString() + ' to ' + destSize.toString() + ' bytes)');
+          }
           nextFile();
         });
 

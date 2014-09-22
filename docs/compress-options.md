@@ -29,6 +29,12 @@ Default: `false`
 
 Pretty print file sizes when logging.
 
+## ifSmaller
+Type: `Boolean`
+Default: `false`
+
+Compress only the files that would result in smaller size.
+
 # File Data
 
 The following additonal keys may be passed as part of a dest:src pair when using an Archiver-backed format.

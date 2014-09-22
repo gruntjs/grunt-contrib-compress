@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+﻿# grunt-contrib-compress v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -60,6 +60,12 @@ Type: `Boolean`
 Default: `false`
 
 Pretty print file sizes when logging.
+
+#### ifSmaller
+Type: `Boolean`
+Default: `false`
+
+Compress only the files that would result in smaller size.
 
 ### File Data
 
