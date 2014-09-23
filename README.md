@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.11.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.12.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
 
 > Compress files and folders.
 
@@ -161,6 +161,7 @@ compress: {
 
 ## Release History
 
+ * 2014-09-23   v0.12.0   Output update. Prevent zipping dot files and allow for forcing through fail.warn within loop.
  * 2014-08-26   v0.11.0   Update archiver to v0.11.0
  * 2014-07-14   v0.10.0   Don't apply extensions automatically (use `ext` or `rename`).
  * 2014-05-20   v0.9.1   allow directories to pass-through to archiver via filter
@@ -195,4 +196,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Aug 26 2014 11:05:27.*
+*This file was generated on Tue Sep 23 2014 16:45:35.*
