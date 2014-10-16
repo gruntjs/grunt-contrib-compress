@@ -70,6 +70,7 @@ module.exports = function(grunt) {
 
         destStream.on('close', function() {
           grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
+          exports.removeSourceFile(filePair);
           nextFile();
         });
 
@@ -121,6 +122,7 @@ module.exports = function(grunt) {
     destStream.on('close', function() {
       var size = archive.pointer();
       grunt.log.writeln('Created ' + chalk.cyan(dest) + ' (' + exports.getSize(size) + ')');
+      exports.removeSourceFile(filePair);
       done();
     });
 
@@ -222,6 +224,12 @@ module.exports = function(grunt) {
       return filepath.replace(/\\/g, '/');
     } else {
       return filepath;
+    }
+  };
+
+  exports.removeSourceFile = function (filePair) {
+    if (exports.options.replace && filePair.src) {
+      grunt.file.delete(filePair.src);
     }
   };
 
