@@ -70,6 +70,7 @@ module.exports = function(grunt) {
 
         destStream.on('close', function() {
           grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
+          exports.removeSourceFile(filePair.src);
           nextFile();
         });
 
@@ -222,6 +223,12 @@ module.exports = function(grunt) {
       return filepath.replace(/\\/g, '/');
     } else {
       return filepath;
+    }
+  };
+
+  exports.removeSourceFile = function (src) {
+    if (exports.options.replace && src) {
+      grunt.file.delete(src);
     }
   };
 

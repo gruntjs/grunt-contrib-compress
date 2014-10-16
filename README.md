@@ -89,6 +89,12 @@ Type: `String`
 Modes: `zip`
 
 Sets the file comment.
+
+#### replace
+Type: `Boolean`
+Default: `false`
+
+Removes source files with compressed files.
 ### Usage Examples
 
 ```js
