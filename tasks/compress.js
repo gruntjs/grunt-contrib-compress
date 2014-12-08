@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     compress.options = this.options({
       archive: null,
       mode: null,
-      level: 1,
+      level: 9
     });
 
     if (typeof compress.options.archive === 'function') {
