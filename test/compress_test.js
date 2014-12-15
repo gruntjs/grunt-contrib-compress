@@ -23,6 +23,8 @@ exports.compress = {
       actual.push(entry.path);
     });
     parse.on('close', function() {
+      actual.sort();
+      expected.sort();
       test.deepEqual(actual, expected, 'zip file should unzip and contain all of the expected files');
       test.done();
     });
@@ -41,6 +43,8 @@ exports.compress = {
       actual.push(entry.path);
     });
     parse.on('end', function() {
+      actual.sort();
+      expected.sort();
       test.deepEqual(actual, expected, 'tar file should untar and contain all of the expected files');
       test.done();
     });
@@ -61,6 +65,8 @@ exports.compress = {
       actual.push(entry.path);
     });
     parse.on('end', function() {
+      actual.sort();
+      expected.sort();
       test.deepEqual(actual, expected, 'tgz file should gunzip/untar and contain all of the expected files');
       test.done();
     });
