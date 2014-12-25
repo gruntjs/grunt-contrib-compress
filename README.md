@@ -1,4 +1,4 @@
-# grunt-contrib-compress v0.12.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.png?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress)
+# grunt-contrib-compress v0.13.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
 > Compress files and folders.
 
@@ -161,6 +161,7 @@ compress: {
 
 ## Release History
 
+ * 2014-12-25   v0.13.0   Update archiver to v0.13 small fixes
  * 2014-09-23   v0.12.0   Output update. Prevent zipping dot files and allow for forcing through fail.warn within loop.
  * 2014-08-26   v0.11.0   Update archiver to v0.11.0
  * 2014-07-14   v0.10.0   Don't apply extensions automatically (use `ext` or `rename`).
@@ -196,4 +197,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Sep 23 2014 16:45:35.*
+*This file was generated on Thu Dec 25 2014 12:37:25.*
