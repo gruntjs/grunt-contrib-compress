@@ -150,7 +150,8 @@ module.exports = function(grunt) {
         }
 
         var fileData = {
-          name: internalFileName
+          name: internalFileName,
+          stats: fstat
         };
 
         for (var i = 0; i < dataWhitelist.length; i++) {
