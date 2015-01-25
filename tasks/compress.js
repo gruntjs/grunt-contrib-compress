@@ -24,11 +24,11 @@ module.exports = function(grunt) {
 
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
 
-    if (grunt.util._.include(['zip', 'tar', 'tgz', 'gzip', 'deflate', 'deflateRaw'], compress.options.mode) === false) {
+    if (grunt.util._.include(['zip', 'tar', 'tgz', 'gzip', 'bz2', 'deflate', 'deflateRaw'], compress.options.mode) === false) {
       grunt.fail.warn('Mode ' + String(compress.options.mode).cyan + ' not supported.');
     }
 
-    if (compress.options.mode === 'gzip' || compress.options.mode.slice(0, 7) === 'deflate') {
+    if (compress.options.mode === 'gzip' || compress.options.mode.slice(0, 7) === 'deflate' || compress.options.mode === 'bz2') {
       compress[compress.options.mode](this.files, this.async());
     } else {
       compress.tar(this.files, this.async());

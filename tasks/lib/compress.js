@@ -14,11 +14,77 @@ var prettySize = require('prettysize');
 var chalk = require('chalk');
 var zlib = require('zlib');
 var archiver = require('archiver');
+var compressjs = require('compressjs');
 
 module.exports = function(grunt) {
 
   var exports = {
     options: {}
+  };
+
+  var pageSize = 4096;
+  var outStream = function(filePath) {
+    var outFd = fs.openSync(filePath, 'w');
+    var stream = new compressjs.Stream();
+    stream.buffer = new Buffer(pageSize);
+    stream.pos = 0;
+    stream.flush = function() {
+        fs.writeSync(outFd, this.buffer, 0, this.pos);
+        this.pos = 0;
+    };
+      stream.writeByte = function(_byte) {
+          if (this.pos >= this.buffer.length) { this.flush(); }
+          this.buffer[this.pos++] = _byte;
+      };
+      stream.buffer.fill(0);
+      return {"stream": stream, "fd": outFd};
+  };
+
+  var inStream = function(filePath) {
+    var inFd = fs.openSync(filePath, 'r');
+    var stream = new compressjs.Stream();
+    var stat = fs.fstatSync(inFd);
+    if (stat.size) {
+        stream.size = stat.size;
+    }
+    stream.buffer = new Buffer(pageSize);
+    stream.filePos = null;
+    stream.pos = 0;
+    stream.end = 0;
+    stream._fillBuffer = function() {
+        this.end = fs.readSync(inFd, this.buffer, 0, this.buffer.length,
+                               this.filePos);
+        this.pos = 0;
+        if (this.filePos !== null && this.end > 0) {
+            this.filePos += this.end;
+        }
+    };
+    stream.readByte = function() {
+        if (this.pos >= this.end) { this._fillBuffer(); }
+        if (this.pos < this.end) {
+            return this.buffer[this.pos++];
+        }
+        return -1;
+    };
+    stream.read = function(buffer, bufOffset, length) {
+        if (this.pos >= this.end) { this._fillBuffer(); }
+        var bytesRead = 0;
+        while (bytesRead < length && this.pos < this.end) {
+            buffer[bufOffset++] = this.buffer[this.pos++];
+            bytesRead++;
+        }
+        return bytesRead;
+    };
+    stream.seek = function(seek_pos) {
+        this.filePos = seek_pos;
+        this.pos = this.end = 0;
+    };
+    stream.eof = function() {
+        if (this.pos >= this.end) { this._fillBuffer(); }
+        return (this.pos >= this.end);
+    };
+    stream.buffer.fill(0);
+    return {"stream": stream, "fd": inFd};
   };
 
   var fileStatSync = function() {
@@ -46,6 +112,10 @@ module.exports = function(grunt) {
     exports.singleFile(files, zlib.createDeflateRaw, 'deflate', done);
   };
 
+  exports.bz2 = function(files, done) {
+    exports.singleFile(files, compressjs.Bzip2.compressFile, done);
+  };
+
   // 1 to 1 compression of files, expects a compatible zlib method to be passed in, see above
   exports.singleFile = function(files, algorithm, extension, done) {
     grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
@@ -58,22 +128,32 @@ module.exports = function(grunt) {
         // Ensure the dest folder exists
         grunt.file.mkdir(path.dirname(filePair.dest));
 
-        var srcStream = fs.createReadStream(src);
-        var destStream = fs.createWriteStream(filePair.dest);
-        var compressor = algorithm.call(zlib, exports.options);
+        var toUseCmpJs = (grunt.util._.include(['gz', 'deflate'], extension) === false)
 
-        compressor.on('error', function(err) {
-          grunt.log.error(err);
-          grunt.fail.warn(algorithm + ' failed.');
-          nextFile();
-        });
+        var srcStream = (toUseCmpJs) ? inStream(src) : fs.createReadStream(src);
+        var destStream = (toUseCmpJs) ? outStream(filePair.dest) : fs.createWriteStream(filePair.dest);
 
-        destStream.on('close', function() {
-          grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
-          nextFile();
-        });
+        if (!toUseCmpJs) {
+          var compressor = algorithm.call(zlib, exports.options);
+          compressor.on('error', function(err) {
+            grunt.log.error(err);
+            grunt.fail.warn(algorithm + ' failed.');
+            nextFile();
+          });
 
-        srcStream.pipe(compressor).pipe(destStream);
+          destStream.on('close', function() {
+            grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
+            nextFile();
+          });
+
+          srcStream.pipe(compressor).pipe(destStream);
+        } else {
+          var level = (exports.options.level !== null) ? exports.options.level : 1;
+          compressjs.Bzip2.compressFile(srcStream['stream'], destStream['stream'], level);
+          srcStream['stream'].flush();
+          fs.closeSync(srcStream['fd']);
+          fs.closeSync(destStream['fd']);
+        }
       }, nextPair);
     }, done);
   };
