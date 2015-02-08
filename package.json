@@ -1,19 +1,12 @@
 {
   "name": "grunt-contrib-compress",
-  "description": "Compress files and folders.",
+  "description": "Compress files and folders",
   "version": "0.13.0",
-  "homepage": "https://github.com/gruntjs/grunt-contrib-compress",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/gruntjs/grunt-contrib-compress.git"
-  },
-  "bugs": {
-    "url": "https://github.com/gruntjs/grunt-contrib-compress/issues"
-  },
+  "repository": "gruntjs/grunt-contrib-compress",
   "licenses": [
     {
       "type": "MIT",
@@ -21,34 +14,37 @@
     }
   ],
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "grunt test -v"
+    "test": "grunt test"
   },
   "dependencies": {
-    "archiver": "~0.13.0",
+    "archiver": "^0.14.2",
     "chalk": "^0.5.1",
-    "prettysize": "~0.0.2"
+    "prettysize": "0.0.3"
   },
   "devDependencies": {
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-clean": "~0.6.0",
-    "grunt-contrib-internal": "~0.4.2",
-    "grunt": "~0.4.5",
-    "unzip": "~0.1.5",
-    "tar": "~0.1.17"
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-internal": "^0.4.2",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "tar": "^1.0.3",
+    "unzip": "^0.1.5"
   },
   "peerDependencies": {
-    "grunt": "~0.4.0"
+    "grunt": ">=0.4.0"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "compress",
+    "zip",
+    "tar"
   ],
   "files": [
-    "tasks",
-    "LICENSE-MIT"
+    "tasks"
   ],
   "appveyor_id": "tiwbi1smm1j8aa5j"
 }
