@@ -69,7 +69,11 @@ module.exports = function(grunt) {
         });
 
         destStream.on('close', function() {
-          grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + exports.getSize(filePair.dest) + ')');
+          var originalSize = exports.getSize(src);
+          var compressedSize = exports.getSize(filePair.dest);
+          var ratio = Math.round(parseInt(compressedSize) / parseInt(originalSize) * 100) + '%';
+          
+          grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + compressedSize + ') - ' + chalk.cyan(ratio) + ' of the original size');
           nextFile();
         });
 
