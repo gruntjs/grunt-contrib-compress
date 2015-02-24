@@ -22,7 +22,7 @@
   "dependencies": {
     "archiver": "^0.14.2",
     "chalk": "^0.5.1",
-    "prettysize": "0.0.3"
+    "pretty-bytes": "^1.0.3"
   },
   "devDependencies": {
     "grunt": "^0.4.5",

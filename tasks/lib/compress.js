@@ -10,7 +10,7 @@
 
 var fs = require('fs');
 var path = require('path');
-var prettySize = require('prettysize');
+var prettyBytes = require('pretty-bytes');
 var chalk = require('chalk');
 var zlib = require('zlib');
 var archiver = require('archiver');
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
           var originalSize = exports.getSize(src);
           var compressedSize = exports.getSize(filePair.dest);
           var ratio = Math.round(parseInt(compressedSize) / parseInt(originalSize) * 100) + '%';
-          
+
           grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + compressedSize + ') - ' + chalk.cyan(ratio) + ' of the original size');
           nextFile();
         });
@@ -199,7 +199,7 @@ module.exports = function(grunt) {
       if (!exports.options.pretty) {
         return size + ' bytes';
       }
-      return prettySize(size);
+      return prettyBytes(size);
     }
     return Number(size);
   };
