@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "archiver": "^0.14.2",
-    "chalk": "^0.5.1",
+    "chalk": "^1.0.0",
     "pretty-bytes": "^1.0.3"
   },
   "devDependencies": {
