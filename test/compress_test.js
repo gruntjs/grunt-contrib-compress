@@ -6,7 +6,6 @@ var zlib = require('zlib');
 var fs = require('fs');
 var unzip = require('unzip');
 var tar = require('tar');
-var compress = require('../tasks/lib/compress')(grunt);
 
 exports.compress = {
   zip: function(test) {
