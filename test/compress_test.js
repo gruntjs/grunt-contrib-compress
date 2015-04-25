@@ -13,7 +13,7 @@ exports.compress = {
     var expected = [
       'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
       'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
+      'test.css', 'test.js'
     ];
     var actual = [];
     var parse = unzip.Parse();
@@ -33,7 +33,7 @@ exports.compress = {
     var expected = [
       'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
       'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
+      'test.css', 'test.js'
     ];
     var actual = [];
     var parse = tar.Parse();
@@ -53,7 +53,7 @@ exports.compress = {
     var expected = [
       'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
       'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
-      'test.css', 'test.js',
+      'test.css', 'test.js'
     ];
     var actual = [];
     var parse = tar.Parse();
@@ -75,7 +75,7 @@ exports.compress = {
     grunt.util.async.forEachSeries([
       'test.js',
       path.join('folder_one', 'one.css'),
-      path.join('folder_two', 'two.js'),
+      path.join('folder_two', 'two.js')
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
@@ -95,7 +95,7 @@ exports.compress = {
     [
       'test',
       'folder_one/one',
-      'folder_two/two',
+      'folder_two/two'
     ].forEach(function(file) {
       var expected = path.join('tmp', 'gzipCustomExt', file + '.gz.js');
       test.ok(grunt.file.exists(expected), 'should of had a correct extension.');
@@ -107,7 +107,7 @@ exports.compress = {
     grunt.util.async.forEachSeries([
       'test.js',
       path.join('folder_one', 'one.css'),
-      path.join('folder_two', 'two.js'),
+      path.join('folder_two', 'two.js')
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
@@ -127,7 +127,7 @@ exports.compress = {
     grunt.util.async.forEachSeries([
       'test.js',
       path.join('folder_one', 'one.css'),
-      path.join('folder_two', 'two.js'),
+      path.join('folder_two', 'two.js')
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';
@@ -141,5 +141,5 @@ exports.compress = {
           next();
         });
     }, test.done);
-  },
+  }
 };

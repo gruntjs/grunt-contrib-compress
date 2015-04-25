@@ -71,7 +71,7 @@ module.exports = function(grunt) {
         destStream.on('close', function() {
           var originalSize = exports.getSize(src);
           var compressedSize = exports.getSize(filePair.dest);
-          var ratio = Math.round(parseInt(compressedSize) / parseInt(originalSize) * 100) + '%';
+          var ratio = Math.round(parseInt(compressedSize, 10) / parseInt(originalSize, 10) * 100) + '%';
 
           grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + compressedSize + ') - ' + chalk.cyan(ratio) + ' of the original size');
           nextFile();
@@ -141,7 +141,7 @@ module.exports = function(grunt) {
           return;
         }
 
-        var internalFileName = (isExpandedPair) ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
+        var internalFileName = isExpandedPair ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
 
         // check if internal file name is not a dot, should not be present in an archive
         if (internalFileName === '.') {
@@ -217,17 +217,13 @@ module.exports = function(grunt) {
     var ext = path.extname(dest).replace('.', '');
     if (ext === 'gz') {
       return 'gzip';
-    } else {
-      return ext;
     }
+    return ext;
+
   };
 
   exports.unixifyPath = function(filepath) {
-    if (process.platform === 'win32') {
-      return filepath.replace(/\\/g, '/');
-    } else {
-      return filepath;
-    }
+    return process.platform === 'win32' ? filepath.replace(/\\/g, '/') : filepath;
   };
 
   return exports;
