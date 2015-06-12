@@ -26,6 +26,17 @@ module.exports = function(grunt) {
     clean: {
       test: ['tmp']
     },
+    
+    copy: {
+      gzipSrcEqualDest: {
+        files: [{
+            expand : true,
+            cwd    : 'test/fixtures',
+            src    : '**/*.js',
+            dest   : 'tmp/gzipSrcEqualDest'
+        }]
+      }
+    },
 
     // Configuration to be run (and then tested).
     compress: {
@@ -61,6 +72,14 @@ module.exports = function(grunt) {
         },
         files: [
           {expand: true, cwd: 'test/fixtures', src: ['**/*.js'], dest: 'tmp/gzipCustomExt/', ext: '.gz.js'}
+        ]
+      },
+      gzipSrcEqualDest: {
+        options: {
+          mode: 'gzip'
+        },
+        files: [
+          {expand: true, cwd: 'tmp/gzipSrcEqualDest', src: ['**/*.js'], dest: 'tmp/gzipSrcEqualDest/', ext: '.js'}
         ]
       },
       gzip: {
@@ -113,12 +132,13 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-nodeunit');
   grunt.loadNpmTasks('grunt-contrib-internal');
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['jshint', 'clean', 'compress', 'nodeunit']);
+  grunt.registerTask('test', ['jshint', 'clean', 'copy', 'compress', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['test', 'build-contrib']);

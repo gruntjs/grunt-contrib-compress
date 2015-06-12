@@ -102,6 +102,26 @@ exports.compress = {
     });
     test.done();
   },
+  gzipSrcEqualDest: function(test) {
+    test.expect(3);
+    grunt.util.async.forEachSeries([
+      'test.js',
+      path.join('folder_one', 'one.js'),
+      path.join('folder_two', 'two.js'),
+    ], function(file, next) {
+      var expected = grunt.file.read(path.join('test', 'fixtures', file));
+      var actual = '';
+      fs.createReadStream(path.join('tmp', 'gzipSrcEqualDest', file))
+        .pipe(zlib.createGunzip())
+        .on('data', function(buf) {
+          actual += buf.toString();
+        })
+        .on('end', function() {
+          test.equal(actual, expected, 'should be equal to fixture after gunzipping');
+          next();
+        });
+    }, test.done);
+  },
   deflate: function(test) {
     test.expect(3);
     grunt.util.async.forEachSeries([
