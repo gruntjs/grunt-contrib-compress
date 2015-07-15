@@ -158,6 +158,13 @@ module.exports = function(grunt) {
           stats: fstat
         };
 
+		if (file.gid != null){
+			fileData.gid = file.gid
+		}
+		if (file.uid != null){
+			fileData.uid = file.uid
+		}
+
         for (var i = 0; i < dataWhitelist.length; i++) {
           if (typeof file[dataWhitelist[i]] === 'undefined') {
             continue;
