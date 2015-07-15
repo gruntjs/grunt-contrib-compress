@@ -88,6 +88,19 @@ If true, file contents will be archived without compression.
 Type: `String`
 Modes: `zip`
 
+#### gid
+Type: `Integer`
+Modes: `tar` `tgz`
+
+Sets the group of the file in the archive
+
+#### uid
+Type: `Integer`
+Modes: `tar` `tgz`
+
+Sets the user of the file in the archive
+
+
 Sets the file comment.
 ### Usage Examples
 
