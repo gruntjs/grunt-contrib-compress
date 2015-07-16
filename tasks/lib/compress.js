@@ -98,7 +98,7 @@ module.exports = function(grunt) {
     var archive = archiver.create(mode, exports.options);
     var dest = exports.options.archive;
 
-    var dataWhitelist = ['comment', 'date', 'mode', 'store'];
+    var dataWhitelist = ['comment', 'date', 'mode', 'store', 'gid', 'uid'];
     var sourcePaths = {};
 
     // Ensure dest folder exists
@@ -157,13 +157,6 @@ module.exports = function(grunt) {
           name: internalFileName,
           stats: fstat
         };
-
-		if (file.gid != null){
-			fileData.gid = file.gid
-		}
-		if (file.uid != null){
-			fileData.uid = file.uid
-		}
 
         for (var i = 0; i < dataWhitelist.length; i++) {
           if (typeof file[dataWhitelist[i]] === 'undefined') {
