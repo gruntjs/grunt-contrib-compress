@@ -48,7 +48,7 @@ Sets the file permissions.
 
 ## store
 Type: `Boolean`
-Modes: `zip`
+Default: `false`
 
 If true, file contents will be archived without compression.
 
