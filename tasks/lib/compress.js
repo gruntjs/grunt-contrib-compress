@@ -73,7 +73,7 @@ module.exports = function(grunt) {
           var compressedSize = exports.getSize(filePair.dest);
           var ratio = Math.round(parseInt(compressedSize, 10) / parseInt(originalSize, 10) * 100) + '%';
 
-          grunt.log.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + compressedSize + ') - ' + chalk.cyan(ratio) + ' of the original size');
+          grunt.verbose.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + compressedSize + ') - ' + chalk.cyan(ratio) + ' of the original size');
           nextFile();
         });
 
