@@ -1,7 +1,7 @@
 # Options
 
 ## archive
-Type: `String` or `Function`
+Type: `String` or `Function`  
 Modes: `zip` `tar`
 
 This is used to define where to output the archive. Each target can only have one output file.
@@ -14,17 +14,17 @@ Type: `String`
 
 This is used to define which mode to use, currently supports `gzip`, `deflate`, `deflateRaw`, `tar`, `tgz` (tar gzip) and `zip`.
 
-Automatically detected per dest:src pair, but can be overridden per target if desired.
+Automatically detected per `dest:src` pair, but can be overridden per target if desired.
 
 ## level
-Type: `Integer`
-Modes: `zip` `gzip`
-Default: 1
+Type: `Integer`  
+Modes: `zip` `gzip`  
+Default: `1`
 
 Sets the level of archive compression.
 
 ## pretty
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 Pretty print file sizes when logging.
@@ -35,25 +35,25 @@ The following additonal keys may be passed as part of a dest:src pair when using
 All keys can be defined as a `Function` that receives the file name and returns in the type specified below.
 
 ## date
-Type: `Date`
+Type: `Date`  
 Modes: `zip` `tar` `tgz`
 
 Sets the file date.
 
 ## mode
-Type: `Integer`
+Type: `Integer`  
 Modes: `zip` `tar` `tgz`
 
 Sets the file permissions.
 
 ## store
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 If true, file contents will be archived without compression.
 
 ## comment
-Type: `String`
+Type: `String`  
 Modes: `zip`
 
 Sets the file comment.
