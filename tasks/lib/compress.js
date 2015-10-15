@@ -124,7 +124,7 @@ module.exports = function(grunt) {
 
     destStream.on('close', function() {
       var size = archive.pointer();
-      grunt.log.writeln('Created ' + chalk.cyan(dest) + ' (' + exports.getSize(size) + ')');
+      grunt.verbose.writeln('Created ' + chalk.cyan(dest) + ' (' + exports.getSize(size) + ')');
       done();
     });
 
