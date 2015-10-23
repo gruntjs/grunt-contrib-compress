@@ -1,11 +1,11 @@
-# grunt-contrib-compress v0.13.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v0.14.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
-> Compress files and folders.
+> Compress files and folders
 
 
 
 ## Getting Started
-This plugin requires Grunt `~0.4.0`
+This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -33,7 +33,7 @@ Node Libraries Used:
 ### Options
 
 #### archive
-Type: `String` or `Function`
+Type: `String` or `Function`  
 Modes: `zip` `tar`
 
 This is used to define where to output the archive. Each target can only have one output file.
@@ -46,17 +46,17 @@ Type: `String`
 
 This is used to define which mode to use, currently supports `gzip`, `deflate`, `deflateRaw`, `tar`, `tgz` (tar gzip) and `zip`.
 
-Automatically detected per dest:src pair, but can be overridden per target if desired.
+Automatically detected per `dest:src` pair, but can be overridden per target if desired.
 
 #### level
-Type: `Integer`
-Modes: `zip` `gzip`
-Default: 1
+Type: `Integer`  
+Modes: `zip` `gzip`  
+Default: `1`
 
 Sets the level of archive compression.
 
 #### pretty
-Type: `Boolean`
+Type: `Boolean`  
 Default: `false`
 
 Pretty print file sizes when logging.
@@ -67,28 +67,29 @@ The following additonal keys may be passed as part of a dest:src pair when using
 All keys can be defined as a `Function` that receives the file name and returns in the type specified below.
 
 #### date
-Type: `Date`
+Type: `Date`  
 Modes: `zip` `tar` `tgz`
 
 Sets the file date.
 
 #### mode
-Type: `Integer`
+Type: `Integer`  
 Modes: `zip` `tar` `tgz`
 
 Sets the file permissions.
 
 #### store
-Type: `Boolean`
-Modes: `zip`
+Type: `Boolean`  
+Default: `false`
 
 If true, file contents will be archived without compression.
 
 #### comment
-Type: `String`
+Type: `String`  
 Modes: `zip`
 
 Sets the file comment.
+
 ### Usage Examples
 
 ```js
@@ -161,6 +162,7 @@ compress: {
 
 ## Release History
 
+ * 2015-10-23   v0.14.0   change to verbose output dependency updates Archiver 0.16
  * 2014-12-25   v0.13.0   Update archiver to v0.13 small fixes
  * 2014-09-23   v0.12.0   Output update. Prevent zipping dot files and allow for forcing through fail.warn within loop.
  * 2014-08-26   v0.11.0   Update archiver to v0.11.0
@@ -197,4 +199,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Thu Dec 25 2014 12:37:25.*
+*This file was generated on Fri Oct 23 2015 13:14:45.*
