@@ -34,16 +34,22 @@ module.exports = function(grunt) {
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
     exports.singleFile(files, zlib.createGzip, 'gz', done);
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
+      + grunt.util.pluralize(files.length, 'file/files'));
   };
 
   // 1 to 1 deflate of files
   exports.deflate = function(files, done) {
     exports.singleFile(files, zlib.createDeflate, 'deflate', done);
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
+      + grunt.util.pluralize(files.length, 'file/files'));
   };
 
   // 1 to 1 deflateRaw of files
   exports.deflateRaw = function(files, done) {
     exports.singleFile(files, zlib.createDeflateRaw, 'deflate', done);
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
+      + grunt.util.pluralize(files.length, 'file/files'));
   };
 
   // 1 to 1 compression of files, expects a compatible zlib method to be passed in, see above
@@ -124,7 +130,7 @@ module.exports = function(grunt) {
 
     destStream.on('close', function() {
       var size = archive.pointer();
-      grunt.log.writeln('Created ' + chalk.cyan(dest) + ' (' + exports.getSize(size) + ')');
+      grunt.verbose.writeln('Created ' + chalk.cyan(dest) + ' (' + exports.getSize(size) + ')');
       done();
     });
 
@@ -183,6 +189,8 @@ module.exports = function(grunt) {
       });
     });
 
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
+      + grunt.util.pluralize(files.length, 'file/files'));
     archive.finalize();
   };
 
