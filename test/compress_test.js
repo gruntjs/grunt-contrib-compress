@@ -28,6 +28,26 @@ exports.compress = {
       test.done();
     });
   },
+  zipWithFolder: function(test) {
+    test.expect(1);
+    var expected = [
+      'folder_one/', 'folder_one/one.css', 'folder_one/one.js',
+      'folder_two/', 'folder_two/two.css', 'folder_two/two.js',
+      'test.css', 'test.js'
+    ];
+    var actual = [];
+    var parse = unzip.Parse();
+    fs.createReadStream(path.join('tmp', 'compress_test_folder.zip')).pipe(parse);
+    parse.on('entry', function(entry) {
+      actual.push(entry.path);
+    });
+    parse.on('close', function() {
+      actual.sort();
+      expected.sort();
+      test.deepEqual(actual, expected, 'zip file should unzip and contain all of the expected files');
+      test.done();
+    });
+  },
   tar: function(test) {
     test.expect(1);
     var expected = [

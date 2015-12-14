@@ -150,7 +150,7 @@ module.exports = function(grunt) {
         var internalFileName = isExpandedPair ? file.dest : exports.unixifyPath(path.join(file.dest || '', srcFile));
 
         // check if internal file name is not a dot, should not be present in an archive
-        if (internalFileName === '.') {
+        if (internalFileName === '.' || internalFileName === './') {
           return;
         }
 
