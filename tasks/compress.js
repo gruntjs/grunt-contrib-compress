@@ -19,7 +19,7 @@ module.exports = function(grunt) {
     });
 
     if (typeof compress.options.archive === 'function') {
-        compress.options.archive = compress.options.archive();
+      compress.options.archive = compress.options.archive();
     }
 
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
