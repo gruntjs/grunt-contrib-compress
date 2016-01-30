@@ -6,6 +6,7 @@ var zlib = require('zlib');
 var fs = require('fs');
 var unzip = require('unzip');
 var tar = require('tar');
+var iltorb = require('iltorb');
 
 exports.compress = {
   zip: function(test) {
@@ -86,6 +87,26 @@ exports.compress = {
         })
         .on('end', function() {
           test.equal(actual, expected, 'should be equal to fixture after gunzipping');
+          next();
+        });
+    }, test.done);
+  },
+  br: function(test) {
+    test.expect(3);
+    grunt.util.async.forEachSeries([
+      'test.js',
+      path.join('folder_one', 'one.css'),
+      path.join('folder_two', 'two.js')
+    ], function(file, next) {
+      var expected = grunt.file.read(path.join('test', 'fixtures', file));
+      var actual = '';
+      fs.createReadStream(path.join('tmp', 'br', file))
+        .pipe(iltorb.decompressStream())
+        .on('data', function(buf) {
+          actual += buf.toString();
+        })
+        .on('end', function() {
+          test.equal(actual, expected, 'should be equal to fixture after unbrotling');
           next();
         });
     }, test.done);

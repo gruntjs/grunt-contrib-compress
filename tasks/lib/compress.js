@@ -14,6 +14,7 @@ var prettyBytes = require('pretty-bytes');
 var chalk = require('chalk');
 var zlib = require('zlib');
 var archiver = require('archiver');
+var iltorb = require('iltorb');
 
 module.exports = function(grunt) {
 
@@ -48,6 +49,13 @@ module.exports = function(grunt) {
   // 1 to 1 deflateRaw of files
   exports.deflateRaw = function(files, done) {
     exports.singleFile(files, zlib.createDeflateRaw, 'deflate', done);
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
+      + grunt.util.pluralize(files.length, 'file/files.'));
+  };
+
+  // 1 to 1 brotling of files
+  exports.br = function(files, done) {
+    exports.singleFile(files, iltorb.compressStream, 'br', done);
     grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
       + grunt.util.pluralize(files.length, 'file/files.'));
   };

@@ -18,6 +18,7 @@
   "dependencies": {
     "archiver": "^0.16.0",
     "chalk": "^1.0.0",
+    "iltorb": "^1.0.7",
     "pretty-bytes": "^2.0.1"
   },
   "devDependencies": {
