@@ -40,6 +40,14 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'test/fixtures/', src: ['**/*']}
         ]
       },
+      zipWithFolders: {
+        options: {
+          archive: 'tmp/compress_test_folder.zip'
+        },
+        files: [
+          {expand: true, cwd: 'test/fixtures/', src: ['**'], dest: './'}
+        ]
+      },
       tar: {
         options: {
           archive: 'tmp/compress_test_files.tar'
