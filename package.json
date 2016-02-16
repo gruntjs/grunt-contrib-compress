@@ -16,14 +16,14 @@
     "test": "grunt test"
   },
   "dependencies": {
-    "archiver": "^0.16.0",
-    "chalk": "^1.0.0",
-    "pretty-bytes": "^2.0.1"
+    "archiver": "^0.21.0",
+    "chalk": "^1.1.1",
+    "pretty-bytes": "^3.0.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-internal": "^0.4.2",
     "grunt-contrib-jshint": "^0.11.0",
     "grunt-contrib-nodeunit": "^0.4.1",
