@@ -33,6 +33,21 @@ compress: {
 ```
 
 ```js
+// compress a file to a different location than its source
+// example compresses path/the_file to /the_file inside archive.zip
+compress: {
+  main: {
+    options: {
+      archive: 'archive.zip'
+    },
+  files: [
+    {expand: true, cwd: 'path/', src: ['the_file'], dest: '/'}
+    ]
+  }
+},
+```
+
+```js
 // use custom extension for the output file
 compress: {
   main: {
