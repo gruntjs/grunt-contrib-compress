@@ -104,7 +104,7 @@ module.exports = function(grunt) {
     var archive = archiver.create(mode, exports.options);
     var dest = exports.options.archive;
 
-    var dataWhitelist = ['comment', 'date', 'mode', 'store'];
+    var dataWhitelist = ['comment', 'date', 'mode', 'store', 'gid', 'uid'];
     var sourcePaths = {};
 
     // Ensure dest folder exists
