@@ -30,6 +30,9 @@
     "tar": "^2.2.1",
     "unzip": "^0.1.5"
   },
+  "peerDependencies": {
+    "grunt": ">=0.4.5"
+  },
   "keywords": [
     "gruntplugin",
     "compress",
