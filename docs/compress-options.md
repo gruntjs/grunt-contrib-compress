@@ -57,3 +57,15 @@ Type: `String`
 Modes: `zip`
 
 Sets the file comment.
+
+## gid
+Type: `Integer`
+Modes: `tar` `tgz`
+
+Sets the group of the file in the archive
+
+## uid
+Type: `Integer`
+Modes: `tar` `tgz`
+
+Sets the user of the file in the archive
