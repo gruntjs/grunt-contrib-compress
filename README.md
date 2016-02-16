@@ -1,11 +1,10 @@
-# grunt-contrib-compress v0.14.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v1.0.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
 > Compress files and folders
 
 
 
 ## Getting Started
-This plugin requires Grunt `>=0.4.0`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -19,7 +18,8 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-contrib-compress');
 ```
 
-*This plugin was designed to work with Grunt 0.4.x. If you're still using grunt v0.3.x it's strongly recommended that [you upgrade](http://gruntjs.com/upgrading-from-0.3-to-0.4), but in case you can't please use [v0.3.2](https://github.com/gruntjs/grunt-contrib-compress/tree/grunt-0.3-stable).*
+*This plugin was designed to work with Grunt >= 0.4.x. If you're still using grunt v0.3.x it's strongly recommended that [you upgrade](http://gruntjs.com/upgrading-from-0.3-to-0.4), but in case you can't please use [v0.3.2](https://github.com/gruntjs/grunt-contrib-compress/tree/grunt-0.3-stable).*
+
 
 
 ## Compress task
@@ -63,7 +63,7 @@ Pretty print file sizes when logging.
 
 ### File Data
 
-The following additonal keys may be passed as part of a dest:src pair when using an Archiver-backed format.
+The following additional keys may be passed as part of a dest:src pair when using an Archiver-backed format.
 All keys can be defined as a `Function` that receives the file name and returns in the type specified below.
 
 #### date
@@ -88,6 +88,8 @@ If true, file contents will be archived without compression.
 Type: `String`  
 Modes: `zip`
 
+Sets the file comment.
+
 #### gid
 Type: `Integer`
 Modes: `tar` `tgz`
@@ -99,9 +101,6 @@ Type: `Integer`
 Modes: `tar` `tgz`
 
 Sets the user of the file in the archive
-
-
-Sets the file comment.
 
 ### Usage Examples
 
@@ -135,6 +134,21 @@ compress: {
     dest: 'public/'
   }
 }
+```
+
+```js
+// compress a file to a different location than its source
+// example compresses path/the_file to /the_file inside archive.zip
+compress: {
+  main: {
+    options: {
+      archive: 'archive.zip'
+    },
+  files: [
+    {expand: true, cwd: 'path/', src: ['the_file'], dest: '/'}
+    ]
+  }
+},
 ```
 
 ```js
@@ -175,6 +189,7 @@ compress: {
 
 ## Release History
 
+ * 2016-02-15   v1.0.0   Update archiver, chalk and pretty-bytes.
  * 2015-10-23   v0.14.0   change to verbose output dependency updates Archiver 0.16
  * 2014-12-25   v0.13.0   Update archiver to v0.13 small fixes
  * 2014-09-23   v0.12.0   Output update. Prevent zipping dot files and allow for forcing through fail.warn within loop.
@@ -212,4 +227,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Fri Oct 23 2015 13:14:45.*
+*This file was generated on Mon Feb 15 2016 22:23:25.*
