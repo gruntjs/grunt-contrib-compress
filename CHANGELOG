@@ -13,22 +13,22 @@ v1.0.0:
 v0.14.0:
   date: 2015-10-23
   changes:
-    - change to verbose output
-    - dependency updates Archiver 0.16
+    - Change to verbose output.
+    - Dependency updates archiver 0.16.
 v0.13.0:
   date: 2014-12-25
   changes:
-    - Update archiver to v0.13
-    - small fixes
+    - Update archiver to v0.13.
+    - Small fixes.
 v0.12.0:
   date: 2014-09-23
   changes:
     - Output update.
-    - Prevent zipping dot files and allow for forcing through fail.warn within loop.
+    - Prevent zipping dot files and allow for forcing through `fail.warn` within loop.
 v0.11.0:
   date: 2014-08-26
   changes:
-    - Update archiver to v0.11.0
+    - Update archiver to v0.11.0.
 v0.10.0:
   date: 2014-07-14
   changes:
@@ -36,23 +36,23 @@ v0.10.0:
 v0.9.1:
   date: 2014-05-20
   changes:
-    - allow directories to pass-through to archiver via filter
+    - Allow directories to pass-through to archiver via filter.
 v0.9.0:
   date: 2014-05-20
   changes:
-    - Update archiver to v0.9.0
+    - Update archiver to v0.9.0.
 v0.8.0:
   date: 2014-04-09
   changes:
-    - Update archiver to v0.8.0
+    - Update archiver to v0.8.0.
 v0.7.0:
   date: 2014-02-17
   changes:
-    - Update archiver to v0.6.0
+    - Update archiver to v0.6.0.
 v0.6.0:
   date: 2014-01-12
   changes:
-    - Update archiver to v0.5.0
+    - Update archiver to v0.5.0.
 v0.5.3:
   date: 2013-11-27
   changes:
@@ -60,7 +60,7 @@ v0.5.3:
 v0.5.2:
   date: 2013-06-03
   changes:
-    - Allow custom extensions using the ext property.
+    - Allow custom extensions using the `ext` option.
 v0.5.1:
   date: 2013-05-28
   changes:
@@ -68,7 +68,7 @@ v0.5.1:
 v0.5.0:
   date: 2013-04-23
   changes:
-    - Add support for deflate and deflateRaw.
+    - Add support for `deflate` and `deflateRaw`.
 v0.4.10:
   date: 2013-04-15
   changes:
@@ -89,7 +89,7 @@ v0.4.7:
 v0.4.6:
   date: 2013-03-25
   changes:
-    - Fix node v0.8 compatibility issue with gzip.
+    - Fix Node.js v0.8 compatibility issue with gzip.
 v0.4.5:
   date: 2013-03-20
   changes:
@@ -98,7 +98,7 @@ v0.4.5:
 v0.4.4:
   date: 2013-03-19
   changes:
-    - Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
+    - Fixes for Node.js v0.10. Explicitly call `grunt.file` methods with `map` and `filter`.
 v0.4.3:
   date: 2013-03-14
   changes:
@@ -128,7 +128,7 @@ v0.4.0rc5:
   changes:
     - Updating to work with grunt v0.4.0rc5.
     - Conversion to grunt v0.4 conventions.
-    - Replace basePath with cwd.
+    - Replace `basePath` with `cwd`.
 v0.3.2:
   date: 2012-10-12
   changes:

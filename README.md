@@ -192,33 +192,33 @@ compress: {
  * 2016-03-08   v1.1.1   Fix verbose output.
  * 2016-03-04   v1.1.0   Add ability to replace file in the same location.
  * 2016-02-15   v1.0.0   Update archiver, chalk and pretty-bytes.
- * 2015-10-23   v0.14.0   change to verbose output dependency updates Archiver 0.16
- * 2014-12-25   v0.13.0   Update archiver to v0.13 small fixes
- * 2014-09-23   v0.12.0   Output update. Prevent zipping dot files and allow for forcing through fail.warn within loop.
- * 2014-08-26   v0.11.0   Update archiver to v0.11.0
+ * 2015-10-23   v0.14.0   Change to verbose output. Dependency updates archiver 0.16.
+ * 2014-12-25   v0.13.0   Update archiver to v0.13. Small fixes.
+ * 2014-09-23   v0.12.0   Output update. Prevent zipping dot files and allow for forcing through `fail.warn` within loop.
+ * 2014-08-26   v0.11.0   Update archiver to v0.11.0.
  * 2014-07-14   v0.10.0   Don't apply extensions automatically (use `ext` or `rename`).
- * 2014-05-20   v0.9.1   allow directories to pass-through to archiver via filter
- * 2014-05-20   v0.9.0   Update archiver to v0.9.0
- * 2014-04-09   v0.8.0   Update archiver to v0.8.0
- * 2014-02-17   v0.7.0   Update archiver to v0.6.0
- * 2014-01-12   v0.6.0   Update archiver to v0.5.0
+ * 2014-05-20   v0.9.1   Allow directories to pass-through to archiver via filter.
+ * 2014-05-20   v0.9.0   Update archiver to v0.9.0.
+ * 2014-04-09   v0.8.0   Update archiver to v0.8.0.
+ * 2014-02-17   v0.7.0   Update archiver to v0.6.0.
+ * 2014-01-12   v0.6.0   Update archiver to v0.5.0.
  * 2013-11-27   v0.5.3   Allow archive option to be a function.
- * 2013-06-03   v0.5.2   Allow custom extensions using the ext property.
+ * 2013-06-03   v0.5.2   Allow custom extensions using the `ext` option.
  * 2013-05-28   v0.5.1   Avoid gzip on folders.
- * 2013-04-23   v0.5.0   Add support for deflate and deflateRaw.
+ * 2013-04-23   v0.5.0   Add support for `deflate` and `deflateRaw`.
  * 2013-04-15   v0.4.10   Fix issue where task finished before all data was compressed.
  * 2013-04-09   v0.4.9   Bump Archiver version.
  * 2013-04-07   v0.4.8   Open streams lazily to avoid too many open files.
  * 2013-04-01   v0.4.7   Pipe gzip to fix gzip issues. Add tests that undo compressed files to test.
- * 2013-03-25   v0.4.6   Fix node v0.8 compatibility issue with gzip.
+ * 2013-03-25   v0.4.6   Fix Node.js v0.8 compatibility issue with gzip.
  * 2013-03-20   v0.4.5   Update to archiver 0.4.1 Fix issue with gzip failing intermittently.
- * 2013-03-19   v0.4.4   Fixes for Node.js v0.10. Explicitly call grunt.file methods with map and filter.
+ * 2013-03-19   v0.4.4   Fixes for Node.js v0.10. Explicitly call `grunt.file` methods with `map` and `filter`.
  * 2013-03-14   v0.4.3   Fix for gzip; continue iteration on returning early.
  * 2013-03-13   v0.4.2   Refactor task like other contrib tasks. Fix gzip of multiple files. Remove unused dependencies.
  * 2013-02-22   v0.4.1   Pretty print compressed sizes. Logging each addition to a compressed file now only happens in verbose mode.
  * 2013-02-15   v0.4.0   First official release for Grunt 0.4.0.
  * 2013-01-23   v0.4.0rc7   Updating grunt/gruntplugin dependencies to rc7. Changing in-development grunt/gruntplugin dependency versions from tilde version ranges to specific versions.
- * 2013-01-14   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Conversion to grunt v0.4 conventions. Replace basePath with cwd.
+ * 2013-01-14   v0.4.0rc5   Updating to work with grunt v0.4.0rc5. Conversion to grunt v0.4 conventions. Replace `basePath` with `cwd`.
  * 2012-10-12   v0.3.2   Rename grunt-contrib-lib dep to grunt-lib-contrib.
  * 2012-10-09   v0.3.1   Replace zipstream package with archiver.
  * 2012-09-24   v0.3.0   General cleanup. Options no longer accepted from global config key.
@@ -229,4 +229,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Tue Mar 08 2016 16:45:17.*
+*This file was generated on Fri Mar 18 2016 18:49:24.*
