@@ -15,6 +15,7 @@ var chalk = require('chalk');
 var zlib = require('zlib');
 var archiver = require('archiver');
 var streamBuffers = require('stream-buffers');
+var _ = require('lodash');
 
 module.exports = function(grunt) {
 
@@ -239,7 +240,7 @@ module.exports = function(grunt) {
     if (!dest) {
       return 'gzip';
     }
-    if (grunt.util._.endsWith(dest, '.tar.gz')) {
+    if (_.endsWith(dest, '.tar.gz')) {
       return 'tgz';
     }
     var ext = path.extname(dest).replace('.', '');

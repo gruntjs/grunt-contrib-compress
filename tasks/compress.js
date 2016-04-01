@@ -9,6 +9,7 @@
 'use strict';
 
 module.exports = function(grunt) {
+  var _ = require('lodash');
   var compress = require('./lib/compress')(grunt);
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
@@ -24,7 +25,7 @@ module.exports = function(grunt) {
 
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
 
-    if (grunt.util._.include(['zip', 'tar', 'tgz', 'gzip', 'deflate', 'deflateRaw'], compress.options.mode) === false) {
+    if (_.includes(['zip', 'tar', 'tgz', 'gzip', 'deflate', 'deflateRaw'], compress.options.mode) === false) {
       grunt.fail.warn('Mode ' + String(compress.options.mode).cyan + ' not supported.');
     }
 
