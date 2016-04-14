@@ -127,7 +127,7 @@ exports.compress = {
     grunt.util.async.forEachSeries([
       'test.js',
       path.join('folder_one', 'one.js'),
-      path.join('folder_two', 'two.js'),
+      path.join('folder_two', 'two.js')
     ], function(file, next) {
       var expected = grunt.file.read(path.join('test', 'fixtures', file));
       var actual = '';

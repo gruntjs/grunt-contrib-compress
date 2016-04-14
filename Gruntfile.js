@@ -27,14 +27,14 @@ module.exports = function(grunt) {
     clean: {
       test: ['tmp']
     },
-    
+
     copy: {
       gzipSrcEqualDest: {
         files: [{
-            expand : true,
-            cwd    : 'test/fixtures',
-            src    : '**/*.js',
-            dest   : 'tmp/gzipSrcEqualDest'
+          expand : true,
+          cwd    : 'test/fixtures',
+          src    : '**/*.js',
+          dest   : 'tmp/gzipSrcEqualDest'
         }]
       }
     },

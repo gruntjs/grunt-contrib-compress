@@ -70,12 +70,12 @@ module.exports = function(grunt) {
         var originalSize = exports.getSize(src);
 
         var destStream;
-        function init_destStream() {
+        function initDestStream() {
           destStream = fs.createWriteStream(filePair.dest);
 
           destStream.on('close', function() {
             var compressedSize = exports.getSize(filePair.dest);
-            var ratio = Math.round(parseInt(compressedSize) / parseInt(originalSize) * 100) + '%';
+            var ratio = Math.round(parseInt(compressedSize, 10) / parseInt(originalSize, 10) * 100) + '%';
 
             grunt.verbose.writeln('Created ' + chalk.cyan(filePair.dest) + ' (' + compressedSize + ') - ' + chalk.cyan(ratio) + ' of the original size');
             nextFile();
@@ -87,13 +87,13 @@ module.exports = function(grunt) {
         if (src === filePair.dest) {
           tmpStream = new streamBuffers.WritableStreamBuffer();
           tmpStream.on('close', function() {
-            init_destStream();
+            initDestStream();
 
             destStream.write(this.getContents());
             destStream.end();
           });
         } else {
-          init_destStream();
+          initDestStream();
         }
 
         var compressor = algorithm.call(zlib, exports.options);
