@@ -1,8 +1,12 @@
-v1.2.0:
+v1.3.0:
   date: 2016-05-24
   changes:
     - Update to Archiver 1.0.
     - Fix node 6 support.
+v1.2.0:
+  date: 2016-03-24
+  changes:
+    - Dependency update.
 v1.1.1:
   date: 2016-03-08
   changes:
