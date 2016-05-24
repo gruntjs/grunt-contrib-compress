@@ -189,6 +189,7 @@ compress: {
 
 ## Release History
 
+ * 2016-05-24   v1.2.0   Update to Archiver 1.0. Fix node 6 support.
  * 2016-03-08   v1.1.1   Fix verbose output.
  * 2016-03-04   v1.1.0   Add ability to replace file in the same location.
  * 2016-02-15   v1.0.0   Update archiver, chalk and pretty-bytes.
@@ -229,4 +230,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Fri Apr 01 2016 16:23:10.*
+*This file was generated on Tue May 24 2016 13:46:58.*
