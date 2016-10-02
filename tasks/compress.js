@@ -16,8 +16,14 @@ module.exports = function(grunt) {
     compress.options = this.options({
       archive: null,
       mode: null,
+      doNotCreateEmptyArchive: false,
       level: 1
     });
+
+    if (compress.options.doNotCreateEmptyArchive && this.files.length === 0) {
+      grunt.log.ok('No files found. Archive wouldn\'t be created ("doNotCreateEmptyArchive" is set to true)');
+      return;
+    }
 
     if (typeof compress.options.archive === 'function') {
       compress.options.archive = compress.options.archive();

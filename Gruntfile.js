@@ -59,6 +59,38 @@ module.exports = function(grunt) {
           {expand: true, cwd: 'test/fixtures/', src: ['**'], dest: './'}
         ]
       },
+      zipDoNotCreateEmptyArchiveTrue: {
+        options: {
+          doNotCreateEmptyArchive: true,
+          archive: function () {
+            return 'tmp/compress_test_files_empty_must_not_be_created_because_option_set_to_true.zip';
+          }
+        },
+        files: [
+          {expand: true, cwd: 'test/fixtures/', src: ['NotExistingFilePath.js']}
+        ]
+      },
+      zipDoNotCreateEmptyArchiveFalse: {
+        options: {
+          doNotCreateEmptyArchive: false,
+          archive: function () {
+            return 'tmp/compress_test_files_empty_must_be_created_because_option_set_to_false.zip';
+          }
+        },
+        files: [
+          {expand: true, cwd: 'test/fixtures/', src: ['NotExistingFilePath.js']}
+        ]
+      },
+      zipNoDoNotCreateEmptyArchiveOption: {
+        options: {
+          archive: function () {
+            return 'tmp/compress_test_files_empty_must_be_created_because_no_option_passed.zip';
+          }
+        },
+        files: [
+          {expand: true, cwd: 'test/fixtures/', src: ['NotExistingFilePath.js']}
+        ]
+      },
       tar: {
         options: {
           archive: 'tmp/compress_test_files.tar'

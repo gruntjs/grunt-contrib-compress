@@ -7,6 +7,18 @@ var fs = require('fs');
 var unzip = require('unzip');
 var tar = require('tar');
 
+function fileExists(filePath)
+{
+  try
+  {
+    return fs.statSync(filePath).isFile();
+  }
+  catch (err)
+  {
+    return false;
+  }
+}
+
 exports.compress = {
   zip: function(test) {
     test.expect(1);
@@ -181,5 +193,23 @@ exports.compress = {
           next();
         });
     }, test.done);
+  },
+  zipDoNotCreateEmptyArchiveOptionTrue: function(test) {
+    test.equals(
+        fileExists(path.join('tmp', 'compress_test_files_empty_must_not_be_created_because_option_set_to_true.zip')), false,
+        'Archive must be not created if option "doNotCreateEmptyArchive" is true');
+    test.done();
+  },
+  zipDoNotCreateEmptyArchiveOptionFalse: function(test) {
+    test.equals(
+        fileExists(path.join('tmp', 'compress_test_files_empty_must_be_created_because_option_set_to_false.zip')), true,
+        'Archive must be created if option "doNotCreateEmptyArchive" is false');
+    test.done();
+  },
+  zipDoNotCreateEmptyArchiveOptionNotExists: function(test) {
+    test.equals(
+        fileExists(path.join('tmp', 'compress_test_files_empty_must_be_created_because_no_option_passed.zip')), true,
+        'Archive will be created because no option "doNotCreateEmptyArchive" passed');
+    test.done();
   }
 };
