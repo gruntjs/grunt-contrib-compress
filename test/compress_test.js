@@ -7,14 +7,11 @@ var fs = require('fs');
 var unzip = require('unzip');
 var tar = require('tar');
 
-function fileExists(filePath)
-{
-  try
-  {
+function fileExists(filePath) {
+  try {
     return fs.statSync(filePath).isFile();
   }
-  catch (err)
-  {
+  catch (err) {
     return false;
   }
 }
