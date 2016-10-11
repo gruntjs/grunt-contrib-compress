@@ -40,9 +40,12 @@ compress: {
     options: {
       archive: 'archive.zip'
     },
-  files: [
-    {expand: true, cwd: 'path/', src: ['the_file'], dest: '/'}
-    ]
+    files: [{
+      expand: true,
+      cwd: 'path/',
+      src: ['the_file'],
+      dest: '/'
+    }]
   }
 },
 ```
@@ -54,11 +57,14 @@ compress: {
     options: {
       mode: 'gzip'
     },
-    files: [
-      // Each of the files in the src/ folder will be output to
-      // the dist/ folder each with the extension .gz.js
-      {expand: true, src: ['src/*.js'], dest: 'dist/', ext: '.gz.js'}
-    ]
+    // Each of the files in the src/ folder will be output to
+    // the dist/ folder each with the extension .gz.js
+    files: [{
+      expand: true,
+      src: ['src/*.js'],
+      dest: 'dist/',
+      ext: '.gz.js'
+    }]
   }
 }
 
@@ -73,11 +79,49 @@ compress: {
         return git.tag + '.zip'
       }
     },
-    files: [
-      {expand: true, src: ['src/*.js'], dest: 'dist/'}
-    ]
+    files: [{
+      expand: true,
+      src: ['src/*.js'],
+      dest: 'dist/'
+    }]
   }
 }
 ```
 
+```js
+// brotlify assets 1-to-1 for production using default options
+compress: {
+  main: {
+    options: {
+      mode: 'brotli'
+    },
+    expand: true,
+    cwd: 'assets/',
+    src: ['**/*.js'],
+    dest: 'public/',
+    extDot: 'last',
+    ext: '.js.br'
+  }
+}
+```
 
+```js
+// brotlify assets 1-to-1 for production specifying text mode
+// and using default options otherwise
+compress: {
+  main: {
+    options: {
+      mode: 'brotli',
+      brotli: {
+        mode: 1
+      }
+    },
+    expand: true,
+    cwd: 'assets/',
+    src: ['**/*.js'],
+    dest: 'public/',
+    extDot: 'last',
+    ext: '.js.br'
+  }
+}
+```
