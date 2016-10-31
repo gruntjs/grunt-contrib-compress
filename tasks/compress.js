@@ -21,7 +21,7 @@ module.exports = function(grunt) {
     });
 
     if (compress.options.doNotCreateEmptyArchive && this.files.length === 0) {
-      grunt.log.ok('No files found. Archive wouldn\'t be created ("doNotCreateEmptyArchive" option is set to true)');
+      grunt.log.ok('No files found. Archive won\'t be created ("doNotCreateEmptyArchive" option is set to true)');
       return;
     }
 

@@ -65,9 +65,9 @@ Pretty print file sizes when logging.
 Type: `Boolean`
 Default: `false`
 
-This is used when you don't want to get empty archive as a result, when there are no files at specified paths.
+This can be used when you don't want to get an empty archive as a result, if there are no files at the specified paths.
 
-It may be usefull, if you don't clearly know if files are exists and you don't need empty archive as a result.
+It may be useful, if you don't clearly know if files exist and you don't need an empty archive as a result.
 
 ### File Data
 
