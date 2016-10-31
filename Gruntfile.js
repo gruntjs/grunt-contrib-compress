@@ -63,7 +63,7 @@ module.exports = function(grunt) {
         options: {
           doNotCreateEmptyArchive: true,
           archive: function () {
-            return 'tmp/compress_test_files_empty_must_not_be_created_because_option_set_to_true.zip';
+            return 'tmp/zip_should_not_be_created_1.zip';
           }
         },
         files: [
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
         options: {
           doNotCreateEmptyArchive: false,
           archive: function () {
-            return 'tmp/compress_test_files_empty_must_be_created_because_option_set_to_false.zip';
+            return 'tmp/zip_must_be_created_1.zip';
           }
         },
         files: [
@@ -84,7 +84,7 @@ module.exports = function(grunt) {
       zipNoDoNotCreateEmptyArchiveOption: {
         options: {
           archive: function () {
-            return 'tmp/compress_test_files_empty_must_be_created_because_no_option_passed.zip';
+            return 'tmp/zip_must_be_created_2.zip';
           }
         },
         files: [

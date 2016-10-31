@@ -193,19 +193,19 @@ exports.compress = {
   },
   zipDoNotCreateEmptyArchiveOptionTrue: function(test) {
     test.equals(
-        fileExists(path.join('tmp', 'compress_test_files_empty_must_not_be_created_because_option_set_to_true.zip')), false,
+        fileExists(path.join('tmp', 'zip_should_not_be_created_1.zip')), false,
         'Archive must be not created if option "doNotCreateEmptyArchive" is true');
     test.done();
   },
   zipDoNotCreateEmptyArchiveOptionFalse: function(test) {
     test.equals(
-        fileExists(path.join('tmp', 'compress_test_files_empty_must_be_created_because_option_set_to_false.zip')), true,
+        fileExists(path.join('tmp', 'zip_must_be_created_1.zip')), true,
         'Archive must be created if option "doNotCreateEmptyArchive" is false');
     test.done();
   },
   zipDoNotCreateEmptyArchiveOptionNotExists: function(test) {
     test.equals(
-        fileExists(path.join('tmp', 'compress_test_files_empty_must_be_created_because_no_option_passed.zip')), true,
+        fileExists(path.join('tmp', 'zip_must_be_created_2.zip')), true,
         'Archive will be created because no option "doNotCreateEmptyArchive" passed');
     test.done();
   }
