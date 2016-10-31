@@ -205,7 +205,7 @@ exports.compress = {
   },
   zipCreateEmptyArchiveOptionNotExists: function(test) {
     test.equals(
-        fileExists(path.join('tmp', 'zip_must_be_created_1.zip')), true,
+        fileExists(path.join('tmp', 'zip_must_be_created_2.zip')), true,
         'Archive will be created because no option "createEmptyArchive" passed');
     test.done();
   }

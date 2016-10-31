@@ -88,7 +88,7 @@ module.exports = function(grunt) {
       zipNoCreateEmptyArchiveOption: {
         options: {
           archive: function () {
-            return 'tmp/zip_must_be_created_1.zip';
+            return 'tmp/zip_must_be_created_2.zip';
           }
         },
         files: [{
