@@ -61,9 +61,9 @@ Default: `false`
 
 Pretty print file sizes when logging.
 
-#### doNotCreateEmptyArchive
+#### createEmptyArchive
 Type: `Boolean`
-Default: `false`
+Default: `true`
 
 This can be used when you don't want to get an empty archive as a result, if there are no files at the specified paths.
 
