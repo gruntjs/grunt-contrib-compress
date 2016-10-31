@@ -61,7 +61,7 @@ Default: `false`
 
 Pretty print file sizes when logging.
 
-#### createEmptyArchive
+#### createEmptyArchived
 Type: `Boolean`
 Default: `true`
 
