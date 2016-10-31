@@ -66,9 +66,11 @@ module.exports = function(grunt) {
             return 'tmp/zip_should_not_be_created_1.zip';
           }
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures/', src: ['NotExistingFilePath.js']}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['NotExistingFilePath.js']
+        }]
       },
       zipDoNotCreateEmptyArchiveFalse: {
         options: {
@@ -77,9 +79,11 @@ module.exports = function(grunt) {
             return 'tmp/zip_must_be_created_1.zip';
           }
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures/', src: ['NotExistingFilePath.js']}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['NotExistingFilePath.js']
+        }]
       },
       zipNoDoNotCreateEmptyArchiveOption: {
         options: {
@@ -87,9 +91,11 @@ module.exports = function(grunt) {
             return 'tmp/zip_must_be_created_2.zip';
           }
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures/', src: ['NotExistingFilePath.js']}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['NotExistingFilePath.js']
+        }]
       },
       tar: {
         options: {
