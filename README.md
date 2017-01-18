@@ -1,4 +1,4 @@
-# grunt-contrib-compress v1.3.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v1.4.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
 > Compress files and folders
 
@@ -273,7 +273,8 @@ compress: {
 
 ## Release History
 
- * 2016-05-24   v1.3.0   Update to Archiver 1.0. Fix node 6 support.
+ * 2017-01-18   v1.4.0   Add support for `brotli`
+ * 2016-05-24   v1.3.0   Update archiver to v1.0. Fix node 6 support.
  * 2016-03-24   v1.2.0   Dependency update.
  * 2016-03-08   v1.1.1   Fix verbose output.
  * 2016-03-04   v1.1.0   Add ability to replace file in the same location.
@@ -315,4 +316,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Thu Oct 13 2016 15:15:37.*
+*This file was generated on Wed Jan 18 2017 22:23:26.*
