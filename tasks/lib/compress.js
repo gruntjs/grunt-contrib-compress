@@ -16,7 +16,14 @@ var zlib = require('zlib');
 var archiver = require('archiver');
 var streamBuffers = require('stream-buffers');
 var _ = require('lodash');
-var iltorb = require('iltorb');
+
+var iltorb;
+
+try {
+  iltorb = require('iltorb');
+} catch (er) {
+  iltorb = null;
+}
 
 module.exports = function(grunt) {
 
@@ -104,7 +111,13 @@ module.exports = function(grunt) {
           initDestStream();
         }
 
-        var compressor = extension === 'br' ? algorithm.call(iltorb, exports.options.brotli) : algorithm.call(zlib, exports.options);
+        var compressor;
+
+        if (iltorb && extension === 'br') {
+          compressor = algorithm.call(iltorb, exports.options.brotli);
+        } else {
+          compressor = algorithm.call(zlib, exports.options);
+        }
 
         compressor.on('error', function(err) {
           grunt.log.error(err);
