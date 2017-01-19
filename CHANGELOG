@@ -1,7 +1,11 @@
+v1.4.1:
+  date: 2017-01-20
+  changes:
+    - Make brotli support optional.
 v1.4.0:
   date: 2017-01-18
   changes:
-    - Add support for `brotli`
+    - Add support for brotli.
 v1.3.0:
   date: 2016-05-24
   changes:
