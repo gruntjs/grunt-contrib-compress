@@ -264,6 +264,12 @@ module.exports = function(grunt) {
     if (_.endsWith(dest, '.tar.gz')) {
       return 'tgz';
     }
+    if (grunt.util._.endsWith(dest, '.war')) {
+      return 'zip';
+    }
+    if (grunt.util._.endsWith(dest, '.jar')) {
+      return 'zip';
+    }
     var ext = path.extname(dest).replace('.', '');
     if (ext === 'gz') {
       return 'gzip';
