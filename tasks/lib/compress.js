@@ -205,6 +205,9 @@ module.exports = function(grunt) {
           name: internalFileName,
           stats: fstat
         };
+        if ('mode' in file) {
+            fileData.mode = file.mode;
+        }
 
         for (var i = 0; i < dataWhitelist.length; i++) {
           if (typeof file[dataWhitelist[i]] === 'undefined') {
