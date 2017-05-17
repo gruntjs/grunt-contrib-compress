@@ -17,6 +17,14 @@ var archiver = require('archiver');
 var streamBuffers = require('stream-buffers');
 var _ = require('lodash');
 
+var iltorb;
+
+try {
+  iltorb = require('iltorb');
+} catch (er) {
+  iltorb = null;
+}
+
 module.exports = function(grunt) {
 
   var exports = {
@@ -36,25 +44,32 @@ module.exports = function(grunt) {
   // 1 to 1 gziping of files
   exports.gzip = function(files, done) {
     exports.singleFile(files, zlib.createGzip, 'gz', done);
-    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
-      + grunt.util.pluralize(files.length, 'file/files.'));
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' ' +
+      grunt.util.pluralize(files.length, 'file/files.'));
   };
 
   // 1 to 1 deflate of files
   exports.deflate = function(files, done) {
     exports.singleFile(files, zlib.createDeflate, 'deflate', done);
-    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
-      + grunt.util.pluralize(files.length, 'file/files.'));
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' ' +
+      grunt.util.pluralize(files.length, 'file/files.'));
   };
 
   // 1 to 1 deflateRaw of files
   exports.deflateRaw = function(files, done) {
     exports.singleFile(files, zlib.createDeflateRaw, 'deflate', done);
-    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
-      + grunt.util.pluralize(files.length, 'file/files.'));
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' ' +
+      grunt.util.pluralize(files.length, 'file/files.'));
   };
 
-  // 1 to 1 compression of files, expects a compatible zlib method to be passed in, see above
+  // 1 to 1 brotlify of files
+  exports.brotli = function(files, done) {
+    exports.singleFile(files, iltorb.compressStream, 'br', done);
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' ' +
+      grunt.util.pluralize(files.length, 'file/files.'));
+  };
+
+  // 1 to 1 compression of files, expects a compatible zlib or iltorb/brotli method to be passed in, see above
   exports.singleFile = function(files, algorithm, extension, done) {
     grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
       grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
@@ -68,8 +83,8 @@ module.exports = function(grunt) {
 
         var srcStream = fs.createReadStream(src);
         var originalSize = exports.getSize(src);
-
         var destStream;
+
         function initDestStream() {
           destStream = fs.createWriteStream(filePair.dest);
 
@@ -96,7 +111,13 @@ module.exports = function(grunt) {
           initDestStream();
         }
 
-        var compressor = algorithm.call(zlib, exports.options);
+        var compressor;
+
+        if (iltorb && extension === 'br') {
+          compressor = algorithm.call(iltorb, exports.options.brotli);
+        } else {
+          compressor = algorithm.call(zlib, exports.options);
+        }
 
         compressor.on('error', function(err) {
           grunt.log.error(err);
@@ -247,8 +268,10 @@ module.exports = function(grunt) {
     if (ext === 'gz') {
       return 'gzip';
     }
+    if (ext === 'br') {
+      return 'brotli';
+    }
     return ext;
-
   };
 
   exports.unixifyPath = function(filepath) {

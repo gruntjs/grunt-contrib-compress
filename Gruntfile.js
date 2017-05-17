@@ -31,10 +31,18 @@ module.exports = function(grunt) {
     copy: {
       gzipSrcEqualDest: {
         files: [{
-          expand : true,
-          cwd    : 'test/fixtures',
-          src    : '**/*.js',
-          dest   : 'tmp/gzipSrcEqualDest'
+          expand: true,
+          cwd: 'test/fixtures',
+          src: '**/*.js',
+          dest: 'tmp/gzipSrcEqualDest'
+        }]
+      },
+      brotliSrcEqualDest: {
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: '**/*.js',
+          dest: 'tmp/brotliSrcEqualDest'
         }]
       }
     },
@@ -47,17 +55,22 @@ module.exports = function(grunt) {
             return 'tmp/compress_test_files.zip';
           }
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures/', src: ['**/*']}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['**/*']
+        }]
       },
       zipWithFolders: {
         options: {
           archive: 'tmp/compress_test_folder.zip'
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures/', src: ['**'], dest: './'}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['**'],
+          dest: './'
+        }]
       },
       zipCreateEmptyArchiveTrue: {
         options: {
@@ -101,33 +114,45 @@ module.exports = function(grunt) {
         options: {
           archive: 'tmp/compress_test_files.tar'
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures', src: ['**/*']}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: ['**/*']
+        }]
       },
       tgz: {
         options: {
           archive: 'tmp/compress_test_files.tgz'
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures', src: ['**/*']}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: ['**/*']
+        }]
       },
       gzipCustomExt: {
         options: {
           mode: 'gzip'
         },
-        files: [
-          {expand: true, cwd: 'test/fixtures', src: ['**/*.js'], dest: 'tmp/gzipCustomExt/', ext: '.gz.js'}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: ['**/*.js'],
+          dest: 'tmp/gzipCustomExt/',
+          ext: '.gz.js'
+        }]
       },
       gzipSrcEqualDest: {
         options: {
           mode: 'gzip'
         },
-        files: [
-          {expand: true, cwd: 'tmp/gzipSrcEqualDest', src: ['**/*.js'], dest: 'tmp/gzipSrcEqualDest/', ext: '.js'}
-        ]
+        files: [{
+          expand: true,
+          cwd: 'tmp/gzipSrcEqualDest',
+          src: ['**/*.js'],
+          dest: 'tmp/gzipSrcEqualDest/',
+          ext: '.js'
+        }]
       },
       gzip: {
         expand: true,
@@ -164,6 +189,52 @@ module.exports = function(grunt) {
         options: {
           mode: 'gzip'
         }
+      },
+      brotli: {
+        expand: true,
+        cwd: 'test/fixtures/',
+        src: ['**/*.{css,html,js}'],
+        dest: 'tmp/brotli/',
+        options: {
+          mode: 'brotli',
+          pretty: true
+        }
+      },
+      brotliCustomExt: {
+        options: {
+          mode: 'brotli',
+          brotli: {
+            mode: 0,
+            quality: 11,
+            lgwin: 22,
+            lgblock: 0
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures',
+          src: ['**/*.js'],
+          dest: 'tmp/brotliCustomExt/',
+          ext: '.br.js'
+        }]
+      },
+      brotliSrcEqualDest: {
+        options: {
+          mode: 'brotli',
+          brotli: {
+            mode: 0,
+            quality: 11,
+            lgwin: 22,
+            lgblock: 0
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: 'tmp/brotliSrcEqualDest',
+          src: ['**/*.js'],
+          dest: 'tmp/brotliSrcEqualDest/',
+          ext: '.js'
+        }]
       }
     },
 
@@ -187,7 +258,7 @@ module.exports = function(grunt) {
   // plugin's task(s), then test the result.
   grunt.registerTask('test', ['jshint', 'clean', 'copy', 'compress', 'nodeunit']);
 
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['test', 'build-contrib']);
+  // By default, lint and run all tests. Skip copying travis and appconveyor configurations from grunt-contrib-internal.
+  grunt.registerTask('default', ['test', 'contrib-ci:skipIfExists', 'contrib-core']);
 
 };
