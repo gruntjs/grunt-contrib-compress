@@ -192,24 +192,6 @@ exports.compress = {
         });
     }, test.done);
   },
-  zipCreateEmptyArchiveOptionTrue: function(test) {
-    test.equals(
-        fileExists(path.join('tmp', 'zip_must_be_created_1.zip')), true,
-        'Archive must be created if option "createEmptyArchive" is true');
-    test.done();
-  },
-  zipCreateEmptyArchiveOptionFalse: function(test) {
-    test.equals(
-        fileExists(path.join('tmp', 'zip_should_not_be_created.zip')), false,
-        'Archive must not be created if option "createEmptyArchive" is false');
-    test.done();
-  },
-  zipCreateEmptyArchiveOptionNotExists: function(test) {
-    test.equals(
-        fileExists(path.join('tmp', 'zip_must_be_created_2.zip')), true,
-        'Archive will be created because no option "createEmptyArchive" passed');
-    test.done();
-  },
   brotli: function (test) {
     test.expect(3);
     grunt.util.async.forEachSeries([
@@ -261,5 +243,23 @@ exports.compress = {
           next();
         });
     }, test.done);
+  },
+  zipCreateEmptyArchiveOptionTrue: function(test) {
+      test.equals(
+          fileExists(path.join('tmp', 'zip_must_be_created_1.zip')), true,
+          'Archive must be created if option "createEmptyArchive" is true');
+      test.done();
+  },
+  zipCreateEmptyArchiveOptionFalse: function(test) {
+      test.equals(
+          fileExists(path.join('tmp', 'zip_should_not_be_created.zip')), false,
+          'Archive must not be created if option "createEmptyArchive" is false');
+      test.done();
+  },
+  zipCreateEmptyArchiveOptionNotExists: function(test) {
+      test.equals(
+          fileExists(path.join('tmp', 'zip_must_be_created_2.zip')), true,
+          'Archive will be created because no option "createEmptyArchive" passed');
+      test.done();
   }
 };
