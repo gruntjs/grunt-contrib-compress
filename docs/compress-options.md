@@ -69,6 +69,14 @@ Default: `false`
 
 Pretty print file sizes when logging.
 
+#### createEmptyArchive
+Type: `Boolean`
+Default: `true`
+
+This can be used when you don't want to get an empty archive as a result, if there are no files at the specified paths.
+
+It may be useful, if you don't clearly know if files exist and you don't need an empty archive as a result.
+
 # File Data
 
 The following additional keys may be passed as part of a `dest:src` pair when using an Archiver-backed format.
