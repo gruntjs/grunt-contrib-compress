@@ -82,7 +82,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'test/fixtures/',
-          src: ['NotExistingFilePath.js']
+          src: ['NotExistentFilePath.js']
         }]
       },
       zipCreateEmptyArchiveFalse: {
@@ -95,7 +95,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'test/fixtures/',
-          src: ['NotExistingFilePath.js']
+          src: ['NotExistentFilePath.js']
         }]
       },
       zipNoCreateEmptyArchiveOption: {
@@ -107,7 +107,7 @@ module.exports = function(grunt) {
         files: [{
           expand: true,
           cwd: 'test/fixtures/',
-          src: ['NotExistingFilePath.js']
+          src: ['NotExistentFilePath.js']
         }]
       },
       tar: {
