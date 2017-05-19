@@ -1,3 +1,7 @@
+v1.4.2:
+  date: 2017-05-20
+  changes:
+    - Update archiver to v1.3.0.
 v1.4.1:
   date: 2017-01-20
   changes:

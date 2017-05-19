@@ -1,4 +1,4 @@
-# grunt-contrib-compress v1.4.1 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v1.4.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
 > Compress files and folders
 
@@ -273,6 +273,7 @@ compress: {
 
 ## Release History
 
+ * 2017-05-20   v1.4.2   Update archiver to v1.3.0.
  * 2017-01-20   v1.4.1   Make brotli support optional.
  * 2017-01-18   v1.4.0   Add support for brotli.
  * 2016-05-24   v1.3.0   Update archiver to v1.0. Fix node 6 support.
@@ -317,4 +318,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Fri Jan 20 2017 00:08:45.*
+*This file was generated on Sat May 20 2017 00:39:54.*
