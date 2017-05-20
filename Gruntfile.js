@@ -72,6 +72,44 @@ module.exports = function(grunt) {
           dest: './'
         }]
       },
+      zipCreateEmptyArchiveTrue: {
+        options: {
+          createEmptyArchive: true,
+          archive: function () {
+            return 'tmp/zip_must_be_created_1.zip';
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['NotExistentFilePath.js']
+        }]
+      },
+      zipCreateEmptyArchiveFalse: {
+        options: {
+          createEmptyArchive: false,
+          archive: function () {
+            return 'tmp/zip_should_not_be_created.zip';
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['NotExistentFilePath.js']
+        }]
+      },
+      zipNoCreateEmptyArchiveOption: {
+        options: {
+          archive: function () {
+            return 'tmp/zip_must_be_created_2.zip';
+          }
+        },
+        files: [{
+          expand: true,
+          cwd: 'test/fixtures/',
+          src: ['NotExistentFilePath.js']
+        }]
+      },
       tar: {
         options: {
           archive: 'tmp/compress_test_files.tar'
