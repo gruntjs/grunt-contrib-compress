@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"

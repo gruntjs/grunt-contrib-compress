@@ -1,4 +1,4 @@
-# grunt-contrib-compress v1.4.2 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v1.4.3 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
 > Compress files and folders
 
@@ -29,7 +29,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 
 Node Libraries Used:
 [archiver](https://github.com/ctalkington/node-archiver) (for zip/tar)
-[zlib](http://nodejs.org/api/zlib.html#zlib_options) (for gzip).
+[zlib](https://nodejs.org/api/zlib.html#zlib_options) (for gzip).
 ### Options
 
 #### archive
@@ -100,6 +100,14 @@ Type: `Boolean`
 Default: `false`
 
 Pretty print file sizes when logging.
+
+#### createEmptyArchive
+Type: `Boolean`  
+Default: `true`
+
+This can be used when you don't want to get an empty archive as a result, if there are no files at the specified paths.
+
+It may be useful, if you don't clearly know if files exist and you don't need an empty archive as a result.
 
 ### File Data
 
@@ -273,6 +281,7 @@ compress: {
 
 ## Release History
 
+ * 2017-05-20   v1.4.3   Update pretty-bytes to v4.0.2. Add option to not to create empty archive.
  * 2017-05-20   v1.4.2   Update archiver to v1.3.0.
  * 2017-01-20   v1.4.1   Make brotli support optional.
  * 2017-01-18   v1.4.0   Add support for brotli.
@@ -318,4 +327,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Sat May 20 2017 00:39:54.*
+*This file was generated on Sat May 20 2017 14:05:16.*
