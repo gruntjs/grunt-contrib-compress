@@ -231,8 +231,8 @@ module.exports = function(grunt) {
       });
     });
 
-    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' '
-      + grunt.util.pluralize(files.length, 'file/files.'));
+    grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' ' +
+      grunt.util.pluralize(files.length, 'file/files.'));
     archive.finalize();
   };
 
