@@ -9,7 +9,7 @@
   "repository": "gruntjs/grunt-contrib-compress",
   "license": "MIT",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=4.0"
   },
   "main": "tasks/compress.js",
   "scripts": {
