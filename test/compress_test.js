@@ -61,6 +61,7 @@ exports.compress = {
     fs.createReadStream(path.join('tmp', 'compress_test_files.tar')).pipe(parse);
     parse.on('entry', function (entry) {
       actual.push(entry.path);
+      entry.resume();
     });
     parse.on('end', function () {
       actual.sort();
@@ -83,6 +84,7 @@ exports.compress = {
       .pipe(parse);
     parse.on('entry', function (entry) {
       actual.push(entry.path);
+      entry.resume();
     });
     parse.on('end', function () {
       actual.sort();
