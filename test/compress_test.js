@@ -57,10 +57,11 @@ exports.compress = {
       'test.css', 'test.js'
     ];
     var actual = [];
-    var parse = tar.Parse();
+    var parse = new tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tar')).pipe(parse);
     parse.on('entry', function (entry) {
       actual.push(entry.path);
+      entry.resume();
     });
     parse.on('end', function () {
       actual.sort();
@@ -77,12 +78,13 @@ exports.compress = {
       'test.css', 'test.js'
     ];
     var actual = [];
-    var parse = tar.Parse();
+    var parse = new tar.Parse();
     fs.createReadStream(path.join('tmp', 'compress_test_files.tgz'))
       .pipe(zlib.createGunzip())
       .pipe(parse);
     parse.on('entry', function (entry) {
       actual.push(entry.path);
+      entry.resume();
     });
     parse.on('end', function () {
       actual.sort();
