@@ -1,3 +1,8 @@
+v1.5.0:
+  date: 2018-04-24
+  changes:
+    - Update to node 4 as minimum version
+    - update tar to 4.4.8
 v1.4.3:
   date: 2017-05-20
   changes:
