@@ -258,7 +258,7 @@ module.exports = function(grunt) {
   // plugin's task(s), then test the result.
   grunt.registerTask('test', ['jshint', 'clean', 'copy', 'compress', 'nodeunit']);
 
-  // By default, lint and run all tests. Skip copying travis and appconveyor configurations from grunt-contrib-internal.
-  grunt.registerTask('default', ['test', 'contrib-ci:skipIfExists', 'contrib-core']);
+  // By default, lint and run all tests.
+  grunt.registerTask('default', ['test', 'contrib-ci:skipIfExists', 'build-contrib']);
 
 };
