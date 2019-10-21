@@ -1,4 +1,4 @@
-# grunt-contrib-compress v1.5.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v1.6.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
 
 > Compress files and folders
 
@@ -281,6 +281,7 @@ compress: {
 
 ## Release History
 
+ * 2019-10-21   v1.6.0   Update iltorb dependency
  * 2018-04-24   v1.5.0   Update to node 4 as minimum version update tar to 4.4.8
  * 2017-05-20   v1.4.3   Update pretty-bytes to v4.0.2. Add option to not to create empty archive.
  * 2017-05-20   v1.4.2   Update archiver to v1.3.0.
@@ -328,4 +329,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Oct 21 2019 10:19:48.*
+*This file was generated on Mon Oct 21 2019 10:25:59.*

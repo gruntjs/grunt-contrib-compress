@@ -1,3 +1,7 @@
+v1.6.0:
+  date: 2019-10-21
+  changes:
+    - Update iltorb dependency
 v1.5.0:
   date: 2018-04-24
   changes:
