@@ -23,7 +23,7 @@
     "stream-buffers": "^2.1.0"
   },
   "optionalDependencies": {
-    "iltorb": "^2.4.3"
+    "iltorb": "^2.4.5"
   },
   "devDependencies": {
     "grunt": "^1.0.0",
