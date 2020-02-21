@@ -1,32 +1,29 @@
-clone_depth: 10
+clone_depth: 5
 
 version: "{build}"
 
-# What combinations to test
 environment:
   matrix:
-    - nodejs_version: "4"
-      platform: x64
-    - nodejs_version: "4"
-      platform: x86
-    - nodejs_version: "6"
-      platform: x86
-    - nodejs_version: "7"
-      platform: x86
+    - NODEJS_VERSION: "8"
+      PLATFORM: x86
+    - NODEJS_VERSION: "8"
+      PLATFORM: x64
+    - NODEJS_VERSION: "10"
+      PLATFORM: x64
+    - NODEJS_VERSION: "12"
+      PLATFORM: x64
 
 install:
-  - ps: Install-Product node $env:nodejs_version $env:platform
-  - IF "%platform%" == "x64" CALL "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" amd64
-  - IF "%platform%" == "x86" CALL "%VS140COMNTOOLS%..\..\VC\vcvarsall.bat" x86
-  - npm install
+  - ps: Install-Product node $env:NODEJS_VERSION $env:PLATFORM
+  - npm ci
 
 test_script:
-  # Output useful info for debugging
-  - node --version && npm --version
+  - node --version
+  - npm --version
   # We test multiple Windows shells because of prior stdout buffering issues
   # filed against Grunt. https://github.com/joyent/node/issues/3584
   - ps: "npm test # PowerShell" # Pass comment to PS for easier debugging
-  - cmd: npm test
+  - npm test
 
 build: off
 
@@ -34,4 +31,4 @@ matrix:
   fast_finish: true
 
 cache:
-  - node_modules -> package.json
+  - '%APPDATA%\npm-cache\ -> appveyor.yml,package.json,package-lock.json'
