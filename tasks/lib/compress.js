@@ -17,14 +17,6 @@ var archiver = require('archiver');
 var streamBuffers = require('stream-buffers');
 var _ = require('lodash');
 
-var iltorb;
-
-try {
-  iltorb = require('iltorb');
-} catch (er) {
-  iltorb = null;
-}
-
 module.exports = function(grunt) {
 
   var exports = {
@@ -64,12 +56,12 @@ module.exports = function(grunt) {
 
   // 1 to 1 brotlify of files
   exports.brotli = function(files, done) {
-    exports.singleFile(files, iltorb.compressStream, 'br', done);
+    exports.singleFile(files, zlib.createBrotliCompress, 'br', done);
     grunt.log.ok('Compressed ' + chalk.cyan(files.length) + ' ' +
       grunt.util.pluralize(files.length, 'file/files.'));
   };
 
-  // 1 to 1 compression of files, expects a compatible zlib or iltorb/brotli method to be passed in, see above
+  // 1 to 1 compression of files, expects a compatible zlib method to be passed in, see above
   exports.singleFile = function(files, algorithm, extension, done) {
     grunt.util.async.forEachSeries(files, function(filePair, nextPair) {
       grunt.util.async.forEachSeries(filePair.src, function(src, nextFile) {
@@ -111,13 +103,7 @@ module.exports = function(grunt) {
           initDestStream();
         }
 
-        var compressor;
-
-        if (iltorb && extension === 'br') {
-          compressor = algorithm.call(iltorb, exports.options.brotli);
-        } else {
-          compressor = algorithm.call(zlib, exports.options);
-        }
+        var compressor = algorithm.call(zlib, exports.options);
 
         compressor.on('error', function(err) {
           grunt.log.error(err);

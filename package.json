@@ -22,9 +22,6 @@
     "pretty-bytes": "^4.0.2",
     "stream-buffers": "^2.1.0"
   },
-  "optionalDependencies": {
-    "iltorb": "^2.4.5"
-  },
   "devDependencies": {
     "grunt": "^1.0.0",
     "grunt-contrib-clean": "^1.0.0",
