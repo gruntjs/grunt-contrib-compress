@@ -30,6 +30,7 @@ Task targets, files and options may be specified according to the grunt [Configu
 Node Libraries Used:
 [archiver](https://github.com/ctalkington/node-archiver) (for zip/tar)
 [zlib](https://nodejs.org/api/zlib.html#zlib_options) (for gzip).
+[brotli](https://nodejs.org/api/zlib.html#zlib_class_brotlioptions) (for brotli).
 ### Options
 
 #### archive
@@ -55,18 +56,22 @@ Default: `1`
 
 Sets the level of archive compression.
 
-#### brotli
+#### params
 Configure brotli compression settings:
 
 Type: `Object`  
 Default:
 ```js
 {
-  mode: 0,
-  quality: 11,
-  lgwin: 22,
-  lgblock: 0
+    [zlib.constants.BROTLI_PARAM_MODE]: 0,
+    [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+    [zlib.constants.BROTLI_PARAM_LGWIN]: 22,
+    [zlib.constants.BROTLI_PARAM_LGBLOCK]: 0
 }
+```
+Do not forget require `zlib` for `zlib.constants`, example:
+```
+const zlib = require('zlib');
 ```
 
 ##### mode

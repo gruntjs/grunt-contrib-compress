@@ -1,3 +1,7 @@
+v1.7.0:
+  date: 2020-02-25
+  changes:
+    - The zlib module provides APIs for brotli
 v1.6.0:
   date: 2019-10-21
   changes:

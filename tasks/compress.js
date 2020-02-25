@@ -11,13 +11,6 @@
 module.exports = function(grunt) {
   var _ = require('lodash');
   var compress = require('./lib/compress')(grunt);
-  var iltorb;
-
-  try {
-    iltorb = require('iltorb');
-  } catch (er) {
-    iltorb = null;
-  }
 
   grunt.registerMultiTask('compress', 'Compress files.', function() {
     compress.options = this.options({
@@ -37,11 +30,6 @@ module.exports = function(grunt) {
     }
 
     compress.options.mode = compress.options.mode || compress.autoDetectMode(compress.options.archive);
-
-    if (compress.options.mode.match('brotli') && !iltorb) {
-      grunt.fail.fatal('iltorb dependency wasn\'t found; in order to use brotli, ' +
-                        'make sure you have a supported C++ compiler available and run `npm install` again.');
-    }
 
     if (_.includes(['zip', 'tar', 'tgz', 'gzip', 'deflate', 'deflateRaw', 'brotli'], compress.options.mode) === false) {
       grunt.fail.warn('Mode ' + String(compress.options.mode) + ' not supported.');

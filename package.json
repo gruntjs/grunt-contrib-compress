@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
@@ -21,9 +21,6 @@
     "lodash": "^4.7.0",
     "pretty-bytes": "^4.0.2",
     "stream-buffers": "^2.1.0"
-  },
-  "optionalDependencies": {
-    "iltorb": "^2.4.3"
   },
   "devDependencies": {
     "grunt": "^1.0.0",
