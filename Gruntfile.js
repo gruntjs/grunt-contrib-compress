@@ -241,7 +241,7 @@ module.exports = function(grunt) {
     // Unit tests.
     run: {
       jest: {
-        cmd: 'node_modules/.bin/jest',
+        exec: 'npx jest',
       }
     }
   });
