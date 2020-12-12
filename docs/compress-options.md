@@ -30,11 +30,16 @@ Type: `Object`
 Default:
 ```js
 {
-  mode: 0,
-  quality: 11,
-  lgwin: 22,
-  lgblock: 0
+    [zlib.constants.BROTLI_PARAM_MODE]: 0,
+    [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+    [zlib.constants.BROTLI_PARAM_LGWIN]: 22,
+    [zlib.constants.BROTLI_PARAM_LGBLOCK]: 0
 }
+```
+
+Do not forget require `zlib` for `zlib.constants`, example:
+```
+const zlib = require('zlib');
 ```
 
 ### mode

@@ -1,3 +1,9 @@
+v2.0.0:
+  date: 2020-12-12
+  changes:
+    - Remove iltorb dependency, now uses zlib brotli features.
+    - Requires node >=10.16.
+    - Dependency and test updates.
 v1.6.0:
   date: 2019-10-21
   changes:

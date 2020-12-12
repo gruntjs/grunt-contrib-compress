@@ -62,11 +62,16 @@ Type: `Object`
 Default:
 ```js
 {
-  mode: 0,
-  quality: 11,
-  lgwin: 22,
-  lgblock: 0
+    [zlib.constants.BROTLI_PARAM_MODE]: 0,
+    [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+    [zlib.constants.BROTLI_PARAM_LGWIN]: 22,
+    [zlib.constants.BROTLI_PARAM_LGBLOCK]: 0
 }
+```
+
+Do not forget require `zlib` for `zlib.constants`, example:
+```
+const zlib = require('zlib');
 ```
 
 ##### mode
@@ -281,6 +286,7 @@ compress: {
 
 ## Release History
 
+ * 2020-12-12   v2.0.0   Remove iltorb dependency, now uses zlib brotli features. Requires node >=10.16. Dependency and test updates.
  * 2019-10-21   v1.6.0   Update iltorb dependency
  * 2018-04-24   v1.5.0   Update to node 4 as minimum version update tar to 4.4.8
  * 2017-05-20   v1.4.3   Update pretty-bytes to v4.0.2. Add option to not to create empty archive.
@@ -329,4 +335,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Sat Dec 12 2020 13:29:16.*
+*This file was generated on Sat Dec 12 2020 14:15:27.*
