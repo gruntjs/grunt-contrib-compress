@@ -1,4 +1,4 @@
-# grunt-contrib-compress v1.6.0 [![Build Status: Linux](https://travis-ci.org/gruntjs/grunt-contrib-compress.svg?branch=master)](https://travis-ci.org/gruntjs/grunt-contrib-compress) [![Build Status: Windows](https://ci.appveyor.com/api/projects/status/tiwbi1smm1j8aa5j/branch/master?svg=true)](https://ci.appveyor.com/project/gruntjs/grunt-contrib-compress/branch/master)
+# grunt-contrib-compress v2.0.0 [![Build Status](https://github.com/gruntjs/grunt-contrib-compress/workflows/Tests/badge.svg)](https://github.com/gruntjs/grunt-contrib-compress/actions?workflow=Tests)
 
 > Compress files and folders
 
@@ -329,4 +329,4 @@ compress: {
 
 Task submitted by [Chris Talkington](http://christalkington.com/)
 
-*This file was generated on Mon Oct 21 2019 10:25:59.*
+*This file was generated on Sat Dec 12 2020 13:29:16.*

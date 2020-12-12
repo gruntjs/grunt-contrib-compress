@@ -1,7 +1,7 @@
 {
   "name": "grunt-contrib-compress",
   "description": "Compress files and folders",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "author": {
     "name": "Grunt Team",
     "url": "http://gruntjs.com/"
@@ -9,31 +9,35 @@
   "repository": "gruntjs/grunt-contrib-compress",
   "license": "MIT",
   "engines": {
-    "node": ">=4.0"
+    "node": ">=10.16"
   },
   "main": "tasks/compress.js",
   "scripts": {
     "test": "grunt test"
   },
   "dependencies": {
+    "adm-zip": "^0.5.1",
     "archiver": "^1.3.0",
     "chalk": "^1.1.1",
-    "lodash": "^4.7.0",
-    "pretty-bytes": "^4.0.2",
+    "lodash": "^4.17.20",
+    "pretty-bytes": "^5.4.1",
     "stream-buffers": "^2.1.0"
   },
-  "optionalDependencies": {
-    "iltorb": "^2.4.3"
-  },
   "devDependencies": {
-    "grunt": "^1.0.0",
-    "grunt-contrib-clean": "^1.0.0",
+    "grunt": "^1.3.0",
+    "grunt-contrib-clean": "^2.0.0",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-internal": "^4.0.1",
+    "grunt-contrib-internal": "^5.0.1",
     "grunt-contrib-jshint": "^1.0.0",
-    "grunt-contrib-nodeunit": "^1.0.0",
-    "tar": "^4.4.8",
-    "unzip": "^0.1.5"
+    "grunt-run": "^0.8.1",
+    "jest": "^26.6.3",
+    "tar": "^6.0.5"
+  },
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "tmp",
+      "test/fixtures"
+    ]
   },
   "keywords": [
     "gruntplugin",
