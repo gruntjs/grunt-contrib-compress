@@ -30,7 +30,7 @@
     "grunt-contrib-internal": "^5.0.1",
     "grunt-contrib-jshint": "^3.0.0",
     "grunt-run": "^0.8.1",
-    "jest": "^26.6.3",
+    "jest": "^29.7.0",
     "tar": "^6.0.5"
   },
   "jest": {
